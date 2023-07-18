@@ -4,7 +4,7 @@ import { PageTypes } from '~/social/constants';
 
 import MainLayout from '~/social/layouts/Main';
 
-import CommunitySideMenu from '~/social/components/CommunitySideMenu';
+import CommunitySideMenu, { SocialSearch } from '~/social/components/CommunitySideMenu';
 
 import CustomFooterNav from '~/core/components/CustomFooterNav';
 import CustomHeader from '~/core/components/CustomHeader';
@@ -81,6 +81,7 @@ const Community = () => {
         {page.type === PageTypes.MyGroups && (
           <SideSectionMyCommunity activeCommunity={page.communityId} showCreateButton />
         )}
+        {page.type === PageTypes.Search && <SocialSearch />}
         <MobilePostButton />
         <CustomFooterNav onClickUser={handleClickUser} />
       </MainLayout>
