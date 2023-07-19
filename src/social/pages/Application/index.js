@@ -12,6 +12,7 @@ import CreatePostOverlay from '~/social/components/CreatePostOverlay';
 import MobilePostButton from '~/social/components/MobilePostButton';
 import ProfileSettings from '~/social/components/ProfileSettings';
 import SideSectionMyCommunity from '~/social/components/SideSectionMyCommunity';
+import Post from '~/social/components/post/Post';
 import CategoryCommunitiesPage from '~/social/pages/CategoryCommunities';
 import CommunityEditPage from '~/social/pages/CommunityEdit';
 import CommunityFeedPage from '~/social/pages/CommunityFeed';
@@ -82,6 +83,8 @@ const Community = () => {
           <SideSectionMyCommunity activeCommunity={page.communityId} showCreateButton />
         )}
         {page.type === PageTypes.Search && <SocialSearch />}
+        {page.type === PageTypes.NotificationTarget && <Post postId={page.targetId} />}
+
         <MobilePostButton />
         <CustomFooterNav onClickUser={handleClickUser} />
       </MainLayout>
