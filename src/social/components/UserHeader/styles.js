@@ -1,11 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import customizableComponent from '~/core/hocs/customization';
-import { backgroundImage as UserImage } from '~/icons/User';
-import BanIcon from '~/icons/Ban';
 import Avatar from '~/core/components/Avatar';
+import customizableComponent from '~/core/hocs/customization';
+import BanIcon from '~/icons/Ban';
+import { backgroundImage as UserImage } from '~/icons/User';
 
 const UserHeaderContainer = styled.div`
   display: grid;
@@ -51,7 +50,7 @@ const UserHeader = ({ userId, displayName, avatarFileUrl, children, onClick, isB
     <UserHeaderContainer title={displayName} hasNoChildren={!children}>
       <UserHeaderAvatar avatar={avatarFileUrl} backgroundImage={UserImage} onClick={onClickUser} />
       <UserHeaderTitle title={userId} onClick={onClickUser}>
-        <div>{displayName}</div> {isBanned && <BanIcon />}
+        <div>{displayName}</div> {isBanned && <BanIcon className="max-w-[15px] ml-2" />}
       </UserHeaderTitle>
       {children && <UserHeaderSubtitle>{children}</UserHeaderSubtitle>}
     </UserHeaderContainer>
