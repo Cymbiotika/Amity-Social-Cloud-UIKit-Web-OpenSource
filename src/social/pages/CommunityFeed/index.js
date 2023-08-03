@@ -82,28 +82,31 @@ const CommunityFeed = ({
 
   return (
     <Wrapper>
+      {/* Non-Toxic */}
       <CommunityInfo communityId={communityId} />
       {communityId === '649b243a2b963c70c54750bf' && (
         <Post
-          postId="64c8160a990d2e0543da7e8e"
+          postId="64c940b1a31da5f25f674dc0"
           hidePostTarget={targetType !== PostTargetType.GlobalFeed}
           readonly={readonly}
           pinned={pinned}
           className="mb-[12px]"
         />
       )}
+      {/* Healthy Aging */}
       {communityId === '649b239b03858406835eaaa2' && (
         <Post
-          postId="64c815bd4b5292413089940a"
+          postId="64c93d6a1cfebc15cfb7f023"
           hidePostTarget={targetType !== PostTargetType.GlobalFeed}
           readonly={readonly}
           pinned={pinned}
           className="mb-[12px]"
         />
       )}
+      {/* Gut Health */}
       {communityId === '649b23322be19926f2f4d0af' && (
         <Post
-          postId="64c814fdd29e5dfa7f73aa95"
+          postId="64c93df9757ede6729e875b3"
           hidePostTarget={targetType !== PostTargetType.GlobalFeed}
           readonly={readonly}
           pinned={pinned}

@@ -26,6 +26,8 @@ postLiveObject.once('dataUpdated', (model) => {
   console.log('Post', model.data.text);
 });
 
+console.log('Lift Off 🚀');
+
 const Feed = ({
   className = null,
   feedType,
@@ -99,7 +101,7 @@ const Feed = ({
                     pinned={pinned}
                   />
                   <Post
-                    postId="64c82beee998aaff397aee9f"
+                    postId="64c938761cfebc7804b6dc17"
                     hidePostTarget={targetType !== PostTargetType.GlobalFeed}
                     readonly={readonly}
                     pinned={pinned}
