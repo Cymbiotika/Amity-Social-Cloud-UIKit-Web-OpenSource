@@ -9,8 +9,7 @@ const Container = styled.div`
   grid-template-columns: min-content auto;
   grid-template-rows: 100%;
   // grid-gap: 0 20px;
-  width: 100%;
-  height: 100%;
+
   // padding-right: 20px;
   background: #f7f7f8;
   @media screen and (min-width: 1512px) {
@@ -41,7 +40,7 @@ const Side = styled.div`
 
 const Layout = ({ aside, children }) => {
   return (
-    <Container id="main-container">
+    <Container id="main-container" className="spt-container">
       <Main className="pb-[54px]">{children}</Main>
       <Side>{aside}</Side>
     </Container>

@@ -6,6 +6,7 @@ import { useNavigation } from '~/social/providers/NavigationProvider';
 import ServerAPI from '../../pages/Application/ServerAPI';
 
 const SlideOutContainer = styled.div`
+  padding: 0 17.5px;
   @media screen and (max-width: 768px) {
     width: 100vw;
     right: -100vw;
