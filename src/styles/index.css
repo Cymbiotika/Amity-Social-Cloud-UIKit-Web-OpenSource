@@ -25,3 +25,43 @@
 .shadow-custom {
   box-shadow: -4px 4px 10px 1px rgba(0, 0, 0, 0.21);
 }
+
+/* Sprout CSS */
+#main-container.spt-container {
+  padding: 0 0 0 0;
+}
+.spt-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .spt-container,
+  #main-container.spt-container {
+    max-width: 768px;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+  }
+}
+@media (min-width: 960px) {
+  .spt-container,
+  #main-container.spt-container {
+    max-width: 960px;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+@media (min-width: 1240px) {
+  .spt-container,
+  #main-container.spt-container {
+    max-width: 1240px;
+  }
+}
+@media (min-width: 1512px) {
+  .spt-container,
+  #main-container.spt-container {
+    max-width: 1512px;
+  }
+}
