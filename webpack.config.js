@@ -7,6 +7,9 @@ const pkg = require('./package.json');
 
 module.exports = (_, argv = {}) => ({
   entry: './src/index.js',
+  experiments: {
+    topLevelAwait: true,
+  },
   externals: [nodeExternals()],
   output: {
     filename: 'index.js',
