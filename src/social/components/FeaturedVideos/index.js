@@ -23,7 +23,7 @@ export const Overlay = styled.div`
   /* display: none; */
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -165,6 +165,8 @@ const FeaturedVideos = ({
     console.log('Video index', selectedVideoIndex);
     console.log('Spawn overlay');
     setSelectedVideoIndex(index);
+    document.body.style.overflow = 'hidden';
+
     // document.getElementById('video-overlay').style.display = 'flex';
   };
 
@@ -173,6 +175,7 @@ const FeaturedVideos = ({
     document.getElementById('video-overlay').style.display = 'none';
     document.getElementById(`video`).currentTime = 0;
     document.getElementById(`video`).pause();
+    document.body.style.overflow = 'auto';
     console.log('closing overlay');
   };
 
