@@ -30,6 +30,7 @@ import {
 } from './styles';
 
 const StyledComment = ({
+  authorId,
   commentId,
   authorName,
   authorAvatar,
@@ -56,6 +57,7 @@ const StyledComment = ({
   isBanned,
   mentionees,
   metadata,
+  onClickUser,
 }) => {
   const options = [
     canEdit && { name: isReplyComment ? 'reply.edit' : 'comment.edit', action: startEditing },
@@ -68,7 +70,11 @@ const StyledComment = ({
 
   return (
     <>
-      <Avatar avatar={authorAvatar} backgroundImage={UserImage} />
+      <Avatar
+        avatar={authorAvatar}
+        backgroundImage={UserImage}
+        onClick={() => onClickUser(authorId)}
+      />
       <Content>
         <Truncate
           ellipsis={
@@ -149,6 +155,7 @@ StyledComment.propTypes = {
   commentId: PropTypes.string,
   authorName: PropTypes.string,
   authorAvatar: PropTypes.string,
+  authorId: PropTypes.string,
   canDelete: PropTypes.bool,
   canEdit: PropTypes.bool,
   canLike: PropTypes.bool,
@@ -172,6 +179,11 @@ StyledComment.propTypes = {
   isBanned: PropTypes.bool,
   onClickReply: PropTypes.func,
   onChange: PropTypes.func.isRequired,
+  onClickUser: PropTypes.func,
+};
+
+StyledComment.defaultProps = {
+  onClickUser: null,
 };
 
 export default StyledComment;

@@ -15,6 +15,8 @@ import StyledComment from './Comment.styles';
 import useSocialMention from '~/social/hooks/useSocialMention';
 import usePost from '~/social/hooks/usePost';
 
+import { useNavigation } from '~/social/providers/NavigationProvider';
+
 import {
   CommentBlock,
   CommentContainer,
@@ -187,6 +189,7 @@ const Comment = ({ readonly = false, commentId, currentUserId, userRoles }) => {
       authorName={
         commentAuthor.displayName || commentAuthor.userId || formatMessage({ id: 'anonymous' })
       }
+      authorId={commentAuthor.userId}
       authorAvatar={commentAuthorAvatar.fileUrl}
       canDelete={canDelete}
       canEdit={canEdit}
