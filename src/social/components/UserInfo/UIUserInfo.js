@@ -89,7 +89,6 @@ const UIUserInfo = ({
       cymRole = 'Community Moderator';
       break;
     default:
-      console.log('This user has no Cymbiotika roles');
   }
   const [onReportClick] = useAsyncCallback(async () => {
     await handleReport();

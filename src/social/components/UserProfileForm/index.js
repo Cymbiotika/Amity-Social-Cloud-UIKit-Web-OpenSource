@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -96,6 +96,7 @@ const UserProfileForm = ({ user, onSubmit, className }) => {
               </Label>
               <Counter>{displayName.length}/100</Counter>
             </LabelCounterWrapper>
+
             <TextField
               {...register('displayName', {
                 required: formatMessage({ id: 'UserProfileForm.requiredDisplayName' }),

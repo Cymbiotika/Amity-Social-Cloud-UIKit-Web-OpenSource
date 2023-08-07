@@ -184,7 +184,7 @@ const FeaturedVideos = ({
       {selectedVideoIndex !== null && (
         <Overlay id="video-overlay">
           <CloseButton className="absolute right-5 top-5" onClick={closeVideoOverlay} />
-          <video id="video" className="video" controls>
+          <video id="video" className="video h-max" controls autoplay="true">
             <source src={playlist[selectedVideoIndex].src} type="video/mp4" />
           </video>
         </Overlay>

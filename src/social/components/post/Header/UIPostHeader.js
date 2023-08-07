@@ -1,3 +1,4 @@
+import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -54,7 +55,6 @@ const UIPostHeader = ({
         cymRole = 'Community Moderator';
         break;
       default:
-        console.log('This user has no Cymbiotika roles');
     }
 
     return (

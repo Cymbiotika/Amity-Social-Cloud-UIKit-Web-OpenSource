@@ -1,7 +1,7 @@
 import { PostTargetType } from '@amityco/js-sdk';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { PageTypes, userId } from '~/social/constants';
+import { PageTypes, displayName, userId } from '~/social/constants';
 
 import MainLayout from '~/social/layouts/Main';
 
@@ -74,6 +74,15 @@ const Community = () => {
           }, 100);
         }, 1000);
       }, 1000);
+    }
+  }, [user]);
+
+  console.log('checking the user', user);
+  useEffect(() => {
+    console.log('in use effect', user.userId);
+    console.log('in use effect', user.displayName);
+    if (userId === user.displayName) {
+      server.updateUserName(window.shopifyCustomerName);
     }
   }, [user]);
 
@@ -187,6 +196,6 @@ const Community = () => {
       </MainLayout>
     </ApplicationContainer>
   );
-};;
+};
 
 export default Community;

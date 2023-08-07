@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { AmityUserTokenManager, ApiRegion } from '@amityco/js-sdk';
-import { apiKey, userId } from '~/social/constants';
+import { apiKey, displayName, userId } from '~/social/constants';
+
 const REWARDS_BASE_URL =
   'https://cym-hachiko-rest-py.herokuapp.com/api/v1/rewards?logged_in_customer_id=';
 const REWARDS_SHOP_ID = '&shop_id=1';
@@ -145,12 +147,45 @@ const ServerAPI = () => {
     }
   };
 
+  const updateUserName = async (shopifyCustomerName) => {
+    console.log('userid : display name ?', userId, displayName);
+    console.log('shopifyCustomerName', shopifyCustomerName);
+    const url = `https://api.us.amity.co/api/v3/users`;
+
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          userId: `${userId}`,
+          displayName: `${shopifyCustomerName}`,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error.message);
+      return null;
+    }
+  };
+
   return {
     ariseGetRewards,
     getNotifications,
     setReadNotification,
     deleteUser,
     followUser,
+    updateUserName,
   };
 };
 
