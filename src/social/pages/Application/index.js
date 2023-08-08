@@ -77,10 +77,7 @@ const Community = () => {
     }
   }, [user]);
 
-  console.log('checking the user', user);
   useEffect(() => {
-    console.log('in use effect', user.userId);
-    console.log('in use effect', user.displayName);
     if (userId === user.displayName) {
       server.updateUserName(window.shopifyCustomerName);
     }
