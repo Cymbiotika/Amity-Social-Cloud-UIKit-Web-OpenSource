@@ -179,6 +179,35 @@ const ServerAPI = () => {
     }
   };
 
+  const likedList = async (reactorIds) => {
+    let url = `https://api.us.amity.co/api/v3/users/list?`;
+    reactorIds.forEach((value, index) => {
+      // Use an '&' to separate query parameters
+      url += `${index > 0 ? '&' : ''}userIds=${value}`;
+    });
+
+    try {
+      const accessToken = await getAccessToken();
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log('Error retriveing user list', error);
+    }
+  };
+
   return {
     ariseGetRewards,
     getNotifications,
@@ -186,6 +215,7 @@ const ServerAPI = () => {
     deleteUser,
     followUser,
     updateUserName,
+    likedList,
   };
 };
 
