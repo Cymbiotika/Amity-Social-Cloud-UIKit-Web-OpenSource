@@ -67,12 +67,23 @@ const SlideOutOverlay = styled.div`
 `;
 
 const LikedListTray = ({ reactorIds }) => {
-  console.log(reactorIds);
-
   const server = ServerAPI();
+  const [reactionsResp, setReactionsResp] = useState([]);
 
   useEffect(() => {
-    server.likedList(reactorIds);
+    const fetchData = async () => {
+      try {
+        const fetch = await server.likedList(reactorIds);
+        const newReactions = fetch.users.map((user) => user.displayName);
+
+        console.log('before updates', newReactions);
+        setReactionsResp(newReactions); // Update with the new array
+        console.log('after updates', newReactions);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
   }, [reactorIds]);
 
   const hideOverlay = () => {
@@ -82,7 +93,7 @@ const LikedListTray = ({ reactorIds }) => {
 
   return (
     <SlideOutOverlay className="slideout-overlay" onClick={hideOverlay}>
-      <SlideOutContainer className="slideout-container">
+      <SlideOutContainer className="slideout-container z-50">
         <SlideOutHeader>
           <svg
             className="xs:hidden md:block absolute ml-3 left-0 cursor-pointer"
@@ -124,8 +135,12 @@ const LikedListTray = ({ reactorIds }) => {
 
           <h1 className="cym-h-2-lg">Likes</h1>
         </SlideOutHeader>
-        <SlideOutContent className="flex flex-col h-full liked-list">
-          <code>Slide out content</code>
+        <SlideOutContent className="flex flex-col h-full liked-list px-5">
+          {/* <h1>{reactionsResp}</h1> */}
+
+          {reactionsResp.map((name, index) => (
+            <div key={index}>{name}</div>
+          ))}
         </SlideOutContent>
       </SlideOutContainer>
     </SlideOutOverlay>

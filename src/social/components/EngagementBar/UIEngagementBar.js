@@ -49,11 +49,8 @@ const UIEngagementBar = ({
         });
       });
 
-      // Process the fetched data and update the state
-      const reactorIds = reactions.map((reaction) => reaction.userId);
-      setReactorIds(reactorIds);
-
-      // Log the fetched data and reactorIds
+      const fetchedIds = reactions.map((reaction) => reaction.userId);
+      setReactorIds(fetchedIds);
 
       document.querySelector('.slideout-overlay').classList.add('open');
       document.querySelector('.slideout-container').classList.add('open');
@@ -61,10 +58,6 @@ const UIEngagementBar = ({
       console.error('Error fetching reactions:', error);
     }
   };
-  // useEffect: dep watch for reactorIds
-  useEffect(() => {
-    fetchReactionIds();
-  }, []);
 
   return (
     <EngagementBarContainer>

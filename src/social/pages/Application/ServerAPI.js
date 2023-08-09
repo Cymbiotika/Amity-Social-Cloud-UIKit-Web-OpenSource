@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { AmityUserTokenManager, ApiRegion } from '@amityco/js-sdk';
 import { apiKey, displayName, userId } from '~/social/constants';
 
@@ -201,7 +200,6 @@ const ServerAPI = () => {
       }
 
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (error) {
       console.log('Error retriveing user list', error);
