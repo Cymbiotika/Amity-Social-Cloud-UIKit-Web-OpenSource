@@ -98,7 +98,7 @@ const StretchedList = styled.div`
 `;
 
 const FeaturedVideos = ({
-  title = 'Explore Community videos',
+  title = 'Explore Videos',
   columns = DEFAULT_COLUMN_NUMBER,
   hasMore = false,
   loadMore = () => {},

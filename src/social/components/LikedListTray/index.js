@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { ReactionRepository } from '@amityco/js-sdk';
+// import useUser from '~/core/hooks/useUser';
+// import { useNavigation } from '~/social/providers/NavigationProvider';
 
-import { UserRepository } from '@amityco/js-sdk';
 import ServerAPI from '~/social/pages/Application/ServerAPI';
+import { User } from './User';
 
 import Avatar from '~/core/components/Avatar';
 import { backgroundImage as UserImage } from '~/icons/User';
 
 const SlideOutContainer = styled.div`
-  /* padding: 0 17.5px; */
+  padding: 0 17.5px;
   @media screen and (max-width: 768px) {
     width: 100vw;
     right: -100vw;
@@ -22,7 +25,7 @@ const SlideOutContainer = styled.div`
   bottom: 0;
   background-color: white;
   transition: right 0.2s ease-in-out;
-  z-index: 2;
+  z-index: 1000;
 
   &.open {
     right: 0;
@@ -66,25 +69,65 @@ const SlideOutOverlay = styled.div`
   }
 `;
 
-const LikedListTray = ({ reactorIds }) => {
+const LikedListTray = ({ postId, trayIsVisible }) => {
   const server = ServerAPI();
-  const [reactionsResp, setReactionsResp] = useState([]);
+
+  const [users, setUsers] = useState([]);
+  const [usersUrl, setUsersUrl] = useState('');
+
+  if (!trayIsVisible) {
+    return null;
+  }
+
+  const getUsersUrl = async () => {
+    try {
+      const liveCollection = await ReactionRepository.queryReactions({
+        referenceId: `${postId}`,
+        referenceType: 'post',
+      });
+      const usersUrl = await new Promise((resolve) => {
+        liveCollection.on('dataUpdated', (reactionsData) => {
+          // Resolve the Promise with the fetched reactions
+          resolve(reactionsData);
+        });
+      }).then((reactionsResponse) => {
+        console.log('in the then', reactionsResponse);
+        let url = 'https://api.us.amity.co/api/v3/users/list?';
+        let params = ''; //userIds=6229059141679&userIds=58741
+        let arr = [];
+        reactionsResponse.map((user, index) => {
+          arr.push(`userIds=${user.userId}`);
+        });
+
+        let stringParams = arr.join('&');
+
+        url += stringParams;
+        setUsersUrl(url);
+      });
+    } catch (error) {
+      console.error('Error fetching reactionsIds:', error);
+    }
+  };
+
+  const fetchUsers = async () => {
+    const usersResp = await server.likedList(usersUrl);
+    console.log('users resp', usersResp.users);
+    setUsers(usersResp.users);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetch = await server.likedList(reactorIds);
-        const newReactions = fetch.users.map((user) => user.displayName);
+    console.log('before getUsersUrl');
+    getUsersUrl();
+  }, []);
 
-        console.log('before updates', newReactions);
-        setReactionsResp(newReactions); // Update with the new array
-        console.log('after updates', newReactions);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, [reactorIds]);
+  useEffect(() => {
+    if (usersUrl) {
+      fetchUsers();
+    }
+    if (users) {
+      console.log(users);
+    }
+  }, [usersUrl, users]);
 
   const hideOverlay = () => {
     document.querySelector('.slideout-overlay').classList.remove('open');
@@ -92,8 +135,9 @@ const LikedListTray = ({ reactorIds }) => {
   };
 
   return (
-    <SlideOutOverlay className="slideout-overlay" onClick={hideOverlay}>
-      <SlideOutContainer className="slideout-container z-50">
+    <>
+      <SlideOutOverlay className="slideout-overlay open" />
+      <SlideOutContainer className="slideout-container open z-[100]">
         <SlideOutHeader>
           <svg
             className="xs:hidden md:block absolute ml-3 left-0 cursor-pointer"
@@ -136,14 +180,10 @@ const LikedListTray = ({ reactorIds }) => {
           <h1 className="cym-h-2-lg">Likes</h1>
         </SlideOutHeader>
         <SlideOutContent className="flex flex-col h-full liked-list px-5">
-          {/* <h1>{reactionsResp}</h1> */}
-
-          {reactionsResp.map((name, index) => (
-            <div key={index}>{name}</div>
-          ))}
+          {users && users.map((user, index) => <h1 key={index}>{user}</h1>)}
         </SlideOutContent>
       </SlideOutContainer>
-    </SlideOutOverlay>
+    </>
   );
 };
 

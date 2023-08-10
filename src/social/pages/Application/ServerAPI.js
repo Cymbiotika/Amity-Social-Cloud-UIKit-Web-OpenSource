@@ -178,15 +178,11 @@ const ServerAPI = () => {
     }
   };
 
-  const likedList = async (reactorIds) => {
-    let url = `https://api.us.amity.co/api/v3/users/list?`;
-    reactorIds.forEach((value, index) => {
-      // Use an '&' to separate query parameters
-      url += `${index > 0 ? '&' : ''}userIds=${value}`;
-    });
-
+  const likedList = async (url) => {
+    console.log('API Url', url);
     try {
       const accessToken = await getAccessToken();
+
       const response = await fetch(url, {
         method: 'GET',
         headers: {

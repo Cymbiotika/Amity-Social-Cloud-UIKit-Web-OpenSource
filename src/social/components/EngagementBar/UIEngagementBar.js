@@ -18,8 +18,6 @@ import {
 } from './styles';
 import CommentList from '~/social/components/CommentList';
 
-import LikedListTray from '../LikedListTray';
-
 const COMMENTS_PER_PAGE = 5;
 
 const UIEngagementBar = ({
@@ -31,49 +29,24 @@ const UIEngagementBar = ({
   onClickComment,
   isComposeBarDisplayed,
   handleAddComment,
+
+  setTrayIsVisible,
 }) => {
-  const [reactorIds, setReactorIds] = useState([]);
-  const fetchReactionIds = async () => {
-    try {
-      // Fetch the reactions data asynchronously
-      const liveCollection = ReactionRepository.queryReactions({
-        referenceId: `${postId}`,
-        referenceType: 'post',
-      });
+  const showTray = () => {
+    console.log('before showing the tray', postId);
 
-      // Wait for the 'dataUpdated' event using Promise
-      const reactions = await new Promise((resolve) => {
-        liveCollection.on('dataUpdated', (reactions) => {
-          // Resolve the Promise with the fetched reactions
-          resolve(reactions);
-        });
-      });
-
-      const fetchedIds = reactions.map((reaction) => reaction.userId);
-      setReactorIds(fetchedIds);
-
-      document.querySelector('.slideout-overlay').classList.add('open');
-      document.querySelector('.slideout-container').classList.add('open');
-    } catch (error) {
-      console.error('Error fetching reactions:', error);
-    }
+    setTrayIsVisible(true);
+    console.log('after showing the tray');
   };
 
   return (
     <EngagementBarContainer>
       <Counters>
         {totalLikes > 0 && (
-          <>
-            <button
-              data-qa-anchor="engagement-bar-like-counter"
-              type="button"
-              onClick={() => fetchReactionIds()}
-            >
-              {toHumanString(totalLikes)}{' '}
-              <FormattedMessage id="plural.like" values={{ amount: totalLikes }} />
-            </button>
-            <LikedListTray className="flex flex-col h-full" reactorIds={reactorIds} />
-          </>
+          <button data-qa-anchor="engagement-bar-like-counter" type="button" onClick={showTray}>
+            {toHumanString(totalLikes)}{' '}
+            <FormattedMessage id="plural.like" values={{ amount: totalLikes }} />
+          </button>
         )}
 
         {totalComments > 0 && (
@@ -124,7 +97,7 @@ const UIEngagementBar = ({
 UIEngagementBar.propTypes = {
   postId: PropTypes.string,
   targetType: PropTypes.string,
-  reactorIds: PropTypes.string,
+  setTrayIsVisible: PropTypes.bool,
   totalLikes: PropTypes.number,
   totalComments: PropTypes.number,
   readonly: PropTypes.bool,
@@ -136,7 +109,7 @@ UIEngagementBar.propTypes = {
 UIEngagementBar.defaultProps = {
   postId: '',
   targetType: '',
-  reactorIds: '',
+  setTrayIsVisible: false,
   totalLikes: 0,
   totalComments: 0,
   readonly: false,

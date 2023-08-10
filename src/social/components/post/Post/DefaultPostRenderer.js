@@ -16,6 +16,7 @@ import Header from '~/social/components/post/Header';
 import Content from '~/social/components/post/Post/Content';
 import useCommunity from '~/social/hooks/useCommunity';
 import useCommunityOneMember from '~/social/hooks/useCommunityOneMember';
+import LikedListTray from '../../LikedListTray';
 import {
   ContentSkeleton,
   OptionMenu,
@@ -63,6 +64,7 @@ const DefaultPostRenderer = ({
   const [isEditing, setIsEditing] = useState(false);
   const openEditingPostModal = () => setIsEditing(true);
   const closeEditingPostModal = () => setIsEditing(false);
+  const [trayIsVisible, setTrayIsVisible] = useState(false);
 
   const { data, dataType, postId, targetId, targetType, metadata } = post;
   const { community } = useCommunity(targetId, () => targetType !== PostTargetType.CommunityFeed);
@@ -187,7 +189,16 @@ const DefaultPostRenderer = ({
 
           {hasChildrenPosts && <ChildrenContent>{childrenContent}</ChildrenContent>}
 
-          {!isUnderReview && <EngagementBar readonly={readonly} postId={postId} />}
+          {!isUnderReview && (
+            <EngagementBar
+              readonly={readonly}
+              postId={postId}
+              setTrayIsVisible={setTrayIsVisible}
+              // trayIsVisible={trayIsVisible}
+            />
+          )}
+
+          <LikedListTray postId={postId} trayIsVisible={trayIsVisible} />
 
           {isUnderReview && canReviewCommunityPosts && (
             <ReviewButtonsContainer data-qa-anchor="post-review">
