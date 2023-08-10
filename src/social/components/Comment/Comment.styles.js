@@ -91,7 +91,9 @@ const StyledComment = ({
           lines={2}
         >
           <CommentHeader>
-            <AuthorName>{authorName}</AuthorName>
+            <AuthorName className="cursor-pointer" onClick={() => onClickUser(authorId)}>
+              {authorName}
+            </AuthorName>
             <Truncate.Atom>
               {isBanned && <BanIcon css="margin-left: 0.265rem; margin-top: 1px;" />}
               <CommentDate date={createdAt} />
