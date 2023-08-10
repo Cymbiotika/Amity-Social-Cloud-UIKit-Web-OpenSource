@@ -43,10 +43,18 @@ const UIEngagementBar = ({
     <EngagementBarContainer>
       <Counters>
         {totalLikes > 0 && (
+          <>
+            {/* 
           <button data-qa-anchor="engagement-bar-like-counter" type="button" onClick={showTray}>
             {toHumanString(totalLikes)}{' '}
             <FormattedMessage id="plural.like" values={{ amount: totalLikes }} />
           </button>
+           */}
+            <span data-qa-anchor="engagement-bar-like-counter">
+              {toHumanString(totalLikes)}{' '}
+              <FormattedMessage id="plural.like" values={{ amount: totalLikes }} />
+            </span>
+          </>
         )}
 
         {totalComments > 0 && (

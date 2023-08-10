@@ -170,7 +170,7 @@ const DefaultPostRenderer = ({
 
   return (
     <PostContainer data-qa-anchor="post" className={className}>
-      <code>{postId}</code>
+      {/* <code>{postId}</code> */}
       <PostHeadContainer>
         <Header hidePostTarget={hidePostTarget} postId={postId} loading={loading} />
         {!loading && <OptionMenu options={allOptions} data-qa-anchor="post-options-button" />}
@@ -198,7 +198,7 @@ const DefaultPostRenderer = ({
             />
           )}
 
-          <LikedListTray postId={postId} trayIsVisible={trayIsVisible} />
+          {/* <LikedListTray postId={postId} trayIsVisible={trayIsVisible} /> */}
 
           {isUnderReview && canReviewCommunityPosts && (
             <ReviewButtonsContainer data-qa-anchor="post-review">
