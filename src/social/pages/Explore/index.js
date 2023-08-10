@@ -9,16 +9,18 @@ import WellnessWorkshops from '~/social/components/WellnessWorkshops';
 import { PageContainer } from './styles';
 
 const ExplorePage = () => (
-  <PageContainer>
+  <>
     <MyCommunitiesMobile />
-    <RecommendedList />
-    <FeaturedVideos />
-    <WellnessWorkshops />
+    <PageContainer>
+      <RecommendedList />
+      <FeaturedVideos />
+      <WellnessWorkshops />
 
-    {/* <TrendingList /> */}
+      {/* <TrendingList /> */}
 
-    {/* <CategoriesCard /> hidden for the time being */}
-  </PageContainer>
+      {/* <CategoriesCard /> hidden for the time being */}
+    </PageContainer>
+  </>
 );
 
 export default ExplorePage;

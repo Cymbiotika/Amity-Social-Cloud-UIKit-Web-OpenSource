@@ -1,3 +1,4 @@
+import React from 'react';
 import { PostTargetType } from '@amityco/js-sdk';
 
 import Feed from '~/social/components/Feed';
@@ -11,14 +12,16 @@ import { Wrapper } from './styles';
 const NewsFeed = () => {
   const { onChangePage } = useNavigation();
   return (
-    <Wrapper data-qa-anchor="news-feed">
+    <>
       <MyCommunitiesMobile />
-      <Feed
-        targetType={PostTargetType.GlobalFeed}
-        goToExplore={() => onChangePage(PageTypes.Explore)}
-        showPostCreator
-      />
-    </Wrapper>
+      <Wrapper data-qa-anchor="news-feed">
+        <Feed
+          targetType={PostTargetType.GlobalFeed}
+          goToExplore={() => onChangePage(PageTypes.Explore)}
+          showPostCreator
+        />
+      </Wrapper>
+    </>
   );
 };
 
