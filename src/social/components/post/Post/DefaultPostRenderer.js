@@ -1,6 +1,6 @@
 import { PostDataType, PostTargetType } from '@amityco/js-sdk';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Button, { PrimaryButton } from '~/core/components/Button';
 import { confirm, info } from '~/core/components/Confirm';
@@ -170,7 +170,7 @@ const DefaultPostRenderer = ({
 
   return (
     <PostContainer data-qa-anchor="post" className={className}>
-      {/* <code>{postId}</code> */}
+      {<code>{postId}</code>}
       <PostHeadContainer>
         <Header hidePostTarget={hidePostTarget} postId={postId} loading={loading} />
         {!loading && <OptionMenu options={allOptions} data-qa-anchor="post-options-button" />}
@@ -194,11 +194,10 @@ const DefaultPostRenderer = ({
               readonly={readonly}
               postId={postId}
               setTrayIsVisible={setTrayIsVisible}
-              // trayIsVisible={trayIsVisible}
             />
           )}
 
-          {/* <LikedListTray postId={postId} trayIsVisible={trayIsVisible} /> */}
+          { trayIsVisible && <LikedListTray postId={postId} setTrayIsVisible={setTrayIsVisible} /> }
 
           {isUnderReview && canReviewCommunityPosts && (
             <ReviewButtonsContainer data-qa-anchor="post-review">
