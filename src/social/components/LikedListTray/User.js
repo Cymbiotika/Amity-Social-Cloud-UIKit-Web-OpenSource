@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-export const User = ({ user }) => {
-  console.log('user', user);
+export const User = ({ id }) => {
   return (
     <>
-      <div>{user}</div>
+      <div>{id}</div>;
     </>
   );
 };

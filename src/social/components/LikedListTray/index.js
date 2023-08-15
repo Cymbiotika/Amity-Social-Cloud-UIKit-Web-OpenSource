@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReactionRepository } from '@amityco/js-sdk';
 import { FiX } from 'react-icons/fi';
+import { useNavigation } from '~/social/providers/NavigationProvider';
 
 import ServerAPI from '~/social/pages/Application/ServerAPI';
+import UserLoading from './UserLoading';
+import Avatar from '~/core/components/Avatar';
+import { backgroundImage as UserImage } from '~/icons/User';
 
 const SlideOutContainer = styled.div`
   padding: 0 17.5px;
@@ -39,7 +43,7 @@ const SlideOutContent = styled.div`
   padding: 16px 0;
   &::-webkit-scrollbar {
     display: none;
-  };
+  }
   overflow-y: auto;
 
   /* Hide scrollbar for IE, Edge and Firefox */
@@ -69,56 +73,80 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
   const server = ServerAPI();
   const [users, setUsers] = useState([]);
 
+  const { onClickUser } = useNavigation();
+
+  const fetchReactions = () => {
+    console.log('fetched reactions will go here');
+  };
+
   const fetchUsers = async () => {
     const liveCollection = ReactionRepository.queryReactions({
       referenceId: postId,
-      referenceType: 'post'
+      referenceType: 'post',
     });
-    liveCollection.on('dataUpdated', async reactions => {
-      let url = 'https://api.us.amity.co/api/v3/users/list?';
-      let arr = [];
-      reactions.map( reaction => arr.push( `userIds=${ reaction.userId }` ) );
-      const requestUrl = url +  arr.join('&');
-      let usersResponseData = await server.likedList( requestUrl );
-      usersResponseData.users = usersResponseData.users.map( user => {
+    liveCollection.on('dataUpdated', async (reactions) => {
+      const url = 'https://api.us.amity.co/api/v3/users/list?';
+      const arr = [];
+      reactions.map((reaction) => arr.push(`userIds=${reaction.userId}`));
+      const requestUrl = url + arr.join('&');
+      const usersResponseData = await server.likedList(requestUrl);
+      usersResponseData.users = usersResponseData.users.map((user) => {
         return {
           id: user.userId,
           fullName: user.displayName,
           profilePictureId: user.avatarFileId,
-          email: user.metadata.userEmail
+          email: user.metadata.userEmail,
+          bio: user.description,
         };
-      } );
-      setUsers( usersResponseData.users );
-    } );
+      });
+      setUsers(usersResponseData.users);
+    });
   };
 
-  useEffect( () => {
-   fetchUsers();
-  }, [ postId ] );
+  useEffect(() => {
+    fetchUsers();
+    fetchReactions();
+  }, [postId]);
 
   return (
     <>
       <SlideOutOverlay className="slideout-overlay open" />
       <SlideOutContainer className="slideout-container open z-[100]">
         <SlideOutHeader>
-          <button className='w-6 h-6 flex items-center justify-start' onClick={ () => setTrayIsVisible(false) }>
-            <FiX className='w-4 h-4'/>
+          <button
+            className="w-6 h-6 flex items-center justify-start"
+            onClick={() => setTrayIsVisible(false)}
+            type="button"
+          >
+            <FiX className="w-4 h-4" />
           </button>
           <h1 className="cym-h-2-lg">Likes</h1>
         </SlideOutHeader>
         <SlideOutContent className="flex flex-col h-full liked-list px-5">
-          {/* !users.length ? <Loading/> : <Users/> */}
-          { users.map( ( user, idx ) => 
-          <>
-            <h1> { idx + 1 }</h1>
-            <h1>{ user.id }</h1>
-            <h1>{ user.fullName }</h1>
-            <h1>{ user.profilePictureId }</h1>
-            <h1>{ user.email }</h1>
-          </>
-          ) }
+          {!users.length ? (
+            <UserLoading />
+          ) : (
+            users.map((user, idx) => (
+              <div
+                key={idx}
+                className="flex items-center my-2 cursor-pointer"
+                onClick={() => onClickUser(user.id)}
+              >
+                <Avatar
+                  data-qa-anchor="header-avatar"
+                  avatar={`https://api.us.amity.co/api/v3/files/${user.profilePictureId}/download`}
+                  backgroundImage={UserImage}
+                />
+                <div>
+                  <span className="mx-2">{user.fullName}</span>
+                  {/* profile bio? */}
+                </div>
+                {/* follow button will go here */}
+              </div>
+            ))
+          )}
         </SlideOutContent>
-      </SlideOutContainer> 
+      </SlideOutContainer>
     </>
   );
 };
