@@ -2,8 +2,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import styled from 'styled-components';
 
 export const CommunityScrollContainer = styled(InfiniteScroll)`
+  width: 100%;
   &.no-scroll {
-    width: 260px;
+    width: 100%;
   }
 `;
 
