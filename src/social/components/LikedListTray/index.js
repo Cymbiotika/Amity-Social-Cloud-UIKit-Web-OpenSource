@@ -114,13 +114,13 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
       <SlideOutContainer className="slideout-container open z-[100]">
         <SlideOutHeader>
           <button
-            className="w-6 h-6 flex items-center justify-start"
+            className="w-6 h-6 flex items-center absolute"
             onClick={() => setTrayIsVisible(false)}
             type="button"
           >
             <FiX className="w-4 h-4" />
           </button>
-          <h1 className="cym-h-2-lg">Likes</h1>
+          <h1 className="cym-h-2-lg mx-auto">Likes</h1>
         </SlideOutHeader>
         <SlideOutContent className="flex flex-col h-full liked-list px-5">
           {!users.length ? (
