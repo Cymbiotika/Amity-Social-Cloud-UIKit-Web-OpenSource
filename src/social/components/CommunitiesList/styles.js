@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const CommunityScrollContainer = styled(InfiniteScroll)`
   &.no-scroll {
-    width: 260px;
+    width: 100%;
   }
   &::-webkit-scrollbar {
     display: none;

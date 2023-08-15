@@ -69,6 +69,7 @@ const Comment = ({ readonly = false, commentId, currentUserId, userRoles }) => {
   const [isEditing, setIsEditing] = useState(false);
   const { formatMessage } = useIntl();
   const [isExpanded, setExpanded] = useState(false);
+  const { onClickUser } = useNavigation();
 
   const {
     isCommentReady,
@@ -182,7 +183,7 @@ const Comment = ({ readonly = false, commentId, currentUserId, userRoles }) => {
       </CommentBlock>
     );
   }
-
+  const handleClickUser = (authorId) => onClickUser(authorId);
   const renderedComment = (
     <StyledComment
       commentId={comment.commentId}
@@ -213,6 +214,7 @@ const Comment = ({ readonly = false, commentId, currentUserId, userRoles }) => {
       isReported={isFlaggedByMe}
       isReplyComment={isReplyComment}
       onClickReply={onClickReply}
+      onClickUser={handleClickUser}
       onChange={onChange}
     />
   );

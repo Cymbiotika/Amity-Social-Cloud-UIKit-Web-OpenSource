@@ -1,6 +1,6 @@
 import { PostDataType, PostTargetType } from '@amityco/js-sdk';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Button, { PrimaryButton } from '~/core/components/Button';
 import { confirm, info } from '~/core/components/Confirm';
@@ -16,6 +16,7 @@ import Header from '~/social/components/post/Header';
 import Content from '~/social/components/post/Post/Content';
 import useCommunity from '~/social/hooks/useCommunity';
 import useCommunityOneMember from '~/social/hooks/useCommunityOneMember';
+import LikedListTray from '../../LikedListTray';
 import {
   ContentSkeleton,
   OptionMenu,
@@ -63,6 +64,7 @@ const DefaultPostRenderer = ({
   const [isEditing, setIsEditing] = useState(false);
   const openEditingPostModal = () => setIsEditing(true);
   const closeEditingPostModal = () => setIsEditing(false);
+  const [trayIsVisible, setTrayIsVisible] = useState(false);
 
   const { data, dataType, postId, targetId, targetType, metadata } = post;
   const { community } = useCommunity(targetId, () => targetType !== PostTargetType.CommunityFeed);
@@ -168,6 +170,7 @@ const DefaultPostRenderer = ({
 
   return (
     <PostContainer data-qa-anchor="post" className={className}>
+      {/* <code>{postId}</code> */}
       <PostHeadContainer>
         <Header hidePostTarget={hidePostTarget} postId={postId} loading={loading} />
         {!loading && <OptionMenu options={allOptions} data-qa-anchor="post-options-button" />}
@@ -186,7 +189,15 @@ const DefaultPostRenderer = ({
 
           {hasChildrenPosts && <ChildrenContent>{childrenContent}</ChildrenContent>}
 
-          {!isUnderReview && <EngagementBar readonly={readonly} postId={postId} />}
+          {!isUnderReview && (
+            <EngagementBar
+              readonly={readonly}
+              postId={postId}
+              setTrayIsVisible={setTrayIsVisible}
+            />
+          )}
+
+          {trayIsVisible && <LikedListTray postId={postId} setTrayIsVisible={setTrayIsVisible} />}
 
           {isUnderReview && canReviewCommunityPosts && (
             <ReviewButtonsContainer data-qa-anchor="post-review">

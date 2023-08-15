@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { AmityUserTokenManager, ApiRegion } from '@amityco/js-sdk';
 import { apiKey, displayName, userId } from '~/social/constants';
 
@@ -179,6 +178,30 @@ const ServerAPI = () => {
     }
   };
 
+  const likedList = async (url) => {
+    console.log('API Url', url);
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log('Error retriveing user list', error);
+    }
+  };
+
   return {
     ariseGetRewards,
     getNotifications,
@@ -186,6 +209,7 @@ const ServerAPI = () => {
     deleteUser,
     followUser,
     updateUserName,
+    likedList,
   };
 };
 

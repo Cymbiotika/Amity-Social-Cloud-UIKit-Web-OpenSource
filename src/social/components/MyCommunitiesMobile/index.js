@@ -1,3 +1,4 @@
+import React from 'react';
 import SideSectionMyCommunity from '~/social/components/SideSectionMyCommunity';
 import { Container, MobileCommunitiesHeader } from './styles';
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Avatar from '~/core/components/Avatar';
 import { backgroundImage as UserImage } from '~/icons/User';
@@ -6,7 +6,7 @@ import { useNavigation } from '~/social/providers/NavigationProvider';
 import ServerAPI from '../../pages/Application/ServerAPI';
 
 const SlideOutContainer = styled.div`
-  padding: 0 17.5px;
+  /* padding: 0 17.5px; */
   @media screen and (max-width: 768px) {
     width: 100vw;
     right: -100vw;
