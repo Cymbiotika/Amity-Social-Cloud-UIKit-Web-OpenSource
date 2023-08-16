@@ -75,10 +75,6 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
 
   const { onClickUser } = useNavigation();
 
-  const fetchReactions = () => {
-    console.log('fetched reactions will go here');
-  };
-
   const fetchUsers = async () => {
     const liveCollection = ReactionRepository.queryReactions({
       referenceId: postId,
@@ -112,7 +108,6 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
 
   useEffect(() => {
     fetchUsers();
-    fetchReactions();
   }, [postId]);
 
   return (
