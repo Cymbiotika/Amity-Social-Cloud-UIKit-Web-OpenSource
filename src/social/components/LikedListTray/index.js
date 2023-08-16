@@ -40,7 +40,7 @@ const SlideOutHeader = styled.div`
   position: relative;
 `;
 const SlideOutContent = styled.div`
-  padding: 16px 0;
+  padding-top: 16px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -84,7 +84,9 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
       referenceId: postId,
       referenceType: 'post',
     });
+
     liveCollection.on('dataUpdated', async (reactions) => {
+      console.log(reactions);
       const url = 'https://api.us.amity.co/api/v3/users/list?';
       const arr = [];
       reactions.map((reaction) => arr.push(`userIds=${reaction.userId}`));
@@ -100,6 +102,11 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
         };
       });
       setUsers(usersResponseData.users);
+      if (liveCollection && liveCollection.loadingStatus === 'loaded' && liveCollection.hasMore) {
+        console.log('memberCollection: ', liveCollection);
+
+        liveCollection.nextPage();
+      }
     });
   };
 
@@ -122,7 +129,7 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
           </button>
           <h1 className="cym-h-2-lg mx-auto">Likes</h1>
         </SlideOutHeader>
-        <SlideOutContent className="flex flex-col h-full liked-list px-5">
+        <SlideOutContent className="flex flex-col h-full liked-list pb-[58px]">
           {!users.length ? (
             <UserLoading />
           ) : (
