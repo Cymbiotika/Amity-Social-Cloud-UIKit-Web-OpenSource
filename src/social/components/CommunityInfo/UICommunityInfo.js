@@ -1,5 +1,5 @@
 import { CommunityPostSettings } from '@amityco/js-sdk';
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toHumanString } from 'human-readable-numbers';
 import Truncate from 'react-truncate-markup';
@@ -27,6 +27,8 @@ import {
   CommunityName,
 } from './styles';
 
+import SidebarOverlay from '../SidebarOverlay';
+
 const UICommunityInfo = ({
   communityId,
   communityCategories,
@@ -48,6 +50,8 @@ const UICommunityInfo = ({
   postSetting,
 }) => {
   const { formatMessage } = useIntl();
+  const [sidebarIsVisible, setSideBarIsVisible] = useState(false);
+  console.log(sidebarIsVisible);
 
   return (
     <Container data-qa-anchor="community-info">
@@ -74,11 +78,12 @@ const UICommunityInfo = ({
               </div>
             </Count>
             <Divider />
-            <Count>
+            <Count className="cursor-pointer" onClick={() => setSideBarIsVisible(true)}>
               <div className="countNumber">{toHumanString(membersCount || 0)}</div>
               <div className="countType">
                 <FormattedMessage id="community.members" />
               </div>
+              {sidebarIsVisible && <SidebarOverlay setSideBarIsVisible={setSideBarIsVisible} />}
             </Count>
           </CountsContainer>
 
