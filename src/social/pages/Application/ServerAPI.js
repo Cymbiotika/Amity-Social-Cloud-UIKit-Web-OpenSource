@@ -62,6 +62,7 @@ const ServerAPI = () => {
       return null;
     }
   };
+
   const deleteUser = async (userId) => {
     const url = `https://api.us.amity.co/api/v4/users/${userId}`;
 
@@ -179,7 +180,6 @@ const ServerAPI = () => {
   };
 
   const likedList = async (url) => {
-    console.log('API Url', url);
     try {
       const accessToken = await getAccessToken();
 
@@ -202,6 +202,31 @@ const ServerAPI = () => {
     }
   };
 
+  const getCommunityUsers = async (communityId) => {
+    const url = `https://api.us.amity.co/api/v3/communities/${communityId}/users?sortBy=firstCreated&options%5Blimit%5D=10`;
+    console.log('uwu', url);
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log('Error fetching community users:', error);
+    }
+  };
+
   return {
     ariseGetRewards,
     getNotifications,
@@ -210,6 +235,7 @@ const ServerAPI = () => {
     followUser,
     updateUserName,
     likedList,
+    getCommunityUsers,
   };
 };
 

@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
+
 import { FiX } from 'react-icons/fi';
+import Avatar from '~/core/components/Avatar';
+import { backgroundImage as UserImage } from '~/icons/User';
 import { useNavigation } from '~/social/providers/NavigationProvider';
+import ServerAPI from '~/social/pages/Application/ServerAPI';
+
+// import { CommunityRepository, CommunityUserSortingMethod } from '@amityco/js-sdk';
 
 const SlideOutContainer = styled.div`
   padding: 0 17.5px;
@@ -64,7 +70,32 @@ const SlideOutOverlay = styled.div`
   }
 `;
 
-const SidebarOverlay = ({ setSideBarIsVisible }) => {
+const SidebarOverlay = ({ setSideBarIsVisible, communityId }) => {
+  const server = ServerAPI();
+  const [communityUser, setCommunityUser] = useState([]);
+
+  const { onClickUser } = useNavigation();
+
+  const fetchCommunityUsers = async () => {
+    const communityUsersResp = await server.getCommunityUsers(communityId);
+    console.log('communityUsersResp', communityUsersResp);
+    communityUsersResp.users = communityUsersResp.users.map((communityUser) => {
+      console.log('community user', communityUser);
+      return {
+        id: communityUser.userId,
+        fullName: communityUser.displayName,
+        profilePictureId: communityUser.avatarFileId,
+        email: communityUser.metadata.userEmail,
+        bio: communityUser.description,
+      };
+    });
+    setCommunityUser(communityUsersResp.users);
+  };
+
+  useEffect(() => {
+    fetchCommunityUsers();
+  }, [communityId]);
+
   return (
     <>
       <SlideOutOverlay className="slideout-overlay open" />
@@ -83,7 +114,24 @@ const SidebarOverlay = ({ setSideBarIsVisible }) => {
           <h1 className="cym-h-2-lg mx-auto">Group Members</h1>
         </SlideOutHeader>
         <SlideOutContent className="flex flex-col h-full liked-list pb-[58px]">
-          <code>content will go here</code>
+          {communityUser.map((user, idx) => (
+            <div
+              key={idx}
+              className="flex items-center my-2 cursor-pointer"
+              onClick={() => onClickUser(user.id)}
+            >
+              <Avatar
+                data-qa-anchor="header-avatar"
+                avatar={`https://api.us.amity.co/api/v3/files/${user.profilePictureId}/download`}
+                backgroundImage={UserImage}
+              />
+              <div>
+                <span className="mx-2">{user.fullName}</span>
+                {/* profile bio? */}
+              </div>
+              {/* follow button will go here */}
+            </div>
+          ))}
         </SlideOutContent>
       </SlideOutContainer>
     </>

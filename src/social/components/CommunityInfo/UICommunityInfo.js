@@ -83,7 +83,12 @@ const UICommunityInfo = ({
               <div className="countType">
                 <FormattedMessage id="community.members" />
               </div>
-              {sidebarIsVisible && <SidebarOverlay setSideBarIsVisible={setSideBarIsVisible} />}
+              {sidebarIsVisible && (
+                <SidebarOverlay
+                  setSideBarIsVisible={setSideBarIsVisible}
+                  communityId={communityId}
+                />
+              )}
             </Count>
           </CountsContainer>
 

@@ -69,7 +69,7 @@ const UIUserInfo = ({
   userRoles,
 }) => {
   const isXsScreen = window.innerWidth < 640;
-
+  console.log('userId: ', userId);
   const { user } = useUser(userId);
   const { isFlaggedByMe, handleReport } = useReport(user);
   const { formatMessage } = useIntl();
