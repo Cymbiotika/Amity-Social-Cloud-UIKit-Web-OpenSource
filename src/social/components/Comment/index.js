@@ -175,13 +175,16 @@ const Comment = ({ readonly = false, commentId, currentUserId, userRoles }) => {
   }
 
   if (comment.isDeleted) {
-    return isReplyComment ? (
-      <DeletedReply />
-    ) : (
+    return isReplyComment // <DeletedReply />
+      ? // if reply is deleted
+        null
+      : /*
       <CommentBlock>
         <DeletedComment />
       </CommentBlock>
-    );
+      */
+        // if comment is deleted
+        null;
   }
   const handleClickUser = (authorId) => onClickUser(authorId);
   const renderedComment = (

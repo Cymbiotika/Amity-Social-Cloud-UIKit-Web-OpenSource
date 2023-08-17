@@ -15,8 +15,8 @@ import {
 } from './styles';
 import useUserQuery from '~/core/hooks/useUserQuery';
 
-const communityRenderer = (communities) => (communityName) => {
-  const { communityId } = communities.find((item) => item.displayName === communityName) ?? {};
+const communityRenderer = (groups) => (communityName) => {
+  const { communityId } = groups.find((item) => item.displayName === communityName) ?? {};
 
   return !!communityId && <CommunityHeader communityId={communityId} />;
 };
@@ -31,7 +31,7 @@ const SocialSearch = ({ className, sticky = false, searchBy }) => {
   const { onClickCommunity, onClickUser } = useNavigation();
   const [value, setValue] = useState('');
   const [users = [], hasMoreUsers, loadMoreUsers] = useUserQuery(value);
-  const [communities, hasMoreCommunities, loadMoreCommunities] = useCommunitiesList({
+  const [groups, hasMoreCommunities, loadMoreCommunities] = useCommunitiesList({
     search: value,
   });
   const handleChange = (newVal) => {
@@ -39,15 +39,15 @@ const SocialSearch = ({ className, sticky = false, searchBy }) => {
   };
 
   const getPagination = (activeTab) => {
-    const hasMore = activeTab === 'communities' ? hasMoreCommunities : hasMoreUsers;
-    const loadMore = activeTab === 'communities' ? loadMoreCommunities : loadMoreUsers;
+    const hasMore = activeTab === 'groups' ? hasMoreCommunities : hasMoreUsers;
+    const loadMore = activeTab === 'groups' ? loadMoreCommunities : loadMoreUsers;
 
     return hasMore ? loadMore : undefined;
   };
 
   const handlePick = (name, activeTab) => {
-    if (activeTab === 'communities') {
-      const { communityId } = communities.find((item) => item.displayName === name) ?? {};
+    if (activeTab === 'groups') {
+      const { communityId } = groups.find((item) => item.displayName === name) ?? {};
       communityId && onClickCommunity(communityId);
     } else if (activeTab === 'accounts') {
       const { userId } = users.find((item) => item.displayName === name) ?? {};
@@ -57,18 +57,18 @@ const SocialSearch = ({ className, sticky = false, searchBy }) => {
 
   const rendererMap = useMemo(
     () => ({
-      communities: communityRenderer(communities),
+      groups: communityRenderer(groups),
       accounts: userRenderer(users),
     }),
-    [communities, users],
+    [groups, users],
   );
 
   const allItems = useMemo(
     () => ({
-      communities: communities.map((community) => community.displayName),
+      groups: groups.map((community) => community.displayName),
       accounts: users.map((community) => community.displayName),
     }),
-    [communities, users],
+    [groups, users],
   );
 
   const items = useMemo(() => {
@@ -118,7 +118,7 @@ SocialSearch.propTypes = {
 
 SocialSearch.defaultProps = {
   sticky: false,
-  searchBy: ['communities', 'accounts'],
+  searchBy: ['groups', 'accounts'],
 };
 
 export default customizableComponent('SocialSearch', SocialSearch);
