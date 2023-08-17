@@ -62,7 +62,6 @@ const ServerAPI = () => {
       return null;
     }
   };
-
   const deleteUser = async (userId) => {
     const url = `https://api.us.amity.co/api/v4/users/${userId}`;
 
@@ -203,7 +202,7 @@ const ServerAPI = () => {
   };
 
   const getCommunityUsers = async (communityId) => {
-    const url = `https://api.us.amity.co/api/v3/communities/${communityId}/users?sortBy=firstCreated&options%5Blimit%5D=10`;
+    const url = `https://api.us.amity.co/api/v3/communities/${communityId}/users`;
     console.log('uwu', url);
     try {
       const accessToken = await getAccessToken();
@@ -221,6 +220,7 @@ const ServerAPI = () => {
       }
 
       const data = await response.json();
+      console.log('Data', data.users);
       return data;
     } catch (error) {
       console.log('Error fetching community users:', error);

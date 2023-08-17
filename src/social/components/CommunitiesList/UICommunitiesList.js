@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -5,6 +6,7 @@ import styled from 'styled-components';
 import LoadMore from '~/social/components/LoadMore';
 import CommunityHeader from '~/social/components/community/Header';
 import { CommunityScrollContainer } from './styles';
+import RecommendedGroups from './RecommendedGroups';
 
 const NoResultsMessage = styled.p`
   text-align: center;
@@ -60,7 +62,7 @@ const UICommunityList = ({
               onClick={onClickCommunity}
             />
           ))}
-
+        <RecommendedGroups />
         {loadingMore && renderLoadingSkeleton()}
       </LoadMore>
     </CommunityScrollContainer>
