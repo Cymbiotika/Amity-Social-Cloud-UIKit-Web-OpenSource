@@ -69,7 +69,7 @@ const UICommunityList = ({
               onClick={onClickCommunity}
             />
           ))}
-        <RecommendedGroups myCommunityIds={communityIds} myRecommendedCommunityIds={communities} />
+        {/* <RecommendedGroups myCommunityIds={communityIds} myRecommendedCommunityIds={communities} /> */}
         {loadingMore && renderLoadingSkeleton()}
       </LoadMore>
     </CommunityScrollContainer>
