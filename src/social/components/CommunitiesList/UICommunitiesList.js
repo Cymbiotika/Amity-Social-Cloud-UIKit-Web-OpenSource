@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+
+import useRecommendedCommunitiesList from '~/social/hooks/useRecommendedCommunitiesList';
 
 import LoadMore from '~/social/components/LoadMore';
 import CommunityHeader from '~/social/components/community/Header';
@@ -22,7 +24,7 @@ const UICommunityList = ({
   onClickCommunity,
   isSearchList,
   searchInput,
-  loading,
+  // loading,
   loadingMore,
 }) => {
   const noCommunitiesFound = isSearchList && !communityIds.length;
@@ -31,6 +33,11 @@ const UICommunityList = ({
   function renderLoadingSkeleton() {
     return new Array(5).fill(1).map((x, index) => <CommunityHeader key={index} loading />);
   }
+  console.log('my groups:', communityIds);
+
+  const [communities, , , loading] = useRecommendedCommunitiesList();
+  console.log('rec groups', communities);
+  if (!communities?.length) return null;
 
   return (
     <CommunityScrollContainer
@@ -62,7 +69,7 @@ const UICommunityList = ({
               onClick={onClickCommunity}
             />
           ))}
-        <RecommendedGroups />
+        <RecommendedGroups myCommunityIds={communityIds} myRecommendedCommunityIds={communities} />
         {loadingMore && renderLoadingSkeleton()}
       </LoadMore>
     </CommunityScrollContainer>

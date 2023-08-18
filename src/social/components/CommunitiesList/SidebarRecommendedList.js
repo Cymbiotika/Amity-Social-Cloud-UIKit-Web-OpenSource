@@ -20,7 +20,7 @@ const SidebarRecommendedList = () => {
 
   if (!communities?.length) return null;
 
-  console.log('here', communities.length);
+  console.log('rec groups', communities);
 
   return (
     <div className="hidden md:block">
