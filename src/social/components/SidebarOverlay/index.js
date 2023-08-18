@@ -6,9 +6,8 @@ import { FiX } from 'react-icons/fi';
 import Avatar from '~/core/components/Avatar';
 import { backgroundImage as UserImage } from '~/icons/User';
 import { useNavigation } from '~/social/providers/NavigationProvider';
+import MembersLoading from './MembersLoading';
 import ServerAPI from '~/social/pages/Application/ServerAPI';
-
-// import { CommunityRepository, CommunityUserSortingMethod } from '@amityco/js-sdk';
 
 const SlideOutContainer = styled.div`
   padding: 0 17.5px;
@@ -75,21 +74,26 @@ const SidebarOverlay = ({ setSideBarIsVisible, communityId }) => {
   const [communityUser, setCommunityUser] = useState([]);
 
   const { onClickUser } = useNavigation();
+  const userIdSet = new Set();
 
   const fetchCommunityUsers = async () => {
     const communityUsersResp = await server.getCommunityUsers(communityId);
-    console.log('communityUsersResp', communityUsersResp);
-    communityUsersResp.users = communityUsersResp.users.map((communityUser) => {
-      console.log('community user', communityUser);
+    console.log('community users', communityUsersResp.length);
+    const usersArray = communityUsersResp;
+    /*
+    fix this asap
+    usersArray.map((user) => {
+      console.log('community user', user.displayName);
       return {
-        id: communityUser.userId,
-        fullName: communityUser.displayName,
-        profilePictureId: communityUser.avatarFileId,
-        email: communityUser.metadata.userEmail,
-        bio: communityUser.description,
+        id: user.userId,
+        fullName: user.displayName,
+        profilePictureId: user.avatarFileId,
+        email: user.metadata.userEmail,
+        bio: user.description,
       };
     });
-    setCommunityUser(communityUsersResp.users);
+    */
+    setCommunityUser(usersArray);
   };
 
   useEffect(() => {
@@ -114,24 +118,36 @@ const SidebarOverlay = ({ setSideBarIsVisible, communityId }) => {
           <h1 className="cym-h-2-lg mx-auto">Group Members</h1>
         </SlideOutHeader>
         <SlideOutContent className="flex flex-col h-full liked-list pb-[58px]">
-          {communityUser.map((user, idx) => (
-            <div
-              key={idx}
-              className="flex items-center my-2 cursor-pointer"
-              onClick={() => onClickUser(user.id)}
-            >
-              <Avatar
-                data-qa-anchor="header-avatar"
-                avatar={`https://api.us.amity.co/api/v3/files/${user.profilePictureId}/download`}
-                backgroundImage={UserImage}
-              />
-              <div>
-                <span className="mx-2">{user.fullName}</span>
-                {/* profile bio? */}
-              </div>
-              {/* follow button will go here */}
-            </div>
-          ))}
+          {!communityUser.length ? (
+            <MembersLoading />
+          ) : (
+            communityUser.map((user, idx) => {
+              // Check if the userId is already encountered
+              if (!userIdSet.has(user.userId)) {
+                userIdSet.add(user.userId); // Add userId to the Set
+
+                return (
+                  <button
+                    key={idx}
+                    className="flex items-center my-2 cursor-pointer"
+                    type="button"
+                    onClick={() => onClickUser(user.userId)}
+                  >
+                    <Avatar
+                      data-qa-anchor="header-avatar"
+                      avatar={`https://api.us.amity.co/api/v3/files/${user.avatarFileId}/download`}
+                      backgroundImage={UserImage}
+                    />
+                    <div>
+                      <span className="mx-2">{user.displayName}</span>
+                    </div>
+                  </button>
+                );
+              }
+
+              return null; // Skip rendering duplicate userIds
+            })
+          )}
         </SlideOutContent>
       </SlideOutContainer>
     </>

@@ -202,28 +202,45 @@ const ServerAPI = () => {
   };
 
   const getCommunityUsers = async (communityId) => {
-    const url = `https://api.us.amity.co/api/v3/communities/${communityId}/users`;
-    console.log('uwu', url);
+    const baseUrl = `https://api.us.amity.co/api/v3/communities/${communityId}/users`;
+    const limit = 10; // Number of results per page
+    let allUsers = [];
+
     try {
       const accessToken = await getAccessToken();
 
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Request failed');
-      }
+      let nextCursor = null;
 
-      const data = await response.json();
-      console.log('Data', data.users);
-      return data;
+      do {
+        const url = nextCursor
+          ? `${baseUrl}?sortBy=firstCreated&options%5Blimit%5D=${limit}&options%5Btoken%5D=${encodeURIComponent(
+              nextCursor,
+            )}`
+          : `${baseUrl}?sortBy=firstCreated&options%5Blimit%5D=${limit}`;
+
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await response.json();
+        allUsers = allUsers.concat(data.users); // Concatenate current page results
+
+        nextCursor = data.paging.next;
+      } while (nextCursor); // Continue fetching while there's a next cursor
+
+      return allUsers;
     } catch (error) {
       console.log('Error fetching community users:', error);
+      throw error; // Rethrow the error after logging
     }
   };
 
