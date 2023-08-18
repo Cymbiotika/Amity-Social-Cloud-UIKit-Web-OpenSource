@@ -82,7 +82,6 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
     });
 
     liveCollection.on('dataUpdated', async (reactions) => {
-      console.log(reactions);
       const url = 'https://api.us.amity.co/api/v3/users/list?';
       const arr = [];
       reactions.map((reaction) => arr.push(`userIds=${reaction.userId}`));
@@ -99,8 +98,6 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
       });
       setUsers(usersResponseData.users);
       if (liveCollection && liveCollection.loadingStatus === 'loaded' && liveCollection.hasMore) {
-        console.log('memberCollection: ', liveCollection);
-
         liveCollection.nextPage();
       }
     });

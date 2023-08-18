@@ -3,7 +3,6 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 
-import Skeleton from '~/core/components/Skeleton';
 import Header from '~/social/components/community/Header';
 
 import useRecommendedCommunitiesList from '~/social/hooks/useRecommendedCommunitiesList';
@@ -24,8 +23,7 @@ const SidebarRecommendedList = () => {
   console.log('here', communities.length);
 
   return (
-    // <HorizontalList title={title}>
-    <>
+    <div className="hidden md:block">
       <ListHeading className="!cym-h-2-lg">Recommended Groups</ListHeading>
       {loading && new Array(4).fill(1).map((x, index) => <Header key={index} loading />)}
 
@@ -33,8 +31,7 @@ const SidebarRecommendedList = () => {
         communities.map(({ communityId }) => (
           <Header key={communityId} communityId={communityId} onClick={onClickCommunity} />
         ))}
-    </>
-    // </HorizontalList>
+    </div>
   );
 };
 

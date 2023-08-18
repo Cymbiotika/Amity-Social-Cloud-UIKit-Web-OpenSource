@@ -51,7 +51,6 @@ const UICommunityInfo = ({
 }) => {
   const { formatMessage } = useIntl();
   const [sidebarIsVisible, setSideBarIsVisible] = useState(false);
-  console.log(sidebarIsVisible);
 
   return (
     <Container data-qa-anchor="community-info">
