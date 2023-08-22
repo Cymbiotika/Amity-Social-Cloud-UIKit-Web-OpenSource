@@ -22,6 +22,7 @@ import NewsFeedPage from '~/social/pages/NewsFeed';
 import UserFeedPage from '~/social/pages/UserFeed';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 import NotificationTargetPage from '../NotificationTargetPage';
+import { RecommendedGroupsProvider } from '../../providers/ReccomendedGroupsProvider';
 import ServerAPI from './ServerAPI';
 
 // import Custom from '~/chat/components/Message/MessageContent/Custom';
@@ -119,49 +120,54 @@ const Community = () => {
         userId={page.userId}
         onClickUser={handleClickUser}
       />
-      <MainLayout
-        aside={<StyledCommunitySideMenu activeCommunity={page.communityId} id="main-layout" />}
-      >
-        <CustomHeader
-          id="custom-header-wrapper-mobile"
-          className="md:!hidden"
-          userId={page.userId}
-          onClickUser={handleClickUser}
-        />
+      <RecommendedGroupsProvider>
+        <MainLayout
+          aside={<StyledCommunitySideMenu activeCommunity={page.communityId} id="main-layout" />}
+        >
+          <CustomHeader
+            id="custom-header-wrapper-mobile"
+            className="md:!hidden"
+            userId={page.userId}
+            onClickUser={handleClickUser}
+          />
 
-        {/* <div className="xs:pt-[54px] md:pt-0"> */}
-        {page.type === PageTypes.Explore && <ExplorePage />}
+          {/* <div className="xs:pt-[54px] md:pt-0"> */}
+          {page.type === PageTypes.Explore && <ExplorePage />}
 
-        {page.type === PageTypes.NewsFeed && <NewsFeedPage refresh={refresh} />}
+          {page.type === PageTypes.NewsFeed && <NewsFeedPage refresh={refresh} />}
 
-        {page.type === PageTypes.CommunityFeed && (
-          <CommunityFeedPage communityId={page.communityId} isNewCommunity={page.isNewCommunity} />
-        )}
+          {page.type === PageTypes.CommunityFeed && (
+            <CommunityFeedPage
+              communityId={page.communityId}
+              isNewCommunity={page.isNewCommunity}
+            />
+          )}
 
-        {page.type === PageTypes.CommunityEdit && (
-          <CommunityEditPage communityId={page.communityId} tab={page.tab} />
-        )}
+          {page.type === PageTypes.CommunityEdit && (
+            <CommunityEditPage communityId={page.communityId} tab={page.tab} />
+          )}
 
-        {page.type === PageTypes.Category && (
-          <CategoryCommunitiesPage categoryId={page.categoryId} />
-        )}
+          {page.type === PageTypes.Category && (
+            <CategoryCommunitiesPage categoryId={page.categoryId} />
+          )}
 
-        {page.type === PageTypes.UserFeed && <UserFeedPage userId={page.userId} />}
+          {page.type === PageTypes.UserFeed && <UserFeedPage userId={page.userId} />}
 
-        {page.type === PageTypes.UserEdit && <ProfileSettings userId={page.userId} />}
+          {page.type === PageTypes.UserEdit && <ProfileSettings userId={page.userId} />}
 
-        {page.type === PageTypes.MyGroups && (
-          <SideSectionMyCommunity activeCommunity={page.communityId} showCreateButton />
-        )}
-        {page.type === PageTypes.Search && <SocialSearch />}
-        {page.type === PageTypes.NotificationTarget && (
-          <NotificationTargetPage targetId={page.targetId} />
-        )}
-        {/* </div> */}
+          {page.type === PageTypes.MyGroups && (
+            <SideSectionMyCommunity activeCommunity={page.communityId} showCreateButton />
+          )}
+          {page.type === PageTypes.Search && <SocialSearch />}
+          {page.type === PageTypes.NotificationTarget && (
+            <NotificationTargetPage targetId={page.targetId} />
+          )}
+          {/* </div> */}
 
-        <MobilePostButton />
-        <CustomFooterNav onClickUser={handleClickUser} page={page.type} />
-      </MainLayout>
+          <MobilePostButton />
+          <CustomFooterNav onClickUser={handleClickUser} page={page.type} />
+        </MainLayout>
+      </RecommendedGroupsProvider>
     </ApplicationContainer>
   );
 };

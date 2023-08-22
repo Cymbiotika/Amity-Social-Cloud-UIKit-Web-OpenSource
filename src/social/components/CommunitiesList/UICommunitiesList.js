@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import useRecommendedCommunitiesList from '~/social/hooks/useRecommendedCommunitiesList';
-
 import LoadMore from '~/social/components/LoadMore';
 import CommunityHeader from '~/social/components/community/Header';
 import { CommunityScrollContainer } from './styles';
+import { useRecommendedGroupContext } from '../../providers/ReccomendedGroupsProvider';
 import RecommendedGroups from './RecommendedGroups';
 
 const NoResultsMessage = styled.p`
@@ -24,7 +23,7 @@ const UICommunityList = ({
   onClickCommunity,
   isSearchList,
   searchInput,
-  // loading,
+  loading,
   loadingMore,
 }) => {
   const noCommunitiesFound = isSearchList && !communityIds.length;
@@ -33,11 +32,10 @@ const UICommunityList = ({
   function renderLoadingSkeleton() {
     return new Array(5).fill(1).map((x, index) => <CommunityHeader key={index} loading />);
   }
-  console.log('my groups:', communityIds);
 
-  const [communities, , , loading] = useRecommendedCommunitiesList();
-  console.log('rec groups', communities);
-  if (!communities?.length) return null;
+  const recommendedGroupIds = useRecommendedGroupContext();
+  console.log('reccomneded groups from provider', recommendedGroupIds);
+  // console.log('communityIds:', communityIds);
 
   return (
     <CommunityScrollContainer
@@ -69,7 +67,12 @@ const UICommunityList = ({
               onClick={onClickCommunity}
             />
           ))}
-        {/* <RecommendedGroups myCommunityIds={communityIds} myRecommendedCommunityIds={communities} /> */}
+
+        <RecommendedGroups
+          myCommunityIds={communityIds}
+          myRecommendedCommunityIds={recommendedGroupIds}
+        />
+
         {loadingMore && renderLoadingSkeleton()}
       </LoadMore>
     </CommunityScrollContainer>
