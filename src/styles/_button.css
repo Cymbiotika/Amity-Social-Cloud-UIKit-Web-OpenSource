@@ -1,0 +1,26 @@
+@import 'tailwindcss/base';
+@layer base {
+  .spt-cym-button {
+    /* @apply spt-leading-none;
+    @apply spt-uppercase;
+    @apply spt-font-semibold;
+    @apply spt-h-9;
+    @apply spt-px-4;
+    @apply spt-py-[0.59375rem];
+    @apply spt-text-white;
+    @apply spt-bg-cym;
+    @apply spt-text-center;
+    @apply spt-font-mon;
+    @apply spt-text-xs;
+    @apply spt-rounded-full;
+    @apply spt-border;
+    @apply spt-border-cym;
+    @apply hover:spt-text-cym;
+    @apply hover:spt-bg-transparent;
+    transition-property: background, color;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+    @apply spt-tracking-[0.08em];
+    @apply spt-cym-button-disabled; */
+  }
+}

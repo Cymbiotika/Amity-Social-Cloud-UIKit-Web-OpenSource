@@ -34,7 +34,7 @@ const OnboardingModal = ({ user, openInitially = false }) => {
       overrides={{
         Overlay: { style: { zIndex: 160 } },
         Dialog: {
-          style: { padding: 20, paddingBottom: 10, maxWidth: 'auto' },
+          style: { margin: 20, padding: 20, paddingBottom: 10, maxWidth: 'auto' },
           className: 'w-[800px]',
         },
       }}
@@ -43,7 +43,7 @@ const OnboardingModal = ({ user, openInitially = false }) => {
     >
       {(close) => (
         <div className="flex flex-col">
-          <button className="self-end w-[20px] h-[20px]" type="button" onClick={close}>
+          <button className="self-end w-[30px] h-[30px]" type="button" onClick={close}>
             <FiX className="w-full h-full" />
           </button>
 
