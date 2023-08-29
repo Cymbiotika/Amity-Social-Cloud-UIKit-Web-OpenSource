@@ -22,6 +22,7 @@ import NewsFeedPage from '~/social/pages/NewsFeed';
 import UserFeedPage from '~/social/pages/UserFeed';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 import NotificationTargetPage from '../NotificationTargetPage';
+import OnboardingModal from '~/social/components/OnboaringModal';
 import { RecommendedGroupsProvider } from '../../providers/ReccomendedGroupsProvider';
 import ServerAPI from './ServerAPI';
 
@@ -168,6 +169,7 @@ const Community = () => {
           <CustomFooterNav onClickUser={handleClickUser} page={page.type} />
         </MainLayout>
       </RecommendedGroupsProvider>
+      <OnboardingModal user={user} />
     </ApplicationContainer>
   );
 };
