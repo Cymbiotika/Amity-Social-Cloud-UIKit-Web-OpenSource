@@ -102,6 +102,7 @@
     "react-truncate-markup": "^5.1.2",
     "react-use": "^17.4.0",
     "storybook": "^7.0.22",
+    "swiper": "^10.2.0",
     "uuid": "^8.3.2"
   },
   "lint-staged": {

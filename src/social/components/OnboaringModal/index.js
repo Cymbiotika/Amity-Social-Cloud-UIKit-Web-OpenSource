@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import MicroModal from 'react-micro-modal';
 import { FiX } from 'react-icons/fi';
 import moment from 'moment';
-import { background } from '@storybook/theming';
+
+import OnboardingSwiper from './OnboardingSwiper';
 
 const OnboardingModal = ({ user, openInitially = false }) => {
   const [open, setOpen] = useState(openInitially);
@@ -23,7 +24,7 @@ const OnboardingModal = ({ user, openInitially = false }) => {
       } else {
         setOpen(false);
       }
-    }, 7000);
+    }, 1000);
   }, [createdAt]);
 
   return (
@@ -32,7 +33,10 @@ const OnboardingModal = ({ user, openInitially = false }) => {
       open={open}
       overrides={{
         Overlay: { style: { zIndex: 160 } },
-        Dialog: { style: { padding: 20 }, className: 'w-[800px]' },
+        Dialog: {
+          style: { padding: 20, paddingBottom: 10, maxWidth: 'auto' },
+          className: 'w-[800px]',
+        },
       }}
       handleClose={() => setOpen(false)}
       closeOnOverlayClick={false}
@@ -44,7 +48,7 @@ const OnboardingModal = ({ user, openInitially = false }) => {
           </button>
 
           <div>
-            <p>Modal content goes here.</p>
+            <OnboardingSwiper setOpen={setOpen} />
           </div>
         </div>
       )}
