@@ -15,8 +15,8 @@ const OnboardingModal = ({ user, openInitially = false }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      // const formatCreatedAtDate = moment(createdAt).format('L');
-      const formatCreatedAtDate = '08/30/2023';
+      const formatCreatedAtDate = moment(createdAt).format('L');
+      // const formatCreatedAtDate = '08/30/2023';
       const today = moment().format('L');
 
       console.log('dates:', formatCreatedAtDate, today);
