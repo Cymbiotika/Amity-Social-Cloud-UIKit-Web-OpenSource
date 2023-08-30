@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
+import useRecommendedCommunitiesList from '~/social/hooks/useRecommendedCommunitiesList';
 import Header from '~/social/components/community/Header';
 
 import { useNavigation } from '~/social/providers/NavigationProvider';
@@ -17,25 +17,29 @@ const SectionContainer = styled.div`
 `;
 
 const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
+  const [communities] = useRecommendedCommunitiesList();
   const { onClickCommunity } = useNavigation();
+
   const [recommendedGroupIds, setRecommendedGroupIds] = useState([]);
 
   const reccomnededGroups = myRecommendedCommunityIds.communities; // assign to value
   console.log('my groups', myCommunityIds);
-  console.log('my recc groups', myRecommendedCommunityIds.communities);
 
   const updateRecommendedGroupIds = () => {
+    console.log('state getter', reccomnededGroups);
     setRecommendedGroupIds(
       reccomnededGroups.filter((community) => !myCommunityIds.includes(community.communityId)),
     );
   };
 
   useEffect(() => {
+    console.log('hey zaddy', communities);
+  }, [communities]);
+
+  useEffect(() => {
     setRecommendedGroupIds(myRecommendedCommunityIds);
-    // console.log('communityIds:', myCommunityIds);
-    // console.log('reccIds:', myRecommendedCommunityIds);
     updateRecommendedGroupIds();
-  }, [myCommunityIds]);
+  }, [myCommunityIds, communities]);
 
   // console.log(recommendedGroupIds);
 

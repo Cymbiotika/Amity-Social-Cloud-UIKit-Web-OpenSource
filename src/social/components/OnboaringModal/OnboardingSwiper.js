@@ -49,11 +49,11 @@ const OnboardingSwiper = ({ setOpen }) => {
       pagination
       spaceBetween={50}
       slidesPerView={1}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
       style={{
         '--swiper-pagination-color': '#005850',
       }}
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={() => console.log('slide change')}
     >
       <SwiperSlide>
         <TextWrapper>
