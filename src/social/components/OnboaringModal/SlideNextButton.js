@@ -7,7 +7,7 @@ const SlideNextButton = ({ nextText }) => {
 
   return (
     <button
-      className="py-[6px] w-full md:w-[296px] bg-cym-teal text-[16px] leading-[140%] font-mon uppercase text-white rounded-full"
+      className="mx-auto py-[6px] w-[260px] md:w-[296px] bg-cym-teal text-[16px] leading-[140%] font-mon uppercase text-white rounded-full"
       type="button"
       onClick={() => swiper.slideNext()}
     >

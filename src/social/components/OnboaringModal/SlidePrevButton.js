@@ -7,7 +7,7 @@ const SlidePrevButton = ({ prevText }) => {
 
   return (
     <button
-      className="py-[6px] w-full md:w-[296px] text-[16px] leading-[140%] font-mon uppercase text-cym-teal rounded-full border border-cym-teal"
+      className="mx-auto py-[6px] w-[260px] md:w-[296px] text-[16px] leading-[140%] font-mon uppercase text-cym-teal rounded-full border border-cym-teal"
       type="button"
       onClick={() => swiper.slidePrev()}
     >
