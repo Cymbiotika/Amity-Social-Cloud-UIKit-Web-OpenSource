@@ -23,25 +23,17 @@ const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
   const [recommendedGroupIds, setRecommendedGroupIds] = useState([]);
 
   const reccomnededGroups = myRecommendedCommunityIds.communities; // assign to value
-  console.log('my groups', myCommunityIds);
 
   const updateRecommendedGroupIds = () => {
-    console.log('state getter', reccomnededGroups);
     setRecommendedGroupIds(
       reccomnededGroups.filter((community) => !myCommunityIds.includes(community.communityId)),
     );
   };
 
   useEffect(() => {
-    console.log('hey zaddy', communities);
-  }, [communities]);
-
-  useEffect(() => {
     setRecommendedGroupIds(myRecommendedCommunityIds);
     updateRecommendedGroupIds();
   }, [myCommunityIds, communities]);
-
-  // console.log(recommendedGroupIds);
 
   return (
     <SectionContainer className="cym-h-4">

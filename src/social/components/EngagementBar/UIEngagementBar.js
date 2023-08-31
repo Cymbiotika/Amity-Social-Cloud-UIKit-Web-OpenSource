@@ -8,6 +8,7 @@ import customizableComponent from '~/core/hocs/customization';
 import ConditionalRender from '~/core/components/ConditionalRender';
 import PostLikeButton from '~/social/components/post/LikeButton';
 import CommentComposeBar from '~/social/components/CommentComposeBar';
+import SavePostButton from './SavePostButton';
 import { SecondaryButton } from '~/core/components/Button';
 import {
   EngagementBarContainer,
@@ -29,7 +30,7 @@ const UIEngagementBar = ({
   onClickComment,
   isComposeBarDisplayed,
   handleAddComment,
-
+  currentUserId,
   setTrayIsVisible,
 }) => {
   const showTray = () => {
@@ -65,7 +66,7 @@ const UIEngagementBar = ({
       </Counters>
       <ConditionalRender condition={!readonly}>
         <>
-          <InteractionBar>
+          <InteractionBar className="relative">
             <PostLikeButton postId={postId} />
             <SecondaryButton
               data-qa-anchor="engagement-bar-comment-button"
@@ -73,6 +74,7 @@ const UIEngagementBar = ({
             >
               <CommentIcon /> <FormattedMessage id="comment" />
             </SecondaryButton>
+            {/* <SavePostButton postId={postId} currentUserId={currentUserId} /> */}
           </InteractionBar>
           <CommentList
             referenceId={postId}

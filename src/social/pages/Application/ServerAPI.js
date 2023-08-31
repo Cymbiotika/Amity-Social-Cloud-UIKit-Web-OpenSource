@@ -34,6 +34,69 @@ const ServerAPI = () => {
     }
   };
   //////////////////////////////// USER //////////////////////////////////////////
+  // get user metaData
+  const getUserMetaData = async (ariseUserId) => {
+    const url = `https://api.us.amity.co/api/v3/users/${ariseUserId}`;
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error.message);
+      return null;
+    }
+  };
+
+  const savePost = async (ariseUserId, fetchedMetadata, savedPostIds) => {
+    const url = `https://api.us.amity.co/api/v3/users/`;
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          userId: `${ariseUserId}`,
+          metadata: {
+            ariseTier: fetchedMetadata.ariseTier,
+            agreedBetaTerms: fetchedMetadata.agreedBetaTerms,
+            agreedToTerms: fetchedMetadata.agreedToTerms,
+            userEmail: fetchedMetadata.userEmail,
+            savedPostIds,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error.message);
+      return null;
+    }
+  };
+
+  // update userMetaData
+
   const followUser = async (userId) => {
     const url = `https://api.us.amity.co/api/v4/me/following/${userId}`;
 
@@ -253,6 +316,8 @@ const ServerAPI = () => {
     updateUserName,
     likedList,
     getCommunityUsers,
+    getUserMetaData,
+    savePost,
   };
 };
 

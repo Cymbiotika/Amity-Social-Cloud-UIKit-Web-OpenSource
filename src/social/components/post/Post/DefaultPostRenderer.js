@@ -24,6 +24,7 @@ import {
   PostHeadContainer,
   ReviewButtonsContainer,
 } from './styles';
+import ServerAPI from '~/social/pages/Application/ServerAPI';
 
 // Number of lines to show in a text post before truncating.
 const MAX_TEXT_LINES_DEFAULT = 8;
@@ -65,6 +66,7 @@ const DefaultPostRenderer = ({
   const openEditingPostModal = () => setIsEditing(true);
   const closeEditingPostModal = () => setIsEditing(false);
   const [trayIsVisible, setTrayIsVisible] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const { data, dataType, postId, targetId, targetType, metadata } = post;
   const { community } = useCommunity(targetId, () => targetType !== PostTargetType.CommunityFeed);
@@ -168,6 +170,12 @@ const DefaultPostRenderer = ({
     (child) => child.dataType === PostDataType.LivestreamPost,
   );
 
+  // useEffect(() => {}, [postId]);
+
+  const getSavedPostStatus = async (currentUserId) => {
+    // const ariseUserId =
+  };
+
   return (
     <PostContainer data-qa-anchor="post" className={className}>
       {/* <code>{postId}</code> */}
@@ -194,6 +202,7 @@ const DefaultPostRenderer = ({
               readonly={readonly}
               postId={postId}
               setTrayIsVisible={setTrayIsVisible}
+              currentUserId={currentUserId}
             />
           )}
 

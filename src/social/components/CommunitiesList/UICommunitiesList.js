@@ -34,8 +34,6 @@ const UICommunityList = ({
   }
 
   const recommendedGroupIds = useRecommendedGroupContext();
-  console.log('reccomneded groups from provider', recommendedGroupIds);
-  // console.log('communityIds:', communityIds);
 
   return (
     <CommunityScrollContainer
