@@ -22,7 +22,7 @@ import {
 } from './styles';
 import { userId } from '~/social/constants';
 
-console.log(userId);
+// console.log(userId);
 
 const UIPostHeader = ({
   avatarFileUrl,

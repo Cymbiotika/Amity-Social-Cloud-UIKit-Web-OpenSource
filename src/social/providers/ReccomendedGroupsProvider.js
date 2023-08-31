@@ -8,7 +8,6 @@ const RecommendedGroupsProvider = ({ children }) => {
   // this is our own custom provider. we will store data (state) and funcitionallity (updaters) in here; and anyone can access it via the consumer!
 
   const [communities] = useRecommendedCommunitiesList();
-  console.log('recc comm', communities);
   const recgroups = communities.communities;
 
   // if (!communities?.length) return null;

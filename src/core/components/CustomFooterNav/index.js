@@ -1,7 +1,7 @@
 import { PageTypes, userId } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useUser from '~/core/hooks/useUser';
 function CustomFooterNav({ onClickUser, page }) {
   const { user, file } = useUser(userId);
@@ -134,7 +134,6 @@ function CustomFooterNav({ onClickUser, page }) {
           onClick={() => {
             tab.func();
             setSelectedTab(tab.page);
-
           }}
         >
           <span className="w-[25px] h-[25px] flex justify-center items-center">{tab.svg}</span>
