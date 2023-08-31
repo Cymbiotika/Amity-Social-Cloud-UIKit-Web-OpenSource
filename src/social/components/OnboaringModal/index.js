@@ -6,35 +6,34 @@ import moment from 'moment';
 import OnboardingSwiper from './OnboardingSwiper';
 
 const OnboardingModal = ({ user, openInitially = false }) => {
-  const [open, setOpen] = useState(openInitially);
-
+  const [open, setOpen] = useState(false);
   const { createdAt } = user;
 
   const localStorageKey = 'onboardingComplete';
   const storedValue = localStorage.getItem(localStorageKey);
 
-  useEffect(() => {
-    setTimeout(() => {
-      const formatCreatedAtDate = moment(createdAt).format('L');
-      // const formatCreatedAtDate = '08/30/2023';
-      const today = moment().format('L');
+  let formatCreatedAtDate;
+  const today = moment().format('L');
 
-      console.log('dates:', formatCreatedAtDate, today);
-      console.log('dates are equal:', formatCreatedAtDate === today);
-      if (formatCreatedAtDate === today) {
-        if (storedValue === 'true') {
-          console.log('Onboarding is complete.');
-          setOpen(false);
-        } else {
-          setOpen(true);
+  useEffect(() => {
+    if (createdAt) {
+      formatCreatedAtDate = moment(createdAt).format('L');
+      // formatCreatedAtDate = moment().format('L');
+      setTimeout(() => {
+        if (formatCreatedAtDate === today) {
+          if (storedValue === 'true') {
+            setOpen(false);
+          } else {
+            setOpen(true);
+          }
         }
-      }
-    }, 1000);
-  }, []);
+      }, 5000);
+    }
+  }, [createdAt]);
 
   return (
     <MicroModal
-      openInitially={openInitially}
+      // openInitially={openInitially}
       open={open}
       overrides={{
         Overlay: { style: { zIndex: 160 } },
