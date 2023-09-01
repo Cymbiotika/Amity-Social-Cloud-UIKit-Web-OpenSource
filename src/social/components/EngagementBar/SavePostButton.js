@@ -7,7 +7,7 @@ import ServerAPI from '~/social/pages/Application/ServerAPI';
 
 // import ServerAPI from '~/social/pages/Application/ServerAPI';
 
-const SavePostButton = ({ postId, currentUserId }) => {
+const SavePostButton = ({ postId, currentUserId, postIsSaved }) => {
   // i hate prop drilling: currentUserId
   const server = ServerAPI();
 
@@ -38,6 +38,10 @@ const SavePostButton = ({ postId, currentUserId }) => {
       console.error('Error fetching Rewards data:', error);
     }
   };
+
+  if (postIsSaved === true) {
+    console.log(`you saved post ${postId}`);
+  }
 
   return (
     <SecondaryButton className="absolute right-0" onClick={() => handleSavePost()}>

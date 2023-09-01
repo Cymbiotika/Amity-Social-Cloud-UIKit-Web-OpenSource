@@ -32,12 +32,10 @@ const UIEngagementBar = ({
   handleAddComment,
   currentUserId,
   setTrayIsVisible,
+  postIsSaved,
 }) => {
   const showTray = () => {
-    console.log('before showing the tray', postId);
-
     setTrayIsVisible(true);
-    console.log('after showing the tray');
   };
 
   return (
@@ -74,7 +72,11 @@ const UIEngagementBar = ({
             >
               <CommentIcon /> <FormattedMessage id="comment" />
             </SecondaryButton>
-            {/* <SavePostButton postId={postId} currentUserId={currentUserId} /> */}
+            <SavePostButton
+              postId={postId}
+              currentUserId={currentUserId}
+              postIsSaved={postIsSaved}
+            />
           </InteractionBar>
           <CommentList
             referenceId={postId}

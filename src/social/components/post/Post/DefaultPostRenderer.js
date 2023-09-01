@@ -66,7 +66,7 @@ const DefaultPostRenderer = ({
   const openEditingPostModal = () => setIsEditing(true);
   const closeEditingPostModal = () => setIsEditing(false);
   const [trayIsVisible, setTrayIsVisible] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  const [postIsSaved, setPostIsSaved] = useState(false);
 
   const { data, dataType, postId, targetId, targetType, metadata } = post;
   const { community } = useCommunity(targetId, () => targetType !== PostTargetType.CommunityFeed);
@@ -170,11 +170,26 @@ const DefaultPostRenderer = ({
     (child) => child.dataType === PostDataType.LivestreamPost,
   );
 
-  // useEffect(() => {}, [postId]);
+  const server = ServerAPI();
 
-  const getSavedPostStatus = async (currentUserId) => {
-    // const ariseUserId =
-  };
+  useEffect(() => {
+    const ariseUserId = currentUserId;
+    if (loading === false) {
+      const getSavedPostStatus = async () => {
+        try {
+          const fetchUserMetaData = await server.getUserMetaData(ariseUserId);
+          const savedPostIdsArray = fetchUserMetaData.users[0].metadata.savedPostIds;
+          if (savedPostIdsArray.includes(postId)) {
+            setPostIsSaved(true);
+            console.log('post saved');
+          }
+        } catch (error) {
+          console.error('Error fetching saved post data:', error);
+        }
+      };
+      getSavedPostStatus();
+    }
+  }, [loading]);
 
   return (
     <PostContainer data-qa-anchor="post" className={className}>
@@ -203,6 +218,7 @@ const DefaultPostRenderer = ({
               postId={postId}
               setTrayIsVisible={setTrayIsVisible}
               currentUserId={currentUserId}
+              postIsSaved={postIsSaved}
             />
           )}
 
