@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
 
 import { SecondaryButton } from '~/core/components/Button';
 import ServerAPI from '~/social/pages/Application/ServerAPI';
@@ -45,8 +46,17 @@ const SavePostButton = ({ postId, currentUserId, postIsSaved }) => {
 
   return (
     <SecondaryButton className="absolute right-0" onClick={() => handleSavePost()}>
-      <FaRegBookmark className="h-[16px] w-auto mr-1" /> <FormattedMessage id="save" />
-      <FaBookmark className="h-[16px] w-auto mr-1" /> <FormattedMessage id="saved" />
+      {postIsSaved ? (
+        <IconContext.Provider value={{ color: '#005850', className: 'global-class-name' }}>
+          <FaBookmark className="h-[16px] w-auto mr-1" />
+          <FormattedMessage id="Saved" />
+        </IconContext.Provider>
+      ) : (
+        <>
+          <FaRegBookmark className="h-[16px] w-auto mr-1" />
+          <FormattedMessage id="save" />
+        </>
+      )}
     </SecondaryButton>
   );
 };

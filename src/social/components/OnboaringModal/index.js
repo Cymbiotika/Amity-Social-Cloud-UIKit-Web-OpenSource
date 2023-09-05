@@ -18,7 +18,7 @@ const OnboardingModal = ({ user, openInitially = false }) => {
   useEffect(() => {
     if (createdAt) {
       formatCreatedAtDate = moment(createdAt).format('L');
-      // formatCreatedAtDate = moment().format('L');
+      // formatCreatedAtDate = moment().format('L'); set createdAt to 'today' for testing purposes
       setTimeout(() => {
         if (formatCreatedAtDate === today) {
           if (storedValue === 'true') {
@@ -27,7 +27,7 @@ const OnboardingModal = ({ user, openInitially = false }) => {
             setOpen(true);
           }
         }
-      }, 5000);
+      }, 6000);
     }
   }, [createdAt]);
 

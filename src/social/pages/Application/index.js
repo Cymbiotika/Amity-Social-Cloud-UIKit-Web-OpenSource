@@ -22,7 +22,7 @@ import NewsFeedPage from '~/social/pages/NewsFeed';
 import UserFeedPage from '~/social/pages/UserFeed';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 import NotificationTargetPage from '../NotificationTargetPage';
-import OnboardingModal from '~/social/components/OnboaringModal';
+// import OnboardingModal from '~/social/components/OnboaringModal';
 import { RecommendedGroupsProvider } from '../../providers/ReccomendedGroupsProvider';
 import ServerAPI from './ServerAPI';
 
@@ -78,12 +78,15 @@ const Community = () => {
       }, 1000);
     }
   }, [user]);
-
+  console.log('user id and name', userId, user.displayName);
   useEffect(() => {
+    window.shopifyCustomerName = 'Hector C';
+    console.log(user);
+
     if (userId === user.displayName) {
       server.updateUserName(window.shopifyCustomerName);
     }
-  }, [user]);
+  }, []);
 
   const customerId = window.shopifyCustomerId || userId;
   const { page, onClickUser } = useNavigation();
@@ -169,7 +172,7 @@ const Community = () => {
           <CustomFooterNav onClickUser={handleClickUser} page={page.type} />
         </MainLayout>
       </RecommendedGroupsProvider>
-      <OnboardingModal user={user} />
+      {/* <OnboardingModal user={user} /> */}
     </ApplicationContainer>
   );
 };

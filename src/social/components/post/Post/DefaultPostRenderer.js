@@ -181,7 +181,6 @@ const DefaultPostRenderer = ({
           const savedPostIdsArray = fetchUserMetaData.users[0].metadata.savedPostIds;
           if (savedPostIdsArray.includes(postId)) {
             setPostIsSaved(true);
-            console.log('post saved');
           }
         } catch (error) {
           console.error('Error fetching saved post data:', error);
