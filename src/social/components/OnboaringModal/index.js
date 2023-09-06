@@ -22,8 +22,10 @@ const OnboardingModal = ({ user, openInitially = false }) => {
       setTimeout(() => {
         if (formatCreatedAtDate === today) {
           if (storedValue === 'true') {
+            console.log('completed modal onboarding dont show');
             setOpen(false);
           } else {
+            console.log('show modal onboarding');
             setOpen(true);
           }
         }

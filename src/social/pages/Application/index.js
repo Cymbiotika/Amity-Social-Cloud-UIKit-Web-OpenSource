@@ -22,7 +22,7 @@ import NewsFeedPage from '~/social/pages/NewsFeed';
 import UserFeedPage from '~/social/pages/UserFeed';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 import NotificationTargetPage from '../NotificationTargetPage';
-// import OnboardingModal from '~/social/components/OnboaringModal';
+import OnboardingModal from '~/social/components/OnboaringModal';
 import { RecommendedGroupsProvider } from '../../providers/ReccomendedGroupsProvider';
 import ServerAPI from './ServerAPI';
 
@@ -52,10 +52,12 @@ const Community = () => {
   const ariseFollow = useFollow(userId, '6405802983471');
   const chervinFollow = useFollow(userId, '699914223639');
 
+  const [initialLoadingComplete, setInitialLoadingComplete] = useState(false);
+
   useEffect(() => {
     const diffInMilliseconds = Math.abs(user.createdAt - new Date());
     const fiveMinutesInMilliseconds = 5 * 60 * 1000; // 5 minutes in milliseconds
-    if (diffInMilliseconds <= fiveMinutesInMilliseconds) {
+    if (diffInMilliseconds <= fiveMinutesInMilliseconds && !initialLoadingComplete) {
       setTimeout(async () => {
         try {
           await chervinFollow.follow();
@@ -68,6 +70,7 @@ const Community = () => {
         } catch (error) {
           console.error('Error following arise:', error);
         }
+        setInitialLoadingComplete(true);
         // 'refresh' feed
         setTimeout(() => {
           onChangePage(PageTypes.Explore);
@@ -78,15 +81,14 @@ const Community = () => {
       }, 1000);
     }
   }, [user]);
-  console.log('user id and name', userId, user.displayName);
-  useEffect(() => {
-    window.shopifyCustomerName = 'Hector C';
-    console.log(user);
 
-    if (userId === user.displayName) {
-      server.updateUserName(window.shopifyCustomerName);
-    }
-  }, []);
+  // if (user.userId !== undefined && user.displayName !== undefined) {
+  //   if (user.userId === user.displayName) {
+  //     window.shopifyCustomerName = 'Chris Adams';
+  //     const shopifyCustomerName = window.shopifyCustomerName;
+  //     server.updateUserName(shopifyCustomerName);
+  //   }
+  // }
 
   const customerId = window.shopifyCustomerId || userId;
   const { page, onClickUser } = useNavigation();
@@ -172,7 +174,7 @@ const Community = () => {
           <CustomFooterNav onClickUser={handleClickUser} page={page.type} />
         </MainLayout>
       </RecommendedGroupsProvider>
-      {/* <OnboardingModal user={user} /> */}
+      <OnboardingModal user={user} />
     </ApplicationContainer>
   );
 };

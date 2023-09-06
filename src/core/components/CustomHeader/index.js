@@ -135,36 +135,6 @@ const CustomHeader = ({ onClickUser, className, id }) => {
               >
                 {user.displayName}
               </p>
-
-              {/* <div className="relative">
-              <EllipsisH
-                onClick={() => setShowMenu(!showMenu)}
-                className="md:hidden w-[16px] h-7"
-              />
-              {showMenu && (
-                <>
-                  <div
-                    onClick={() => setShowMenu(false)}
-                    className="fixed inset-0 bg-black opacity-40 w-full h-full z-50"
-                  ></div>
-                  <div className="shadow-custom absolute right-0 w-[140px] bg-white flex flex-col z-50 cym-h-2-sm justify-center border-[0.5px] border-cym-grey rounded-md animate-fade-in">
-                    {menuTabs.map((tab, index) => (
-                      <p
-                        onClick={() => {
-                          tab.func();
-                          setShowMenu(false);
-                        }}
-                        className={`p-[10px] flex items-center ${
-                          index + 1 < menuTabs.length ? 'border-b-[0.5px] border-cym-grey' : ''
-                        }`}
-                      >
-                        {tab.name}
-                      </p>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div> */}
             </div>
           </div>
 
@@ -181,9 +151,11 @@ const CustomHeader = ({ onClickUser, className, id }) => {
 };
 
 CustomHeader.propTypes = {
+  userId: PropTypes.string,
   onClickUser: PropTypes.func,
 };
 CustomHeader.defaultProps = {
+  userId: '',
   onClickUser: null,
 };
 
