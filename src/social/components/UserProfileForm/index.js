@@ -28,6 +28,11 @@ import { MyProfileContainer } from '../UserInfo/styles';
 const ButtonContainer = styled.div`
   margin-top: 16px;
 `;
+
+const UserName = styled.div`
+  font-weight: 600;
+  font-size: 20px;
+`;
 const FormBlock = ({ title, children }) => (
   <>
     <MyProfileContainer className="!relative xs:!flex justify-center items-center md:!hidden min-h-[32px] h-fit mt-4">
@@ -89,6 +94,11 @@ const UserProfileForm = ({ user, onSubmit, className }) => {
             )}
             control={control}
           />
+          <div className="flex flex-col">
+            <Label>Name</Label>
+            <UserName className="text-[20px] font-medium">{displayName}</UserName>
+          </div>
+          {/* 
           <Field error={errors.name}>
             <LabelCounterWrapper>
               <Label htmlFor="displayName" className="required">
@@ -107,6 +117,7 @@ const UserProfileForm = ({ user, onSubmit, className }) => {
             />
             <ErrorMessage errors={errors} name="displayName" />
           </Field>
+           */}
           <Field error={errors.description}>
             <LabelCounterWrapper>
               <Label htmlFor="description">
