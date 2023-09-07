@@ -137,6 +137,7 @@ export const TitleEllipse = styled.div`
 export const ProfileNameWrapper = styled.div`
   display: flex;
   align-items: center;
+  text-transform: capitalize;
 `;
 
 export const UserBadgesWrapper = styled.div`

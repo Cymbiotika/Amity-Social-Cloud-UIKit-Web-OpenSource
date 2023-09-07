@@ -17,11 +17,13 @@ const SectionContainer = styled.div`
 `;
 
 const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
+  const [loading, setLoading] = useState(false);
+  function renderLoadingSkeleton() {
+    return new Array(5).fill(1).map((x, index) => <Header key={index} loading />);
+  }
   const [communities] = useRecommendedCommunitiesList();
   const { onClickCommunity } = useNavigation();
-
   const [recommendedGroupIds, setRecommendedGroupIds] = useState([]);
-
   const reccomnededGroups = myRecommendedCommunityIds.communities; // assign to value
 
   const updateRecommendedGroupIds = () => {
@@ -33,16 +35,22 @@ const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
   useEffect(() => {
     setRecommendedGroupIds(myRecommendedCommunityIds);
     updateRecommendedGroupIds();
-  }, [myCommunityIds, communities]);
+    setLoading(true);
+    if (reccomnededGroups.length) {
+      setLoading(false);
+    }
+  }, [reccomnededGroups]);
 
   return (
     <SectionContainer className="cym-h-4">
       <div className="hidden md:block">
         <ListHeading className="!cym-h-2-lg">Recommended Groups</ListHeading>
+        {loading && renderLoadingSkeleton()}
 
-        {recommendedGroupIds.map(({ communityId }) => (
-          <Header key={communityId} communityId={communityId} onClick={onClickCommunity} />
-        ))}
+        {!loading &&
+          recommendedGroupIds.map(({ communityId }) => (
+            <Header key={communityId} communityId={communityId} onClick={onClickCommunity} />
+          ))}
       </div>
     </SectionContainer>
   );
