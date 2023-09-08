@@ -1,9 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 
-// import EmptyState from '~/core/components/EmptyState';
 import customizableComponent from '~/core/hocs/customization';
 import { AriseTokensContainer } from './styles';
-import EmptyState from '~/core/components/EmptyState';
 import RewardsLoadingSkeleton from './RewardsLoadingSkeleton';
 
 import ServerAPI from '../../pages/Application/ServerAPI';

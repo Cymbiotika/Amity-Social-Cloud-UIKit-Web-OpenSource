@@ -38,8 +38,11 @@ export const Overlay = styled.div`
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;
-    height: 80%;
+    height: max-content;
     width: auto;
+    @media screen and (min-width: 768px) {
+      height: 80%;
+    }
   }
 `;
 
@@ -135,12 +138,36 @@ const FeaturedVideos = ({
   }, [scrollPosition, contentWidth, width, hasMore, loadMore]);
 
   const playlist = [
+    // {
+    //   key: 0,
+    //   src: 'https://cdn.shopify.com/videos/c/o/v/faf87fa46aa54dada790f1c3155344b5.mp4',
+    //   thumbnail: 'https://cdn.shopify.com/s/files/1/1824/8017/files/Healthy_Glow.jpg?v=1694041319',
+    //   title: '',
+    //   wide: true,
+    // },
+    // {
+    //   key: 1,
+    //   src: 'https://cdn.shopify.com/videos/c/o/v/4f34f55a18e64f42b76c26ab1b0eeeb2.mp4',
+    //   thumbnail:
+    //     'https://cdn.shopify.com/s/files/1/1824/8017/files/Cymbiotika-Eats-Thumbnail.png?v=1694192611',
+    //   title: 'Cymbiotika Eats 🍴',
+    //   wide: false,
+    // },
+    // {
+    //   key: 2,
+    //   src: 'https://cdn.shopify.com/videos/c/o/v/7c80efdd02454b06aa9761d9c18d0ad1.mp4',
+    //   thumbnail:
+    //     'https://images.unsplash.com/photo-1518534249708-e8f3537753ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGF0aHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
+    //   title: 'Path to Excelence 🏆',
+    //   wide: true,
+    // },
     {
       key: 0,
       src: 'https://cdn.shopify.com/videos/c/o/v/a0511a6edad24607a8d9a7b4d580c46f.mp4',
       thumbnail:
         'https://cdn.shopify.com/s/files/1/1824/8017/files/arise-welcome-thumbnail_Large_86b211d7-fb30-4b07-89b9-590fa9e97d44.jpg?v=1689962286',
       title: '',
+      wide: true,
     },
     {
       key: 1,
@@ -148,6 +175,7 @@ const FeaturedVideos = ({
       thumbnail:
         'https://cdn.shopify.com/s/files/1/1824/8017/files/Symbiosis-and-Gut-Health-tumbnail.png?v=1690897896',
       title: 'Symbiosis and Gut Health',
+      wide: false,
     },
     {
       key: 2,
@@ -155,19 +183,15 @@ const FeaturedVideos = ({
       thumbnail:
         'https://cdn.shopify.com/s/files/1/1824/8017/files/5-Toxic-Ingredients-Thumb.png?v=1690898042',
       title: '5 Toxic Ingredients to Avoid',
+      wide: false,
     },
   ];
 
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(null);
-  console.log('Video index', selectedVideoIndex);
 
   const spawnVideoOverlay = (index, e) => {
-    console.log('Video index', selectedVideoIndex);
-    console.log('Spawn overlay');
     setSelectedVideoIndex(index);
     document.body.style.overflow = 'hidden';
-
-    // document.getElementById('video-overlay').style.display = 'flex';
   };
 
   const closeVideoOverlay = () => {
@@ -176,7 +200,6 @@ const FeaturedVideos = ({
     document.getElementById(`video`).currentTime = 0;
     document.getElementById(`video`).pause();
     document.body.style.overflow = 'auto';
-    console.log('closing overlay');
   };
 
   return (
@@ -184,8 +207,9 @@ const FeaturedVideos = ({
       {selectedVideoIndex !== null && (
         <Overlay id="video-overlay">
           <CloseButton className="absolute right-5 top-5" onClick={closeVideoOverlay} />
-          <video id="video" className="video h-max" controls autoplay="true">
+          <video id="video" className="video h-max" controls autoPlay="true">
             <source src={playlist[selectedVideoIndex].src} type="video/mp4" />
+            <track kind="captions" label="English" src="captions_en.vtt" srcLang="en" />
           </video>
         </Overlay>
       )}
@@ -211,7 +235,7 @@ const FeaturedVideos = ({
               <div
                 key={video.key}
                 className={`${
-                  index === 0 ? 'md:w-[520px]' : 'md:w-[200px]'
+                  video.wide === true ? 'md:w-[520px]' : 'md:w-[200px]'
                 } w-[300px] relative cover h-[315px] rounded-[5px] overflow-hidden`}
                 style={{
                   backgroundImage: `url(${video.thumbnail})`,
