@@ -206,7 +206,7 @@ const FeaturedVideos = ({
         </Header>
 
         <ScrollContainer ref={containerRef} page={page}>
-          <StretchedList columns={columns} className="gap-[16px] md:gap-unset">
+          <StretchedList columns={columns} className="gap-[16px] w-max md:gap-unset">
             {playlist.map((video, index) => (
               <div
                 key={video.key}
