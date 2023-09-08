@@ -36,11 +36,11 @@ export const VideoQuality = Object.freeze({
 
 export const MP4MimeType = 'video/mp4';
 
-export const userId = window.shopifyCustomerId ?? '6229059141679';
-export const displayName = window.shopifyCustomerName ?? 'Hector Cardona';
+// export const userId = window.shopifyCustomerId ?? '6229059141679';
+// export const displayName = window.shopifyCustomerName ?? 'Hector Cardona';
 
-// export const userId = window.shopifyCustomerId ?? '3454838145071';
-// export const displayName = window.shopifyCustomerName ?? 'Jared Radtkey';
+export const userId = window.shopifyCustomerId ?? '3454838145071';
+export const displayName = window.shopifyCustomerName ?? 'Jared Radtkey';
 
 // export const userId = window.shopifyCustomerId ?? '699914223639';
 // export const displayName = window.shopifyCustomerName ?? 'Chervin Jafarieh';
