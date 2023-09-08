@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useRecommendedCommunitiesList from '~/social/hooks/useRecommendedCommunitiesList';
 import Header from '~/social/components/community/Header';
@@ -17,35 +17,36 @@ const SectionContainer = styled.div`
 `;
 
 const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const { onClickCommunity } = useNavigation();
+  const [recommendedGroupIds, setRecommendedGroupIds] = useState([]);
+  const [communities, , , loading] = useRecommendedCommunitiesList();
+
   function renderLoadingSkeleton() {
     return new Array(5).fill(1).map((x, index) => <Header key={index} loading />);
   }
-  const [communities] = useRecommendedCommunitiesList();
-  const { onClickCommunity } = useNavigation();
-  const [recommendedGroupIds, setRecommendedGroupIds] = useState([]);
-  const reccomnededGroups = myRecommendedCommunityIds.communities; // assign to value
 
   const updateRecommendedGroupIds = () => {
     setRecommendedGroupIds(
-      reccomnededGroups.filter((community) => !myCommunityIds.includes(community.communityId)),
+      myRecommendedCommunityIds.communities.filter(
+        (community) => !myCommunityIds.includes(community.communityId),
+      ),
     );
   };
 
   useEffect(() => {
-    setRecommendedGroupIds(myRecommendedCommunityIds);
     updateRecommendedGroupIds();
-    setLoading(true);
-    if (reccomnededGroups.length) {
-      setLoading(false);
-    }
-  }, [reccomnededGroups]);
+  }, [communities]);
+
+  if (!communities?.length) return null;
 
   return (
     <SectionContainer className="cym-h-4">
       <div className="hidden md:block">
         <ListHeading className="!cym-h-2-lg">Recommended Groups</ListHeading>
-        {loading && renderLoadingSkeleton()}
+
+        {/* Only render loading skeleton if there are recommended communities */}
+        {loading && communities && communities.length > 0 && renderLoadingSkeleton()}
 
         {!loading &&
           recommendedGroupIds.map(({ communityId }) => (
@@ -56,4 +57,4 @@ const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
   );
 };
 
-export default RecommendedGroups;
+export default memo(RecommendedGroups);
