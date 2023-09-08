@@ -173,22 +173,25 @@ const DefaultPostRenderer = ({
   const server = ServerAPI();
 
   useEffect(() => {
-    const ariseUserId = currentUserId;
-    if (loading === false) {
-      const getSavedPostStatus = async () => {
-        try {
-          const fetchUserMetaData = await server.getUserMetaData(ariseUserId);
-          const savedPostIdsArray = fetchUserMetaData.users[0].metadata.savedPostIds;
-          if (savedPostIdsArray.includes(postId)) {
-            setPostIsSaved(true);
-          }
-        } catch (error) {
-          console.error('Error fetching saved post data:', error);
+    const getSavedPostStatus = async () => {
+      try {
+        const fetchUserMetaData = await server.getUserMetaData(currentUserId);
+        const savedPostIdsArray = fetchUserMetaData.users[0].metadata.savedPostIds;
+        if (savedPostIdsArray.includes(postId)) {
+          setPostIsSaved(true);
+        } else {
+          setPostIsSaved(false); // Ensure it's false if not found
         }
-      };
+      } catch (error) {
+        console.error('Error fetching saved post data:', error);
+      }
+    };
+
+    // Call the function when any of these dependencies change
+    if (loading === false) {
       getSavedPostStatus();
     }
-  }, [loading]);
+  }, [loading, currentUserId, postId]);
 
   return (
     <PostContainer data-qa-anchor="post" className={className}>
