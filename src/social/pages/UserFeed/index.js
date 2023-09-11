@@ -1,6 +1,6 @@
 import { PostTargetType } from '@amityco/js-sdk';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import withSDK from '~/core/hocs/withSDK';
 import * as utils from '~/helpers/utils';
@@ -79,6 +79,7 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
           setUserFeedTab={setActiveTab}
         />
       )}
+      {activeTab === UserFeedTabs.SAVEDPOSTS && <code>Saved Posts</code>}
     </Wrapper>
   );
 };

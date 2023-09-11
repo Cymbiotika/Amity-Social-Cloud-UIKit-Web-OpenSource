@@ -6,6 +6,7 @@ export const UserFeedTabs = {
   GALLERY: 'GALLERY',
   TOKENS: 'TOKENS',
   FOLLOWERS: 'FOLLOWERS',
+  SAVEDPOSTS: 'SAVED POSTS',
 };
 
 export const tabs = [
@@ -13,4 +14,5 @@ export const tabs = [
   { value: UserFeedTabs.GALLERY, label: <FormattedMessage id="tabs.gallery" /> },
   { value: UserFeedTabs.TOKENS, label: <FormattedMessage id="tabs.tokens" /> },
   { value: UserFeedTabs.FOLLOWERS, label: <FormattedMessage id="tabs.followers" /> },
+  { value: UserFeedTabs.SAVEDPOSTS, label: <FormattedMessage id="tabs.savedPosts" /> },
 ];
