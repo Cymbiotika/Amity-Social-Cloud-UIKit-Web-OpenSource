@@ -9,6 +9,7 @@ import ConditionalRender from '~/core/components/ConditionalRender';
 import PostLikeButton from '~/social/components/post/LikeButton';
 import CommentComposeBar from '~/social/components/CommentComposeBar';
 import SavePostButton from './SavePostButton';
+import UnsavePostButton from './UnsavePostButton';
 import { SecondaryButton } from '~/core/components/Button';
 import {
   EngagementBarContainer,
@@ -72,12 +73,19 @@ const UIEngagementBar = ({
             >
               <CommentIcon /> <FormattedMessage id="comment" />
             </SecondaryButton>
-
-            <SavePostButton
-              postId={postId}
-              currentUserId={currentUserId}
-              postIsSaved={postIsSaved}
-            />
+            {postIsSaved ? (
+              <UnsavePostButton
+                postId={postId}
+                currentUserId={currentUserId}
+                postIsSaved={postIsSaved}
+              />
+            ) : (
+              <SavePostButton
+                postId={postId}
+                currentUserId={currentUserId}
+                postIsSaved={postIsSaved}
+              />
+            )}
           </InteractionBar>
           <CommentList
             referenceId={postId}
@@ -107,7 +115,9 @@ const UIEngagementBar = ({
 };
 
 UIEngagementBar.propTypes = {
+  currentUserId: PropTypes.string,
   postId: PropTypes.string,
+  postIsSaved: PropTypes.bool,
   targetType: PropTypes.string,
   setTrayIsVisible: PropTypes.bool,
   totalLikes: PropTypes.number,
@@ -119,7 +129,9 @@ UIEngagementBar.propTypes = {
 };
 
 UIEngagementBar.defaultProps = {
+  currentUserId: '',
   postId: '',
+  postIsSaved: false,
   targetType: '',
   setTrayIsVisible: false,
   totalLikes: 0,

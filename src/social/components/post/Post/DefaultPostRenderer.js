@@ -180,14 +180,13 @@ const DefaultPostRenderer = ({
         if (savedPostIdsArray.includes(postId)) {
           setPostIsSaved(true);
         } else {
-          setPostIsSaved(false); // Ensure it's false if not found
+          setPostIsSaved(false);
         }
       } catch (error) {
         console.error('Error fetching saved post data:', error);
       }
     };
 
-    // Call the function when any of these dependencies change
     if (loading === false) {
       getSavedPostStatus();
     }
