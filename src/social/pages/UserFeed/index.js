@@ -6,6 +6,7 @@ import withSDK from '~/core/hocs/withSDK';
 import * as utils from '~/helpers/utils';
 import AriseTokensGallery from '~/social/components/AriseTokens';
 import MediaGallery from '~/social/components/MediaGallery';
+import SavedPosts from '~/social/components/SavedPosts';
 
 import FeedHeaderTabs from '~/social/components/FeedHeaderTabs';
 import UserInfo from '~/social/components/UserInfo';
@@ -79,7 +80,7 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
           setUserFeedTab={setActiveTab}
         />
       )}
-      {activeTab === UserFeedTabs.SAVEDPOSTS && <code>Saved Posts</code>}
+      {activeTab === UserFeedTabs.SAVEDPOSTS && <SavedPosts userId={userId} />}
     </Wrapper>
   );
 };
