@@ -26,13 +26,15 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
   const [followActiveTab, setFollowActiveTab] = useState(FollowersTabs.FOLLOWINGS);
 
   const isMe = userId === currentUserId;
-
+  console.log('my view?', isMe);
   const { isFollowAccepted } = useFollow(currentUserId, userId);
   const isHiddenProfile = isPrivateNetwork && !isFollowAccepted && !isMe;
 
   const filteredTabs = isHiddenProfile
     ? tabs.filter(({ value }) => value === UserFeedTabs.TIMELINE)
     : tabs;
+
+  const myTabs = !isMe ? tabs.filter(({ value }) => value !== UserFeedTabs.SAVEDPOSTS) : tabs;
 
   return (
     // key prop is necessary here, without it this part will never re-render !!!
@@ -47,7 +49,7 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
 
       <FeedHeaderTabs
         data-qa-anchor="user-feed-header"
-        tabs={filteredTabs}
+        tabs={myTabs || filteredTabs}
         activeTab={activeTab}
         onChange={setActiveTab}
       />
@@ -80,6 +82,7 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
           setUserFeedTab={setActiveTab}
         />
       )}
+
       {activeTab === UserFeedTabs.SAVEDPOSTS && <SavedPosts userId={userId} />}
     </Wrapper>
   );

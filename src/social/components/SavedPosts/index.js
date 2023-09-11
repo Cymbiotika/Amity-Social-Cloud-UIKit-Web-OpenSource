@@ -3,11 +3,9 @@ import Post from '~/social/components/post/Post';
 import DefaultPostRenderer from '~/social/components/post/Post/DefaultPostRenderer';
 import { SavedPostsContainer } from './styles';
 
-import { ContentSkeleton } from '../post/Post/styles';
-
 import ServerAPI from '~/social/pages/Application/ServerAPI';
 
-const SavedPosts = ({ userId }) => {
+const SavedPosts = ({ userId, isMe }) => {
   const [loading, setLoading] = useState(true);
   const [mySavedPosts, setMySavedPosts] = useState([]);
 
@@ -23,7 +21,6 @@ const SavedPosts = ({ userId }) => {
         const savedPostsResp = fetchUserData.users[0].metadata.savedPostIds;
         setMySavedPosts(savedPostsResp);
         setLoading(false);
-        console.log(mySavedPosts);
       } catch (error) {
         console.error('Error fetching saved post data:', error);
       }
@@ -33,10 +30,8 @@ const SavedPosts = ({ userId }) => {
 
   return (
     <SavedPostsContainer>
-      {/* {userId} */}
       {loading && renderLoadingSkeleton()}
       {!loading && mySavedPosts.map((postId, index) => <Post key={index} postId={postId} />)}
-      {/* <Post postId={'64f9fdfa79efa93a8f027792'} /> */}
     </SavedPostsContainer>
   );
 };
