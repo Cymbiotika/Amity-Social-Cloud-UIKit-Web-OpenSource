@@ -28,7 +28,7 @@ const SavePostButton = ({ postId, currentUserId, postIsSaved }) => {
         console.log('add to the array');
       }
     } catch (error) {
-      console.error('Error fetching Rewards data:', error);
+      console.error('Error saving post:', error);
     }
   };
 

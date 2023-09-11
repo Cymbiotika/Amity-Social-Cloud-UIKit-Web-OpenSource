@@ -10,10 +10,21 @@ const UnsavePostButton = ({ postId, currentUserId, postIsSaved }) => {
   const server = ServerAPI();
   console.log('UwU', currentUserId);
   const handleUnsavePost = async () => {
+    const ariseUserId = currentUserId;
     try {
       const fetchUserData = await server.getUserMetaData(currentUserId);
+      const fetchedMetadata = fetchUserData.users[0].metadata;
       const savedPostIdsArray = fetchUserData.users[0].metadata.savedPostIds;
-      console.log(savedPostIdsArray);
+
+      if (savedPostIdsArray.includes(postId)) {
+        const savedPostIds = savedPostIdsArray.filter((id) => id !== postId);
+        console.log(`updated saved posts array ${savedPostIds}`);
+        try {
+          const savePostResp = await server.savePost(ariseUserId, fetchedMetadata, savedPostIds);
+        } catch (error) {
+          console.error('Error unsaving post:', error);
+        }
+      }
     } catch (error) {
       console.error('Error fetching saved post data:', error);
     }
