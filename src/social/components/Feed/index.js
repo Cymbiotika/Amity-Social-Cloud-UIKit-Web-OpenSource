@@ -143,7 +143,7 @@ const Feed = ({
                     hidePostTarget={targetType !== PostTargetType.GlobalFeed}
                     readonly={readonly}
                   />
-                  {page.type === PageTypes.NewsFeed && index === 0 && <NewsFeedTrendingList />}
+                  {/* {page.type === PageTypes.NewsFeed && index === 0 && <NewsFeedTrendingList />} */}
                 </React.Fragment>
               ))}
 
