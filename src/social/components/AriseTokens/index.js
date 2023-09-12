@@ -3,6 +3,7 @@ import React, { memo, useEffect, useState } from 'react';
 import customizableComponent from '~/core/hocs/customization';
 import { AriseTokensContainer } from './styles';
 import RewardsLoadingSkeleton from './RewardsLoadingSkeleton';
+import ClaimBadges from './ClaimBadges';
 
 import ServerAPI from '../../pages/Application/ServerAPI';
 
@@ -57,7 +58,11 @@ const AriseTokensGallery = ({ targetId }) => {
 
   return (
     <AriseTokensContainer className="grid grid-cols-3 gap-[32px] items-start mx-auto">
+      <ClaimBadges />
       {loading ? renderLoadingSkeleton() : null}
+      {!loading && extractedRewardsData.some((reward) => !reward.claimedNft) ? (
+        <ClaimBadges />
+      ) : null}
       {!loading &&
         extractedRewardsData &&
         extractedRewardsData.map((reward, index) =>
