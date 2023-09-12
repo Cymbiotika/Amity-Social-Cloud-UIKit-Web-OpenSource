@@ -1,10 +1,8 @@
-import { FollowRequestStatus, UserRepository } from '@amityco/js-sdk';
 import { useEffect, useState } from 'react';
 import BackLink from '~/core/components/BackLink';
 import useUserQuery from '~/core/hooks/useUserQuery';
 import SocialSearchv2 from '~/social/components/SocialSearchv2';
 import Post from '~/social/components/post/Post';
-import { userId } from '~/social/constants';
 import useCommunitiesList from '~/social/hooks/useCommunitiesList';
 import ServerAPI from '../Application/ServerAPI';
 import GroupSearchResult from './SearchResults/GroupSearchResult';
@@ -12,7 +10,6 @@ import UserSearchResult from './SearchResults/UserSearchResult';
 
 function SearchFeed({ searchQuery }) {
   // const { post } = usePost(targetId);
-  console.log('in searchFeed');
   const navbarTabs = [
     { label: 'All', filterId: 'all' },
     { label: 'Groups', filterId: 'groups' },
@@ -24,15 +21,9 @@ function SearchFeed({ searchQuery }) {
     setSelected(index);
   };
   const server = ServerAPI();
-  const [rerenderFlag, setRerenderFlag] = useState(false);
-  const handleRerender = () => {
-    console.log('RENRENDERFLAGGGG');
-    setRerenderFlag(!rerenderFlag);
-  };
+
   const [postLoading, setPostLoading] = useState(true);
   const [postResults, setPostResults] = useState([]);
-
-  const [followingList, setFollowingList] = useState(new Set());
 
   const [users = [], hasMoreUsers, loadMoreUsers] = useUserQuery(searchQuery);
 
@@ -54,14 +45,6 @@ function SearchFeed({ searchQuery }) {
     setPostLoading(true);
     queryPosts();
   }, [searchQuery]);
-
-  useEffect(() => {
-    const liveFollowersList = UserRepository.getFollowings(userId, FollowRequestStatus.Accepted);
-
-    liveFollowersList.once('dataUpdated', (data) => {
-      setFollowingList(new Set(data.map((following) => following.userId)));
-    });
-  }, [rerenderFlag]);
 
   return (
     <div className="flex flex-col w-full mx-auto py-7 max-w-[550px]">
@@ -132,11 +115,7 @@ function SearchFeed({ searchQuery }) {
           {!!users.length && (
             <div className="mt-3">
               {users.map((user) => (
-                <UserSearchResult
-                  user={user}
-                  following={followingList.has(user.userId)}
-                  rerenderCallback={handleRerender}
-                />
+                <UserSearchResult user={user} />
               ))}
             </div>
           )}
@@ -166,11 +145,7 @@ function SearchFeed({ searchQuery }) {
         <div className="mt-3 flex flex-col">
           {!users.length && <p className="text-cym-placeholdergrey mt-1">Nothing to see here.</p>}
           {users.map((user) => (
-            <UserSearchResult
-              user={user}
-              following={followingList.has(user.userId)}
-              rerenderCallback={handleRerender}
-            />
+            <UserSearchResult user={user} />
           ))}
         </div>
       )}

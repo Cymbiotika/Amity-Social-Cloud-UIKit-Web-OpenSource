@@ -45,7 +45,6 @@ const StyledCommunitySideMenu = styled(CommunitySideMenu)`
   }
 `;
 
-console.log('HREERERERERERER');
 const Community = () => {
   const server = ServerAPI();
 

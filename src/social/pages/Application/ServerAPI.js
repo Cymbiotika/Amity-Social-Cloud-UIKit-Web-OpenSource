@@ -188,7 +188,6 @@ const ServerAPI = () => {
       }
 
       const data = await response.json();
-      console.log('SUCCESS');
       return data;
     } catch (error) {
       console.error('Error:', error.message);

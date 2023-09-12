@@ -25,7 +25,6 @@ function GroupSearchResult({ group }) {
     [group.avatarFileId],
   );
 
-  console.log(group);
   return (
     <div
       className="flex flex-col rounded-md bg-white mb-1 cursor-pointer"
