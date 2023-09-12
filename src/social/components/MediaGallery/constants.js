@@ -1,5 +1,4 @@
 import { PostDataType } from '@amityco/js-sdk';
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { EmptyImageGallery, EmptyLivestreamGallery, EmptyVideoGallery } from '~/icons';
 

@@ -28,6 +28,8 @@ if (process.env.NODE_ENV !== 'production') {
     onClickUser: (userId) => console.log(`NavigationContext onClickUser(${userId})`),
     onClickNotification: (targetId) =>
       console.log(`NavigationContext onClickNotification(${targetId})`),
+    onClickSearchFeed: (targetId) =>
+      console.log(`NavigationContext onClickSearchFeed(${targetId})`),
     onCommunityCreated: (communityId) =>
       console.log(`NavigationContext onCommunityCreated(${communityId})`),
     onEditCommunity: (communityId) =>
@@ -49,6 +51,7 @@ export default ({
   onClickCommunity,
   onClickUser,
   onClickNotification,
+  onClickSearchFeed,
   onCommunityCreated,
   onEditCommunity,
   onEditUser,
@@ -187,6 +190,21 @@ export default ({
     },
     [onChangePage, onClickNotification, pushPage],
   );
+  const handleClickSearchFeed = useCallback(
+    (targetId) => {
+      const next = {
+        type: PageTypes.SearchFeed,
+        targetId,
+      };
+
+      if (onChangePage) return onChangePage(next);
+      if (onClickSearchFeed) return onClickSearchFeed(targetId);
+
+      console.log('handleClickNotification', { targetId });
+      pushPage(next);
+    },
+    [onChangePage, onClickSearchFeed, pushPage],
+  );
 
   const handleEditUser = useCallback(
     (userId) => {
@@ -249,6 +267,7 @@ export default ({
       onEditUser: handleEditUser,
       onMessageUser: handleMessageUser,
       onClickNotification: handleClickNotification,
+      onClickSearchFeed: handleClickSearchFeed,
       onBack: popPage,
       setNavigationBlocker,
     }),

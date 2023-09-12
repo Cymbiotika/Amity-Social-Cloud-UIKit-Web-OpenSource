@@ -1,21 +1,21 @@
 /* eslint-disable no-underscore-dangle */
 
-import React, { useState, useEffect, useMemo, forwardRef, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import ASCClient, { ConnectionStatus } from '@amityco/js-sdk';
+import PropTypes from 'prop-types';
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 import { ThemeProvider } from 'styled-components';
-import { NotificationsContainer } from '~/core/components/Notification';
 import { ConfirmContainer } from '~/core/components/Confirm';
+import { NotificationsContainer } from '~/core/components/Notification';
 import { CustomComponentsProvider } from '~/core/hocs/customization';
 import { SDKProvider } from '~/core/hocs/withSDK';
 import ConfigProvider from '~/social/providers/ConfigProvider';
 import NavigationProvider from '~/social/providers/NavigationProvider';
 import PostRendererProvider from '~/social/providers/PostRendererProvider';
 import Localisation from './Localisation';
-import buildGlobalTheme from './theme';
 import { UIStyles } from './styles';
+import buildGlobalTheme from './theme';
 
 let client;
 
@@ -46,7 +46,7 @@ const UiKitProvider = forwardRef(
       ...theGlobal.__asc__,
       uikit: __VERSION__,
     };
-
+    console.log('KITPROVIDER');
     const [preventReconnect, setPreventReconnect] = useState(false);
 
     // reset state if some props have changed
@@ -78,7 +78,7 @@ const UiKitProvider = forwardRef(
           authToken,
         });
       }
-
+      console.log(client);
       return { client };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiKey, userId, displayName, authToken, preventReconnect]);

@@ -45,23 +45,23 @@
     /* {ivy-16-400} */
     @apply font-ivy;
     @apply font-normal;
-    @apply text-base;
+                @apply !text-base;
   }
   .cym-h-1-sm {
     /* {ivy-20-400} */
     @apply font-ivy;
     @apply font-normal;
-    @apply text-xl;
+                @apply !text-xl;
   }
   .cym-h-1 {
     @apply font-ivy; /* {ivy-22-400} */
     @apply font-normal;
-    @apply text-1.5xl;
+                @apply !text-1.5xl;
   }
   .cym-h-1-lg {
     @apply font-ivy; /* {ivy-26-400} */
     @apply font-normal;
-    @apply text-2.5xl;
+        @apply !text-2.5xl;
   }
 
   /*heading-2*/

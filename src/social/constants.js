@@ -8,6 +8,7 @@ export const PageTypes = {
   UserEdit: 'useredit',
   MyGroups: 'mygroups',
   Search: 'search',
+  SearchFeed: 'searchfeed',
   NotificationTarget: 'notificationtarget',
 };
 
@@ -45,3 +46,18 @@ export const displayName = window.shopifyCustomerName ?? 'Hector Cardona';
 // export const userId = window.shopifyCustomerId ?? '699914223639';
 // export const displayName = window.shopifyCustomerName ?? 'Chervin Jafarieh';
 export const apiKey = 'b0e8ee0f3fdda3644836851c545a1f89d50fdae4e9636628';
+
+export const roleRenderer = (role) => {
+  switch (role) {
+    case '6412fc76-ef6c-476c-ba45-17063dfed0ba':
+      return 'Cymbiologist';
+    case 'edc90e79-1920-4da2-9176-defad5f70f8e':
+      return 'Cymbiotika Curated';
+    case '4e31d2e1-7ab8-4a63-b1b9-bd7383612ac9':
+      return 'Founder';
+    case '19ee7e0e-e137-4c86-84f5-88bc27fb6504':
+      return 'Community Moderator';
+    default:
+      return null;
+  }
+};

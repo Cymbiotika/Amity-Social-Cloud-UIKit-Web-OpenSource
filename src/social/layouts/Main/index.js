@@ -40,7 +40,7 @@ const Side = styled.div`
 
 const Layout = ({ aside, children }) => {
   return (
-    <Container id="main-container" className="spt-container">
+    <Container id="main-container" className="spt-container min-h-screen">
       <Main className="pb-[54px]">{children}</Main>
       <Side>{aside}</Side>
     </Container>
