@@ -26,6 +26,7 @@ function SearchFeed({ searchQuery }) {
   const [postResults, setPostResults] = useState([]);
 
   const [users = [], hasMoreUsers, loadMoreUsers] = useUserQuery(searchQuery);
+  const filteredUsers = users.filter((user) => !user.isDeleted);
 
   const [groups, hasMoreCommunities, loadMoreCommunities] = useCommunitiesList({
     search: searchQuery,
@@ -100,7 +101,7 @@ function SearchFeed({ searchQuery }) {
 
       {navbarTabs[selected].filterId === 'all' && (
         <div className="flex flex-col">
-          {!groups.length && !users.length && !postResults.length && !postLoading && (
+          {!groups.length && !filteredUsers.length && !postResults.length && !postLoading && (
             <p className="text-cym-placeholdergrey mt-4">Nothing to see here.</p>
           )}
 
@@ -112,9 +113,9 @@ function SearchFeed({ searchQuery }) {
             </div>
           )}
 
-          {!!users.length && (
+          {!!filteredUsers.length && (
             <div className="mt-3">
-              {users.map((user) => (
+              {filteredUsers.map((user) => (
                 <UserSearchResult user={user} />
               ))}
             </div>
@@ -143,8 +144,10 @@ function SearchFeed({ searchQuery }) {
       )}
       {navbarTabs[selected].filterId === 'accounts' && (
         <div className="mt-3 flex flex-col">
-          {!users.length && <p className="text-cym-placeholdergrey mt-1">Nothing to see here.</p>}
-          {users.map((user) => (
+          {!filteredUsers.length && (
+            <p className="text-cym-placeholdergrey mt-1">Nothing to see here.</p>
+          )}
+          {filteredUsers.map((user) => (
             <UserSearchResult user={user} />
           ))}
         </div>
