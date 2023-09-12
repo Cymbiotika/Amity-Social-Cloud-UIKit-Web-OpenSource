@@ -171,26 +171,23 @@ const DefaultPostRenderer = ({
   );
 
   const server = ServerAPI();
+  const getSavedPostStatus = async () => {
+    try {
+      const fetchUserMetaData = await server.getUserMetaData(currentUserId);
+      const savedPostIdsArray = fetchUserMetaData.users[0].metadata.savedPostIds;
+      if (savedPostIdsArray.includes(postId)) {
+        setPostIsSaved(true);
+      } else {
+        setPostIsSaved(false);
+      }
+    } catch (error) {
+      console.error('Error fetching saved post data:', error);
+    }
+  };
 
   useEffect(() => {
-    const getSavedPostStatus = async () => {
-      try {
-        const fetchUserMetaData = await server.getUserMetaData(currentUserId);
-        const savedPostIdsArray = fetchUserMetaData.users[0].metadata.savedPostIds;
-        if (savedPostIdsArray.includes(postId)) {
-          setPostIsSaved(true);
-        } else {
-          setPostIsSaved(false);
-        }
-      } catch (error) {
-        console.error('Error fetching saved post data:', error);
-      }
-    };
-
-    if (loading === false) {
-      getSavedPostStatus();
-    }
-  }, [loading, currentUserId, postId]);
+    getSavedPostStatus();
+  }, [loading]);
 
   return (
     <PostContainer data-qa-anchor="post" className={className}>
@@ -220,6 +217,7 @@ const DefaultPostRenderer = ({
               setTrayIsVisible={setTrayIsVisible}
               currentUserId={currentUserId}
               postIsSaved={postIsSaved}
+              setPostIsSaved={setPostIsSaved}
             />
           )}
 

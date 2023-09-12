@@ -5,7 +5,7 @@ import { FaRegBookmark } from 'react-icons/fa';
 import { SecondaryButton } from '~/core/components/Button';
 import ServerAPI from '~/social/pages/Application/ServerAPI';
 
-const SavePostButton = ({ postId, currentUserId, postIsSaved }) => {
+const SavePostButton = ({ postId, currentUserId, setPostIsSaved }) => {
   // i hate prop drilling: currentUserId
   const server = ServerAPI();
 
@@ -27,19 +27,16 @@ const SavePostButton = ({ postId, currentUserId, postIsSaved }) => {
         const savePostResp = await server.savePost(ariseUserId, fetchedMetadata, savedPostIds);
         console.log('add to the array');
       }
+      setPostIsSaved(true);
     } catch (error) {
       console.error('Error saving post:', error);
     }
   };
 
-  if (postIsSaved === true) {
-    console.log(`you saved post ${postId}`);
-  }
-
   return (
     <SecondaryButton className="absolute right-0" onClick={() => handleSavePost()}>
       <FaRegBookmark className="h-[16px] w-auto mr-1" />
-      <FormattedMessage id="save" />
+      <FormattedMessage id="Save" />
     </SecondaryButton>
   );
 };

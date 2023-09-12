@@ -171,7 +171,7 @@ const Community = () => {
           {/* </div> */}
 
           <MobilePostButton />
-          <CustomFooterNav onClickUser={handleClickUser} page={page.type} />
+          <CustomFooterNav page={page.type} onClickUser={handleClickUser} />
         </MainLayout>
       </RecommendedGroupsProvider>
       <OnboardingModal user={user} />

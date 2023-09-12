@@ -6,7 +6,7 @@ import { IconContext } from 'react-icons';
 import { SecondaryButton } from '~/core/components/Button';
 import ServerAPI from '~/social/pages/Application/ServerAPI';
 
-const UnsavePostButton = ({ postId, currentUserId, postIsSaved }) => {
+const UnsavePostButton = ({ postId, currentUserId, setPostIsSaved }) => {
   const server = ServerAPI();
   console.log('UwU', currentUserId);
   const handleUnsavePost = async () => {
@@ -25,10 +25,12 @@ const UnsavePostButton = ({ postId, currentUserId, postIsSaved }) => {
           console.error('Error unsaving post:', error);
         }
       }
+      setPostIsSaved(false);
     } catch (error) {
       console.error('Error fetching saved post data:', error);
     }
   };
+
   return (
     <SecondaryButton className="absolute right-0" onClick={() => handleUnsavePost()}>
       <IconContext.Provider value={{ color: '#005850', className: 'global-class-name' }}>

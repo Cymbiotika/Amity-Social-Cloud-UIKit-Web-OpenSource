@@ -7,7 +7,14 @@ import customizableComponent from '~/core/hocs/customization';
 import usePost from '~/social/hooks/usePost';
 import UIEngagementBar from './UIEngagementBar';
 
-const EngagementBar = ({ postId, readonly, setTrayIsVisible, currentUserId, postIsSaved }) => {
+const EngagementBar = ({
+  postId,
+  readonly,
+  setTrayIsVisible,
+  currentUserId,
+  postIsSaved,
+  setPostIsSaved,
+}) => {
   const [isComposeBarDisplayed, setComposeBarDisplayed] = useState(false);
   const toggleComposeBar = () => setComposeBarDisplayed((prevValue) => !prevValue);
 
@@ -40,6 +47,7 @@ const EngagementBar = ({ postId, readonly, setTrayIsVisible, currentUserId, post
       isComposeBarDisplayed={isComposeBarDisplayed}
       currentUserId={currentUserId}
       postIsSaved={postIsSaved}
+      setPostIsSaved={setPostIsSaved}
       handleAddComment={handleAddComment}
       onClickComment={toggleComposeBar}
     />

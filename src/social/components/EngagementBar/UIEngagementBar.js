@@ -34,6 +34,7 @@ const UIEngagementBar = ({
   currentUserId,
   setTrayIsVisible,
   postIsSaved,
+  setPostIsSaved,
 }) => {
   const showTray = () => {
     setTrayIsVisible(true);
@@ -78,12 +79,14 @@ const UIEngagementBar = ({
                 postId={postId}
                 currentUserId={currentUserId}
                 postIsSaved={postIsSaved}
+                setPostIsSaved={setPostIsSaved}
               />
             ) : (
               <SavePostButton
                 postId={postId}
                 currentUserId={currentUserId}
                 postIsSaved={postIsSaved}
+                setPostIsSaved={setPostIsSaved}
               />
             )}
           </InteractionBar>
