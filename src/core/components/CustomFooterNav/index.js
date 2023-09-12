@@ -1,7 +1,7 @@
 import { PageTypes, userId } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUser from '~/core/hooks/useUser';
 function CustomFooterNav({ onClickUser, page }) {
   const { user, file } = useUser(userId);
@@ -14,7 +14,7 @@ function CustomFooterNav({ onClickUser, page }) {
   const menuTabs = [
     {
       name: 'News Feed',
-      page: PageTypes.NewsFeed,
+      pages: [PageTypes.NewsFeed],
       func: () => onChangePage(PageTypes.NewsFeed),
       svg: (
         <svg
@@ -36,7 +36,7 @@ function CustomFooterNav({ onClickUser, page }) {
     },
     {
       name: 'Explore',
-      page: PageTypes.Explore,
+      pages: [PageTypes.Explore],
       func: () => onChangePage(PageTypes.Explore),
       svg: (
         <svg
@@ -65,7 +65,7 @@ function CustomFooterNav({ onClickUser, page }) {
     },
     {
       name: 'Profile',
-      page: PageTypes.UserFeed,
+      pages: [PageTypes.UserFeed],
       func: () => onClickUser(user.userId),
       svg: (
         <svg
@@ -94,7 +94,7 @@ function CustomFooterNav({ onClickUser, page }) {
     },
     {
       name: 'Search',
-      page: PageTypes.Search,
+      pages: [PageTypes.Search, PageTypes.SearchFeed],
       func: () => onChangePage(PageTypes.Search),
       svg: (
         <svg
@@ -127,13 +127,13 @@ function CustomFooterNav({ onClickUser, page }) {
       {menuTabs.map((tab) => (
         <div
           className={`w-1/4 flex flex-col justify-center items-center border-t-2 ${
-            selectedTab === tab.page
+            tab.pages.includes(selectedTab)
               ? 'font-semibold bg-[#EBF2F1]  border-t-2 border-t-cym-darkteal'
               : 'border-cym-lightgrey'
           }`}
           onClick={() => {
             tab.func();
-            setSelectedTab(tab.page);
+            setSelectedTab(tab.pages[0]);
           }}
         >
           <span className="w-[25px] h-[25px] flex justify-center items-center">{tab.svg}</span>
