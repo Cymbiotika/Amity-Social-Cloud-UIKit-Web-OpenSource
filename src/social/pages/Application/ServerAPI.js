@@ -78,6 +78,7 @@ const ServerAPI = () => {
             agreedBetaTerms: fetchedMetadata.agreedBetaTerms,
             agreedToTerms: fetchedMetadata.agreedToTerms,
             userEmail: fetchedMetadata.userEmail,
+            shopId: fetchedMetadata.shopId,
             savedPostIds,
           },
         }),
