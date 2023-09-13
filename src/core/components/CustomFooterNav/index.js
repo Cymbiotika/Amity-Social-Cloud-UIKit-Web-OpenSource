@@ -1,9 +1,10 @@
+import React, { useEffect, useState } from 'react';
 import { PageTypes, userId } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 
-import { useEffect, useState } from 'react';
 import useUser from '~/core/hooks/useUser';
-function CustomFooterNav({ onClickUser, page }) {
+
+const CustomFooterNav = ({ onClickUser, page }) => {
   const { user, file } = useUser(userId);
   const { onChangePage } = useNavigation();
   const [selectedTab, setSelectedTab] = useState(page);
@@ -142,6 +143,6 @@ function CustomFooterNav({ onClickUser, page }) {
       ))}
     </div>
   );
-}
+};
 
 export default CustomFooterNav;
