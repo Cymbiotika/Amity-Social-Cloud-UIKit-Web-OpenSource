@@ -7,7 +7,7 @@ import ClaimBadges from './ClaimBadges';
 
 import ServerAPI from '../../pages/Application/ServerAPI';
 
-const AriseTokensGallery = ({ targetId }) => {
+const AriseTokensGallery = ({ targetId, isMe }) => {
   const [loading, setLoading] = useState(true);
   const [extractedRewardsData, setExtractedRewardsData] = useState([]);
   const server = ServerAPI();
@@ -58,11 +58,12 @@ const AriseTokensGallery = ({ targetId }) => {
 
   return (
     <AriseTokensContainer className="grid grid-cols-3 gap-[32px] items-start mx-auto">
-      <ClaimBadges />
       {loading ? renderLoadingSkeleton() : null}
-      {!loading && extractedRewardsData.some((reward) => !reward.claimedNft) ? (
+
+      {!loading && isMe && extractedRewardsData.some((reward) => !reward.claimedNft) ? (
         <ClaimBadges />
       ) : null}
+
       {!loading &&
         extractedRewardsData &&
         extractedRewardsData.map((reward, index) =>

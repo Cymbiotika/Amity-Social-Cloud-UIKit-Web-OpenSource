@@ -71,6 +71,7 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
         <AriseTokensGallery
           targetType={isMe ? PostTargetType.MyFeed : PostTargetType.UserFeed}
           targetId={userId}
+          isMe={isMe}
         />
       )}
 
