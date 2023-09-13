@@ -138,31 +138,32 @@ const FeaturedVideos = ({
   }, [scrollPosition, contentWidth, width, hasMore, loadMore]);
 
   const playlist = [
-    // {
-    //   key: 0,
-    //   src: 'https://cdn.shopify.com/videos/c/o/v/faf87fa46aa54dada790f1c3155344b5.mp4',
-    //   thumbnail: 'https://cdn.shopify.com/s/files/1/1824/8017/files/Healthy_Glow.jpg?v=1694041319',
-    //   title: '',
-    //   wide: true,
-    // },
-    // {
-    //   key: 1,
-    //   src: 'https://cdn.shopify.com/videos/c/o/v/4f34f55a18e64f42b76c26ab1b0eeeb2.mp4',
-    //   thumbnail:
-    //     'https://cdn.shopify.com/s/files/1/1824/8017/files/Cymbiotika-Eats-Thumbnail.png?v=1694192611',
-    //   title: 'Cymbiotika Eats 🍴',
-    //   wide: false,
-    // },
-    // {
-    //   key: 2,
-    //   src: 'https://cdn.shopify.com/videos/c/o/v/7c80efdd02454b06aa9761d9c18d0ad1.mp4',
-    //   thumbnail:
-    //     'https://images.unsplash.com/photo-1518534249708-e8f3537753ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGF0aHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    //   title: 'Path to Excelence 🏆',
-    //   wide: true,
-    // },
     {
       key: 0,
+      src: 'https://cdn.shopify.com/videos/c/o/v/faf87fa46aa54dada790f1c3155344b5.mp4',
+      thumbnail:
+        'https://cdn.shopify.com/s/files/1/1824/8017/files/Lauryn-Barris-Healthy-Glow.jpg?v=1694538771',
+      title: '',
+      wide: true,
+    },
+    {
+      key: 1,
+      src: 'https://cdn.shopify.com/videos/c/o/v/4f34f55a18e64f42b76c26ab1b0eeeb2.mp4',
+      thumbnail:
+        'https://cdn.shopify.com/s/files/1/1824/8017/files/Cymbiotika-Eats-Thumbnail.png?v=1694192611',
+      title: 'Cymbiotika Eats 🍴',
+      wide: false,
+    },
+    {
+      key: 2,
+      src: 'https://cdn.shopify.com/videos/c/o/v/7c80efdd02454b06aa9761d9c18d0ad1.mp4',
+      thumbnail:
+        'https://images.unsplash.com/photo-1518534249708-e8f3537753ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGF0aHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
+      title: 'Path to Excelence 🏆',
+      wide: true,
+    },
+    {
+      key: 3,
       src: 'https://cdn.shopify.com/videos/c/o/v/a0511a6edad24607a8d9a7b4d580c46f.mp4',
       thumbnail:
         'https://cdn.shopify.com/s/files/1/1824/8017/files/arise-welcome-thumbnail_Large_86b211d7-fb30-4b07-89b9-590fa9e97d44.jpg?v=1689962286',
@@ -170,7 +171,7 @@ const FeaturedVideos = ({
       wide: true,
     },
     {
-      key: 1,
+      key: 4,
       src: 'https://cdn.shopify.com/videos/c/o/v/00e293bf1fd84356bfd719189e01d3a0.mp4',
       thumbnail:
         'https://cdn.shopify.com/s/files/1/1824/8017/files/Symbiosis-and-Gut-Health-tumbnail.png?v=1690897896',
@@ -178,7 +179,7 @@ const FeaturedVideos = ({
       wide: false,
     },
     {
-      key: 2,
+      key: 5,
       src: 'https://cdn.shopify.com/videos/c/o/v/3080588eae124a8da35e1a27f815de9c.mov',
       thumbnail:
         'https://cdn.shopify.com/s/files/1/1824/8017/files/5-Toxic-Ingredients-Thumb.png?v=1690898042',
