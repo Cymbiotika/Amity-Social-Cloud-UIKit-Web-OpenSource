@@ -155,6 +155,49 @@ const ServerAPI = () => {
     }
   };
 
+  const getPosts = async (text) => {
+    const url = 'https://beta.amity.services/search/v2/posts';
+
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(url, {
+        method: 'POST',
+
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          apiKey: apiKey,
+          userId: userId,
+          query: {
+            targetType: 'public',
+            publicSearch: true,
+            text: text,
+          },
+          populatePostObject: true,
+          sort: {
+            reactionsCount: 'desc',
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('Error:', response);
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error.message);
+      return null;
+    }
+
+    // const url = 'https://beta.amity.services/search/v2/posts';
+  };
+
   //////////////////////////////// NOTIFICATION CALLS //////////////////////////////////////////
 
   const getNotifications = async () => {
@@ -319,6 +362,7 @@ const ServerAPI = () => {
     getCommunityUsers,
     getUserMetaData,
     savePost,
+    getPosts,
   };
 };
 

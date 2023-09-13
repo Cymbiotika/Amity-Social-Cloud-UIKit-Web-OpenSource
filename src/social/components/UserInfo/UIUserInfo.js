@@ -45,6 +45,7 @@ import { useSDK } from '~/core/hooks/useSDK';
 import useUser from '~/core/hooks/useUser';
 import { POSITION_LEFT } from '~/helpers';
 import { Check } from '~/icons';
+import { roleRenderer } from '~/social/constants';
 import useReport from '~/social/hooks/useReport';
 import { UserFeedTabs } from '~/social/pages/UserFeed/constants';
 
@@ -75,22 +76,8 @@ const UIUserInfo = ({
   const { isFlaggedByMe, handleReport } = useReport(user);
   const { formatMessage } = useIntl();
   const { connected } = useSDK();
-  let cymRole;
-  switch (userRoles[0]) {
-    case '6412fc76-ef6c-476c-ba45-17063dfed0ba':
-      cymRole = 'Cymbiologist';
-      break;
-    case 'edc90e79-1920-4da2-9176-defad5f70f8e':
-      cymRole = 'Cymbiotika Curated';
-      break;
-    case '4e31d2e1-7ab8-4a63-b1b9-bd7383612ac9':
-      cymRole = 'Founder';
-      break;
-    case '19ee7e0e-e137-4c86-84f5-88bc27fb6504':
-      cymRole = 'Community Moderator';
-      break;
-    default:
-  }
+  let cymRole = roleRenderer(userRoles[0]);
+
   const [onReportClick] = useAsyncCallback(async () => {
     await handleReport();
     notification.success({

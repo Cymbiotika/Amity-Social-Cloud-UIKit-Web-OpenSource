@@ -1,7 +1,7 @@
 import { PostTargetType } from '@amityco/js-sdk';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { PageTypes, displayName, userId } from '~/social/constants';
+import { PageTypes, userId } from '~/social/constants';
 
 import MainLayout from '~/social/layouts/Main';
 
@@ -9,11 +9,13 @@ import CustomFooterNav from '~/core/components/CustomFooterNav';
 import CustomHeader from '~/core/components/CustomHeader';
 import useFollow from '~/core/hooks/useFollow';
 import useUser from '~/core/hooks/useUser';
-import CommunitySideMenu, { SocialSearch } from '~/social/components/CommunitySideMenu';
+import CommunitySideMenu from '~/social/components/CommunitySideMenu';
 import CreatePostOverlay from '~/social/components/CreatePostOverlay';
 import MobilePostButton from '~/social/components/MobilePostButton';
+import OnboardingModal from '~/social/components/OnboaringModal';
 import ProfileSettings from '~/social/components/ProfileSettings';
 import SideSectionMyCommunity from '~/social/components/SideSectionMyCommunity';
+import SocialSearchv2 from '~/social/components/SocialSearchv2';
 import CategoryCommunitiesPage from '~/social/pages/CategoryCommunities';
 import CommunityEditPage from '~/social/pages/CommunityEdit';
 import CommunityFeedPage from '~/social/pages/CommunityFeed';
@@ -21,9 +23,9 @@ import ExplorePage from '~/social/pages/Explore';
 import NewsFeedPage from '~/social/pages/NewsFeed';
 import UserFeedPage from '~/social/pages/UserFeed';
 import { useNavigation } from '~/social/providers/NavigationProvider';
-import NotificationTargetPage from '../NotificationTargetPage';
-import OnboardingModal from '~/social/components/OnboaringModal';
 import { RecommendedGroupsProvider } from '../../providers/ReccomendedGroupsProvider';
+import NotificationTargetPage from '../NotificationTargetPage';
+import SearchFeed from '../SearchFeed';
 import ServerAPI from './ServerAPI';
 
 // import Custom from '~/chat/components/Message/MessageContent/Custom';
@@ -42,13 +44,17 @@ const StyledCommunitySideMenu = styled(CommunitySideMenu)`
     display: block;
   }
 `;
+
 const Community = () => {
   const server = ServerAPI();
 
   const { onChangePage } = useNavigation();
-
   const [refresh, setRefresh] = useState(0);
   const { user } = useUser(userId);
+  // const user = useMemo(() => {
+  //   useUser(userId);
+  // }, [userId]);
+
   const ariseFollow = useFollow(userId, '6405802983471');
   const chervinFollow = useFollow(userId, '699914223639');
 
@@ -164,10 +170,12 @@ const Community = () => {
           {page.type === PageTypes.MyGroups && (
             <SideSectionMyCommunity activeCommunity={page.communityId} showCreateButton />
           )}
-          {page.type === PageTypes.Search && <SocialSearch />}
+          {page.type === PageTypes.Search && <SocialSearchv2 className="mt-7" />}
           {page.type === PageTypes.NotificationTarget && (
             <NotificationTargetPage targetId={page.targetId} />
           )}
+          {page.type === PageTypes.SearchFeed && <SearchFeed searchQuery={page.targetId} />}
+
           {/* </div> */}
 
           <MobilePostButton />
@@ -177,6 +185,6 @@ const Community = () => {
       <OnboardingModal user={user} />
     </ApplicationContainer>
   );
-};
+};;;;
 
 export default Community;

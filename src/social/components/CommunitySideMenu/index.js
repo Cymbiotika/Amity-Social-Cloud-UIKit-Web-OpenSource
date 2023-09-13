@@ -4,6 +4,7 @@ import SideMenu from '~/core/components/SideMenu';
 import SideSectionCommunity from '~/social/components/SideSectionCommunity';
 import SideSectionMyCommunity from '~/social/components/SideSectionMyCommunity';
 import UiKitSocialSearch from '~/social/components/SocialSearch';
+import SocialSearchv2 from '~/social/components/SocialSearchv2';
 
 export const SocialSearch = styled(UiKitSocialSearch)`
   background: ${({ theme }) => theme.palette.system.background};
@@ -12,7 +13,7 @@ export const SocialSearch = styled(UiKitSocialSearch)`
 
 const CommunitySideMenu = ({ className, activeCommunity }) => (
   <SideMenu data-qa-anchor="community-side-menu" className={className}>
-    <SocialSearch sticky />
+    <SocialSearchv2 className="my-7" />
 
     <SideSectionCommunity />
 
