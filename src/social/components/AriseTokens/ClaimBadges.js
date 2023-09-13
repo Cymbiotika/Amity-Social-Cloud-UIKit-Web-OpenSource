@@ -9,7 +9,7 @@ const ClaimBadges = () => {
 
         <p className="whitespace-nowrap text-sm">
           You have tokens to claim in your{' '}
-          <a href="/pages/arise" className="underline">
+          <a target="_blank" href="/pages/arise/wallet" className="underline">
             wallet!
           </a>
         </p>
