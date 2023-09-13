@@ -66,24 +66,26 @@ const UserItem = ({ profileUserId, currentUserId, userId, allowRemoveUser, setUs
   }, [onClickUser, setUserFeedTab, userId]);
 
   return (
-    <UserHeaderContainer key={userId}>
-      <Header>
-        <UserHeader userId={userId} isBanned={user.isGlobalBan} onClick={onClickUserHeader} />
-        <OptionMenu
-          options={[
-            !isMe && {
-              name: isFlaggedByMe ? 'report.unreportUser' : 'report.reportUser',
-              action: onReportClick,
-            },
-            allowRemoveUser &&
-              isMyProfile && {
-                name: 'follower.menuItem.removeUser',
-                action: onRemoveClick,
+    user.displayName !== 'Deleted user' && (
+      <UserHeaderContainer key={userId}>
+        <Header>
+          <UserHeader userId={userId} isBanned={user.isGlobalBan} onClick={onClickUserHeader} />
+          <OptionMenu
+            options={[
+              !isMe && {
+                name: isFlaggedByMe ? 'report.unreportUser' : 'report.reportUser',
+                action: onReportClick,
               },
-          ].filter(Boolean)}
-        />
-      </Header>
-    </UserHeaderContainer>
+              allowRemoveUser &&
+                isMyProfile && {
+                  name: 'follower.menuItem.removeUser',
+                  action: onRemoveClick,
+                },
+            ].filter(Boolean)}
+          />
+        </Header>
+      </UserHeaderContainer>
+    )
   );
 };
 
