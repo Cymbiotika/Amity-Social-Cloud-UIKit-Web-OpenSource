@@ -10,6 +10,7 @@ export const PageTypes = {
   Search: 'search',
   SearchFeed: 'searchfeed',
   NotificationTarget: 'notificationtarget',
+  Faq: 'faq',
 };
 
 export const MemberRoles = Object.freeze({

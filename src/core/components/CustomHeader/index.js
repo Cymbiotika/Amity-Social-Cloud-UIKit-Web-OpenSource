@@ -8,6 +8,7 @@ import useUser from '~/core/hooks/useUser';
 import { backgroundImage as UserImage } from '~/icons/User';
 import Avatar from '../Avatar';
 import ChevronLeft from '~/icons/ChevronLeft';
+import FaqButton from './FaqButton';
 
 import NotificationTray from '~/social/components/NotificationTray';
 import UiKitSocialSearch from '~/social/components/SocialSearch';
@@ -114,6 +115,7 @@ const CustomHeader = ({ onClickUser, className, id }) => {
             <div className="text-cym-teal uppercase cym-h-2 !leading-none ml-2">COMMUNITY</div>
 
             <div className="flex ml-auto gap-5 items-center ">
+              <FaqButton />
               <NotificationTray />
 
               {/* <button type="button" className="relative md:hidden" onClick={showMobileSearch}>

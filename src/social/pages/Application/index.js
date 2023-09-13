@@ -1,5 +1,5 @@
 import { PostTargetType } from '@amityco/js-sdk';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PageTypes, userId } from '~/social/constants';
 
@@ -27,6 +27,7 @@ import { RecommendedGroupsProvider } from '../../providers/ReccomendedGroupsProv
 import NotificationTargetPage from '../NotificationTargetPage';
 import SearchFeed from '../SearchFeed';
 import ServerAPI from './ServerAPI';
+import FaqPage from '../Faq';
 
 // import Custom from '~/chat/components/Message/MessageContent/Custom';
 
@@ -175,6 +176,7 @@ const Community = () => {
             <NotificationTargetPage targetId={page.targetId} />
           )}
           {page.type === PageTypes.SearchFeed && <SearchFeed searchQuery={page.targetId} />}
+          {page.type === PageTypes.FaqPage && <FaqPage searchQuery={page.targetId} />}
 
           {/* </div> */}
 
@@ -185,6 +187,6 @@ const Community = () => {
       <OnboardingModal user={user} />
     </ApplicationContainer>
   );
-};;;;
+};
 
 export default Community;
