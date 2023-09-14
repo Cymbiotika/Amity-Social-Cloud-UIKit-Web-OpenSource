@@ -158,8 +158,8 @@ const FeaturedVideos = ({
       key: 2,
       src: 'https://cdn.shopify.com/videos/c/o/v/7c80efdd02454b06aa9761d9c18d0ad1.mp4',
       thumbnail:
-        'https://images.unsplash.com/photo-1518534249708-e8f3537753ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGF0aHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
-      title: 'Path to Excelence 🏆',
+        'https://cdn.shopify.com/s/files/1/1824/8017/files/Path-to-Excellence_Large_6171a10a-345c-4b1c-bfd0-8eba536a9202.jpg?v=1694697411',
+      title: '',
       wide: true,
     },
     {
