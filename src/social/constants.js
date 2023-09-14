@@ -58,6 +58,8 @@ export const roleRenderer = (role) => {
       return 'Founder';
     case '19ee7e0e-e137-4c86-84f5-88bc27fb6504':
       return 'Community Moderator';
+    case '3a9230d9-48fa-40d4-adf8-909807153406':
+      return 'Product Developer';
     default:
       return null;
   }
