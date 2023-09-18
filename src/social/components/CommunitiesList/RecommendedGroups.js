@@ -16,7 +16,7 @@ const SectionContainer = styled.div`
   padding: 1em 0;
 `;
 
-const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
+const RecommendedGroups = ({ myCommunityIds }) => {
   const { onClickCommunity } = useNavigation();
   const [communities, , , loading] = useRecommendedCommunitiesList();
 
@@ -28,15 +28,13 @@ const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
 
   const updateRecommendedGroupIds = () => {
     setRecommendedGroupIds(
-      myRecommendedCommunityIds.communities.filter(
-        (community) => !myCommunityIds.includes(community.communityId),
-      ),
+      communities.filter((community) => !myCommunityIds.includes(community.communityId)),
     );
   };
 
   useEffect(() => {
     updateRecommendedGroupIds();
-  }, [loading, communities]);
+  }, [loading, myCommunityIds]);
 
   if (!communities?.length) return null;
 
