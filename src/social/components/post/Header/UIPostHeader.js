@@ -20,9 +20,6 @@ import {
   PostNamesContainer,
   ShieldIcon,
 } from './styles';
-import { userId } from '~/social/constants';
-
-// console.log(userId);
 
 const UIPostHeader = ({
   avatarFileUrl,
@@ -53,6 +50,9 @@ const UIPostHeader = ({
         break;
       case '19ee7e0e-e137-4c86-84f5-88bc27fb6504':
         cymRole = 'Community Moderator';
+        break;
+      case '3a9230d9-48fa-40d4-adf8-909807153406':
+        cymRole = 'Product Developer';
         break;
       default:
     }
