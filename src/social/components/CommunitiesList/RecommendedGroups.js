@@ -17,10 +17,10 @@ const SectionContainer = styled.div`
 `;
 
 const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
-  // const [loading, setLoading] = useState(false);
   const { onClickCommunity } = useNavigation();
-  const [recommendedGroupIds, setRecommendedGroupIds] = useState([]);
   const [communities, , , loading] = useRecommendedCommunitiesList();
+
+  const [recommendedGroupIds, setRecommendedGroupIds] = useState([]);
 
   function renderLoadingSkeleton() {
     return new Array(5).fill(1).map((x, index) => <Header key={index} loading />);
@@ -36,7 +36,7 @@ const RecommendedGroups = ({ myCommunityIds, myRecommendedCommunityIds }) => {
 
   useEffect(() => {
     updateRecommendedGroupIds();
-  }, [communities]);
+  }, [loading, communities]);
 
   if (!communities?.length) return null;
 

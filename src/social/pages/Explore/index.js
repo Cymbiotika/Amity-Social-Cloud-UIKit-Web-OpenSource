@@ -12,7 +12,7 @@ const ExplorePage = () => (
   <>
     <MyCommunitiesMobile />
     <PageContainer>
-      {/* <RecommendedList /> */}
+      <RecommendedList />
       <FeaturedVideos />
       <WellnessWorkshops />
 

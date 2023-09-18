@@ -2,7 +2,7 @@
 
 import ASCClient, { ConnectionStatus } from '@amityco/js-sdk';
 import PropTypes from 'prop-types';
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { ThemeProvider } from 'styled-components';

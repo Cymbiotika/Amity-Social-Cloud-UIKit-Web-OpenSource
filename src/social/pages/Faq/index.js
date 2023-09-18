@@ -35,7 +35,7 @@ const FaqPage = () => {
     <>
       <TourModal tourModalIsOpen={tourModalIsOpen} setTourModalIsOpen={setTourModalIsOpen} />
       <FaqContainer>
-        <h1 className="!text-[24px] md:!text-[32px]">Help</h1>
+        <h1 className="cym-h-1 !text-[24px] md:!text-[32px]">Help</h1>
         <hr className="my-[26px] md:my-[36px]" />
         <h2 className="mb-[24px] !text-[16px] md:!text-[20px]">Welcome!</h2>
         <FaqVideo />
