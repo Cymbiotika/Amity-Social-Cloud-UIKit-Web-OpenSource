@@ -88,7 +88,7 @@ const StretchedList = styled.div`
 `;
 
 const WellnessWorkshops = ({
-  title = 'Wellness workshops',
+  title = 'Wellness Workshops',
   columns = DEFAULT_COLUMN_NUMBER,
   hasMore = false,
   loadMore = () => {},
