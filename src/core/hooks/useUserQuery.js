@@ -11,7 +11,7 @@ const useUserQuery = (term) => {
     () => !term || term.length < MINIMUM_STRING_LENGTH_TO_TRIGGER_QUERY,
   );
 
-  return [users, hasMore, loadMore];
+  return [[users], hasMore, loadMore];
 };
 
 export default useUserQuery;

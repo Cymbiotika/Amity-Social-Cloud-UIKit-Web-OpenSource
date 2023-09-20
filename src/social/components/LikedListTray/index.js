@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { ReactionRepository } from '@amityco/js-sdk';
+import { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
+import styled from 'styled-components';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 
-import ServerAPI from '~/social/pages/Application/ServerAPI';
-import UserLoading from './UserLoading';
 import Avatar from '~/core/components/Avatar';
 import { backgroundImage as UserImage } from '~/icons/User';
+import ServerAPI from '~/social/pages/Application/ServerAPI';
+import UserLoading from './UserLoading';
 
 const SlideOutContainer = styled.div`
   padding: 0 17.5px;
@@ -87,15 +87,17 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
       reactions.map((reaction) => arr.push(`userIds=${reaction.userId}`));
       const requestUrl = url + arr.join('&');
       const usersResponseData = await server.likedList(requestUrl);
-      usersResponseData.users = usersResponseData.users.map((user) => {
-        return {
-          id: user.userId,
-          fullName: user.displayName,
-          profilePictureId: user.avatarFileId,
-          email: user.metadata.userEmail,
-          bio: user.description,
-        };
-      });
+      usersResponseData.users = usersResponseData.users
+        .filter((user) => !user.isDeleted)
+        .map((user) => {
+          return {
+            id: user.userId,
+            fullName: user.displayName,
+            profilePictureId: user.avatarFileId,
+            email: user.metadata.userEmail,
+            bio: user.description,
+          };
+        });
       setUsers(usersResponseData.users);
       if (liveCollection && liveCollection.loadingStatus === 'loaded' && liveCollection.hasMore) {
         liveCollection.nextPage();

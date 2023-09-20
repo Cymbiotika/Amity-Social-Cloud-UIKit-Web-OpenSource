@@ -21,8 +21,8 @@ function UserSearchResult({ user }) {
       <div className="flex flex-col max-w-[calc(100%-108px)]">
         <h1>{user.displayName}</h1>
         <div className="flex flex-row gap-2 flex-wrap gap-y-0">
-          <UserTag text={user.metadata.ariseTier} />
-          <UserTag text={roleRenderer(user.roles[0])} variant="role" />
+          <UserTag text={user?.metadata?.ariseTier} />
+          <UserTag text={roleRenderer(user?.roles[0])} variant="role" />
         </div>
       </div>
       {!isFollowAccepted && (
