@@ -351,6 +351,47 @@ const ServerAPI = () => {
     }
   };
 
+  const getFollowers = async (userId) => {
+    const baseUrl = `https://api.us.amity.co/api/v4/users/${userId}/followers`;
+    const limit = 100; // Number of results per page
+    let allUsers = [];
+
+    try {
+      const accessToken = await getAccessToken();
+
+      let nextCursor = null;
+
+      do {
+        const url = nextCursor
+          ? `${baseUrl}?limit=${limit}&token=${nextCursor}`
+          : `${baseUrl}?limit=${limit}`;
+
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await response.json();
+        allUsers = allUsers.concat(data.users); // Concatenate current page results
+
+        nextCursor = data.paging.next;
+      } while (nextCursor); // Continue fetching while there's a next cursor
+
+      return allUsers;
+    } catch (error) {
+      console.log('Error fetching community users:', error);
+      throw error; // Rethrow the error after logging
+    }
+  };
+
   return {
     ariseGetRewards,
     getNotifications,
@@ -363,6 +404,7 @@ const ServerAPI = () => {
     getUserMetaData,
     savePost,
     getPosts,
+    getFollowers,
   };
 };
 

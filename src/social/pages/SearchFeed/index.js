@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import BackLink from '~/core/components/BackLink';
+import Button from '~/core/components/Button';
 import useUserQuery from '~/core/hooks/useUserQuery';
 import SocialSearchv2 from '~/social/components/SocialSearchv2';
 import Post from '~/social/components/post/Post';
@@ -47,6 +49,21 @@ function SearchFeed({ searchQuery }) {
     queryPosts();
   }, [searchQuery]);
 
+  const getPagination = (activeTab) => {
+    console.log(activeTab);
+    const hasMore = activeTab === 'groups' ? hasMoreCommunities : hasMoreUsers;
+    const loadMore = activeTab === 'groups' ? loadMoreCommunities : loadMoreUsers;
+
+    return hasMore ? loadMore : undefined;
+  };
+
+  const loadMore = getPagination(navbarTabs[selected].filterId);
+
+  const LoadMoreButton = loadMore && !filteredUsers.every((user) => user.isDeleted) && (
+    <Button fullWidth onClick={loadMore}>
+      <FormattedMessage id="loadMore" />
+    </Button>
+  );
   return (
     <div className="flex flex-col w-full mx-auto py-7 max-w-[550px]">
       <SocialSearchv2 className="md:hidden" defaultValue={searchQuery} />
@@ -150,6 +167,7 @@ function SearchFeed({ searchQuery }) {
           {filteredUsers.map((user) => (
             <UserSearchResult user={user} />
           ))}
+          {LoadMoreButton}
         </div>
       )}
       {navbarTabs[selected].filterId === 'posts' && (
