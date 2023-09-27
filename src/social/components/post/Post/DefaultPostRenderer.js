@@ -24,7 +24,7 @@ import {
   PostHeadContainer,
   ReviewButtonsContainer,
 } from './styles';
-import ServerAPI from '~/social/pages/Application/ServerAPI';
+import { useSavedPostData } from '~/social/providers/SavedPostsContext';
 
 // Number of lines to show in a text post before truncating.
 const MAX_TEXT_LINES_DEFAULT = 8;
@@ -75,6 +75,13 @@ const DefaultPostRenderer = ({
     currentUserId,
     community.userId,
   );
+
+  const { savedPostIds } = useSavedPostData();
+  useEffect(() => {
+    if (savedPostIds && savedPostIds.includes(postId)) {
+      setPostIsSaved(true);
+    }
+  }, [loading, postId]);
 
   const [onReportClick] = useAsyncCallback(async () => {
     await handleReportPost();
@@ -169,25 +176,6 @@ const DefaultPostRenderer = ({
   const livestreamContent = childrenContent.find(
     (child) => child.dataType === PostDataType.LivestreamPost,
   );
-
-  const server = ServerAPI();
-  const getSavedPostStatus = async () => {
-    try {
-      const fetchUserMetaData = await server.getUserMetaData(currentUserId);
-      const savedPostIdsArray = fetchUserMetaData.users[0].metadata.savedPostIds;
-      if (savedPostIdsArray.includes(postId)) {
-        setPostIsSaved(true);
-      } else {
-        setPostIsSaved(false);
-      }
-    } catch (error) {
-      console.error('Error fetching saved post data:', error);
-    }
-  };
-
-  useEffect(() => {
-    getSavedPostStatus();
-  }, [loading]);
 
   return (
     <PostContainer data-qa-anchor="post" className={className}>

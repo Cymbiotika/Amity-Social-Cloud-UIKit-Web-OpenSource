@@ -122,12 +122,7 @@ const Feed = ({
                     <span className="!text-[18px] font-bold">Pinned Posts 📌</span>
                     <hr className="w-full h-1 bg-[#005850] rounded" />
                   </div>
-                  <Post
-                    postId="64c818cb01035bacd42d3d78"
-                    hidePostTarget={targetType !== PostTargetType.GlobalFeed}
-                    readonly={readonly}
-                    pinned={pinned}
-                  />
+
                   <Post
                     postId="64c938761cfebc7804b6dc17"
                     hidePostTarget={targetType !== PostTargetType.GlobalFeed}
@@ -136,6 +131,7 @@ const Feed = ({
                   />
                 </div>
               )}
+
               {posts.map(({ postId }, index) => (
                 <React.Fragment key={postId}>
                   <Post

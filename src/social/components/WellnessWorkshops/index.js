@@ -3,13 +3,15 @@ import styled from 'styled-components';
 
 import useMeasure from 'react-use/lib/useMeasure';
 import useScroll from 'react-use/lib/useScroll';
+// import FormattedDuration, { TIMER_FORMAT } from 'react-intl-formatted-duration';
 import Button from '~/core/components/Button';
 import ChevronLeftIcon from '~/icons/ChevronLeft';
 import ChevronRightIcon from '~/icons/ChevronRight';
 
-import { CloseButton } from '~/core/components/ImageGallery/styles';
-import { ButtonContainer } from '~/core/components/Uploaders/Image/styles';
-import { Play } from '~/icons';
+// import WorkshopAccess from './WorkshopAccess';
+// import NoWorkshopAccess from './NoWorkshopAccess';
+
+import ServerAPI from '~/social/pages/Application/ServerAPI';
 
 const ITEM_SPACE_SIZE = 16;
 const DEFAULT_COLUMN_NUMBER = {
@@ -97,6 +99,22 @@ const WellnessWorkshops = ({
   const { x: scrollPosition } = useScroll(containerRef);
   const [wrapperRef, { width }] = useMeasure();
   const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [postData, setPostData] = useState([]);
+  const [postChildrenResp, setPostChildren] = useState([]);
+  const [fileData, setFileData] = useState([]);
+  // const [hasAccess, setHasAccess] = useState(false);
+
+  const server = new ServerAPI();
+
+  const getWellnessWorkshopPosts = async () => {
+    const groupId = '64e7d213210f66637513860d';
+    const groupResp = await server.getGroupPosts(groupId);
+    setLoading(false);
+    setPostChildren(groupResp.postChildren);
+    setPostData(groupResp.posts);
+    setFileData(groupResp.files);
+  };
 
   const contentWidth = containerRef.current?.scrollWidth ?? 0;
 
@@ -133,23 +151,9 @@ const WellnessWorkshops = ({
     },
   ];
 
-  const [selectedVideoIndex, setSelectedVideoIndex] = useState(null);
-  console.log('Video index', selectedVideoIndex);
-
-  const spawnVideoOverlay = (index) => {
-    console.log('Video index', selectedVideoIndex);
-    console.log('Spawn overlay');
-    setSelectedVideoIndex(index);
-    document.getElementById('video-overlay').style.display = 'flex';
-  };
-
-  const closeVideoOverlay = () => {
-    setSelectedVideoIndex(null);
-    document.getElementById('video-overlay').style.display = 'none';
-    document.getElementById(`video`).currentTime = 0;
-    document.getElementById(`video`).pause();
-    console.log('closing overlay');
-  };
+  useEffect(() => {
+    getWellnessWorkshopPosts();
+  }, []);
 
   return (
     <div className="ml-5 md:mx-0">
@@ -170,10 +174,24 @@ const WellnessWorkshops = ({
 
         <ScrollContainer ref={containerRef} page={page}>
           <StretchedList columns={columns} className="gap-[16px] md:gap-unset">
+            {/* {!loading &&
+              postChildrenResp.map((post, index) => (
+                <WorkshopAccess
+                  key={index}
+                  postData={postData}
+                  fileData={fileData}
+                  postId={post.postId}
+                  thumbnailFileId={post.data.thumbnailFileId}
+                  videoFileId={post.data.videoFileId.original}
+                  parentPostId={post.parentPostId}
+                  isDeleted={post.isDeleted}
+                />
+              ))} */}
+
             {playlist.map((video, index) => (
               <div
-                className="relative w-[350px] inline-table cover rounded-[5px] overflow-hidden bg-[#EBF2F1] cursor-not-allowed"
                 key={video.key}
+                className="relative w-[350px] inline-table cover rounded-[5px] overflow-hidden bg-[#EBF2F1] cursor-not-allowed"
                 style={{ boxShadow: `rgba(0, 0, 0, 0.05) 0px 1px 2px 0px` }}
               >
                 <div
@@ -189,12 +207,39 @@ const WellnessWorkshops = ({
                 </div>
                 <div className="bg-white p-5">
                   <h3>Rising Routine</h3>
-                  <p></p>
                 </div>
               </div>
             ))}
+
+            {/* 
+            <article
+              key={1}
+              className="relative overflow-hidden w-[310px] md:w-[500px] rounded-lg shadow transition hover:shadow-lg bg-white"
+            >
+              <img
+                alt="Office"
+                src="https://cdn.shopify.com/s/files/1/1824/8017/files/WW-Desktop-1.png?v=1695402456"
+                className="h-[175px] md:h-[235px] w-full object-initial"
+              />
+
+              <div className="absolute bottom-0 max-w-[60%] p-4 sm:p-6 text-gray-500">
+                <span>
+                  <FormattedDuration seconds={100} format={TIMER_FORMAT} /> Minutes
+                </span>
+
+                <p className="mt-2 line-clamp-3 text-sm/relaxed text-black">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Donec ac odio tempor orci dapibus
+                  ultrices in iaculis nunc. Dis parturient montes nascetur ridiculus mus mauris
+                  vitae ultricies leo. Pellentesque habitant morbi tristique senectus et netus et.
+                  Faucibus turpis in eu mi bibendum neque.
+                </p>
+              </div>
+            </article>
+             */}
           </StretchedList>
         </ScrollContainer>
+        {/* {!loading && postChildrenResp.length === 0 && <NoWorkshopAccess />} */}
       </div>
     </div>
   );

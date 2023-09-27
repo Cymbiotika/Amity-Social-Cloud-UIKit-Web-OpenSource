@@ -29,6 +29,7 @@ import SearchFeed from '../SearchFeed';
 import ServerAPI from './ServerAPI';
 import FaqPage from '../Faq';
 
+import { SavedPostsProvider } from '~/social/providers/SavedPostsContext';
 // import Custom from '~/chat/components/Message/MessageContent/Custom';
 
 const ApplicationContainer = styled.div`
@@ -125,67 +126,69 @@ const Community = () => {
     assignTargetId();
   }, [page.type]);
   return (
-    <ApplicationContainer id="ApplicationContainer">
-      <CreatePostOverlay targetType={feedType} targetId={feedTargetId} userId={page.userId} />
-      <CustomHeader
-        id="custom-header-wrapper-md"
-        className="hidden md:block"
-        userId={page.userId}
-        onClickUser={handleClickUser}
-      />
-      <RecommendedGroupsProvider>
-        <MainLayout
-          aside={<StyledCommunitySideMenu activeCommunity={page.communityId} id="main-layout" />}
-        >
-          <CustomHeader
-            id="custom-header-wrapper-mobile"
-            className="md:!hidden"
-            userId={page.userId}
-            onClickUser={handleClickUser}
-          />
-
-          {/* <div className="xs:pt-[54px] md:pt-0"> */}
-          {page.type === PageTypes.Explore && <ExplorePage />}
-
-          {page.type === PageTypes.NewsFeed && <NewsFeedPage refresh={refresh} />}
-
-          {page.type === PageTypes.CommunityFeed && (
-            <CommunityFeedPage
-              communityId={page.communityId}
-              isNewCommunity={page.isNewCommunity}
+    <SavedPostsProvider>
+      <ApplicationContainer id="ApplicationContainer">
+        <CreatePostOverlay targetType={feedType} targetId={feedTargetId} userId={page.userId} />
+        <CustomHeader
+          id="custom-header-wrapper-md"
+          className="hidden md:block"
+          userId={page.userId}
+          onClickUser={handleClickUser}
+        />
+        <RecommendedGroupsProvider>
+          <MainLayout
+            aside={<StyledCommunitySideMenu activeCommunity={page.communityId} id="main-layout" />}
+          >
+            <CustomHeader
+              id="custom-header-wrapper-mobile"
+              className="md:!hidden"
+              userId={page.userId}
+              onClickUser={handleClickUser}
             />
-          )}
 
-          {page.type === PageTypes.CommunityEdit && (
-            <CommunityEditPage communityId={page.communityId} tab={page.tab} />
-          )}
+            {/* <div className="xs:pt-[54px] md:pt-0"> */}
+            {page.type === PageTypes.Explore && <ExplorePage />}
 
-          {page.type === PageTypes.Category && (
-            <CategoryCommunitiesPage categoryId={page.categoryId} />
-          )}
+            {page.type === PageTypes.NewsFeed && <NewsFeedPage refresh={refresh} />}
 
-          {page.type === PageTypes.UserFeed && <UserFeedPage userId={page.userId} />}
+            {page.type === PageTypes.CommunityFeed && (
+              <CommunityFeedPage
+                communityId={page.communityId}
+                isNewCommunity={page.isNewCommunity}
+              />
+            )}
 
-          {page.type === PageTypes.UserEdit && <ProfileSettings userId={page.userId} />}
+            {page.type === PageTypes.CommunityEdit && (
+              <CommunityEditPage communityId={page.communityId} tab={page.tab} />
+            )}
 
-          {page.type === PageTypes.MyGroups && (
-            <SideSectionMyCommunity activeCommunity={page.communityId} showCreateButton />
-          )}
-          {page.type === PageTypes.Search && <SocialSearchv2 className="mt-7" />}
-          {page.type === PageTypes.NotificationTarget && (
-            <NotificationTargetPage targetId={page.targetId} />
-          )}
-          {page.type === PageTypes.SearchFeed && <SearchFeed searchQuery={page.targetId} />}
-          {page.type === PageTypes.FaqPage && <FaqPage searchQuery={page.targetId} />}
+            {page.type === PageTypes.Category && (
+              <CategoryCommunitiesPage categoryId={page.categoryId} />
+            )}
 
-          {/* </div> */}
+            {page.type === PageTypes.UserFeed && <UserFeedPage userId={page.userId} />}
 
-          <MobilePostButton />
-          <CustomFooterNav page={page.type} onClickUser={handleClickUser} />
-        </MainLayout>
-      </RecommendedGroupsProvider>
-      <OnboardingModal user={user} />
-    </ApplicationContainer>
+            {page.type === PageTypes.UserEdit && <ProfileSettings userId={page.userId} />}
+
+            {page.type === PageTypes.MyGroups && (
+              <SideSectionMyCommunity activeCommunity={page.communityId} showCreateButton />
+            )}
+            {page.type === PageTypes.Search && <SocialSearchv2 className="mt-7" />}
+            {page.type === PageTypes.NotificationTarget && (
+              <NotificationTargetPage targetId={page.targetId} />
+            )}
+            {page.type === PageTypes.SearchFeed && <SearchFeed searchQuery={page.targetId} />}
+            {page.type === PageTypes.FaqPage && <FaqPage searchQuery={page.targetId} />}
+
+            {/* </div> */}
+
+            <MobilePostButton />
+            <CustomFooterNav page={page.type} onClickUser={handleClickUser} />
+          </MainLayout>
+        </RecommendedGroupsProvider>
+        <OnboardingModal user={user} />
+      </ApplicationContainer>
+    </SavedPostsProvider>
   );
 };
 

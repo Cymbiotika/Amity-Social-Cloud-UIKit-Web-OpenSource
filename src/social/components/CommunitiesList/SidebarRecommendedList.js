@@ -14,16 +14,23 @@ const ListHeading = styled.h4`
   margin: 1em 0;
 `;
 
+const Contatiner = styled.div`
+  display: flex;
+  a {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+`;
+
 const SidebarRecommendedList = () => {
   const { onClickCommunity } = useNavigation();
   const [communities, , , loading] = useRecommendedCommunitiesList();
+  console.log(communities.length);
 
-  if (!communities?.length) return null;
-
-  console.log('rec groups', communities);
+  if (!communities?.length) return <p className="mx-5">You&lsquo;ve joined all the groups! 🎉</p>;
 
   return (
-    <div className="hidden md:block">
+    <Contatiner className="">
       <ListHeading className="!cym-h-2-lg">Recommended Groups</ListHeading>
       {loading && new Array(4).fill(1).map((x, index) => <Header key={index} loading />)}
 
@@ -31,7 +38,7 @@ const SidebarRecommendedList = () => {
         communities.map(({ communityId }) => (
           <Header key={communityId} communityId={communityId} onClick={onClickCommunity} />
         ))}
-    </div>
+    </Contatiner>
   );
 };
 

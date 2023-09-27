@@ -1,5 +1,4 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import React, { useMemo } from 'react';
 import { FaBookmark } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 
@@ -8,7 +7,15 @@ import ServerAPI from '~/social/pages/Application/ServerAPI';
 
 const UnsavePostButton = ({ postId, currentUserId, setPostIsSaved }) => {
   const server = ServerAPI();
-  console.log('UwU', currentUserId);
+
+  const iconContextValue = useMemo(
+    () => ({
+      color: '#005850',
+      className: 'global-class-name',
+    }),
+    [],
+  );
+
   const handleUnsavePost = async () => {
     const ariseUserId = currentUserId;
     try {
@@ -18,7 +25,6 @@ const UnsavePostButton = ({ postId, currentUserId, setPostIsSaved }) => {
 
       if (savedPostIdsArray.includes(postId)) {
         const savedPostIds = savedPostIdsArray.filter((id) => id !== postId);
-        console.log(`updated saved posts array ${savedPostIds}`);
         try {
           const savePostResp = await server.savePost(ariseUserId, fetchedMetadata, savedPostIds);
         } catch (error) {
@@ -33,9 +39,9 @@ const UnsavePostButton = ({ postId, currentUserId, setPostIsSaved }) => {
 
   return (
     <SecondaryButton className="absolute right-0" onClick={() => handleUnsavePost()}>
-      <IconContext.Provider value={{ color: '#005850', className: 'global-class-name' }}>
+      <IconContext.Provider value={iconContextValue}>
         <FaBookmark className="h-[16px] w-auto mr-1" />
-        <FormattedMessage id="Saved" />
+        <span className="!ml-0">Saved</span>
       </IconContext.Provider>
     </SecondaryButton>
   );

@@ -91,9 +91,7 @@ const UIPostHeader = ({
               {postAuthorTier}
             </span>
           </div>
-        ) : (
-          <span className="hidden">Nothing to see here</span>
-        )}
+        ) : null}
 
         {cymRole ? (
           <div className="my-[5px]">
@@ -161,7 +159,7 @@ UIPostHeader.propTypes = {
   postAuthorName: PropTypes.node,
   postAuthorTier: PropTypes.node,
   postTargetName: PropTypes.string,
-  userRoles: PropTypes.string,
+  userRoles: PropTypes.array,
   timeAgo: PropTypes.instanceOf(Date),
   isModerator: PropTypes.bool,
   isEdited: PropTypes.bool,
@@ -177,7 +175,7 @@ UIPostHeader.defaultProps = {
   postAuthorName: '',
   postAuthorTier: '',
   postTargetName: '',
-  userRoles: '',
+  userRoles: [],
   timeAgo: null,
   isModerator: false,
   isEdited: false,

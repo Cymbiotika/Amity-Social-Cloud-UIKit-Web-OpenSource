@@ -9,12 +9,16 @@ import { useNavigation } from '~/social/providers/NavigationProvider';
 import MyCommunitiesMobile from '~/social/components/MyCommunitiesMobile';
 import { Wrapper } from './styles';
 
+// import WellnessWorkshops from '~/social/components/WellnessWorkshops';
+
 const NewsFeed = () => {
   const { onChangePage } = useNavigation();
   return (
     <>
       <MyCommunitiesMobile />
+
       <Wrapper data-qa-anchor="news-feed">
+        {/* <WellnessWorkshops /> */}
         <Feed
           targetType={PostTargetType.GlobalFeed}
           goToExplore={() => onChangePage(PageTypes.Explore)}

@@ -18,11 +18,7 @@ const FaqButton = () => {
 
   return (
     <IconContext.Provider value={iconContextValue}>
-      <button
-        type="button"
-        active={page.type === PageTypes.FaqPage}
-        onClick={() => onChangePage(PageTypes.FaqPage)}
-      >
+      <button type="button" onClick={() => onChangePage(PageTypes.FaqPage)}>
         <FiHelpCircle />
       </button>
     </IconContext.Provider>

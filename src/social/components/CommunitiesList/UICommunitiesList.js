@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -34,6 +34,12 @@ const UICommunityList = ({
   }
 
   const recommendedGroupIds = useRecommendedGroupContext();
+  // if (!communityIds?.length)
+  //   return (
+  //     <p className="mx-5 flex items-center font-medium">
+  //       Join some groups! <span className="ml-[5px] !text-[22px]">☝️</span>
+  //     </p>
+  //   );
 
   return (
     <CommunityScrollContainer
@@ -53,6 +59,12 @@ const UICommunityList = ({
         )}
 
         {loading && renderLoadingSkeleton()}
+        {!loading && communityIds.length === 0 && (
+          <p className="mx-5 md:mx-[8px] md:mb-5 flex items-center font-medium">
+            Join some groups! <span className="ml-[5px] md:hidden !text-[22px]">☝️</span>{' '}
+            <span className="ml-[5px] hidden md:block !text-[22px]">👇</span>
+          </p>
+        )}
 
         {!loading &&
           communityIds.map((communityId) => (

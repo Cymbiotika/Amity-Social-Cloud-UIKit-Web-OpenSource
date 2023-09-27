@@ -28,7 +28,7 @@ function SearchFeed({ searchQuery }) {
   const [postResults, setPostResults] = useState([]);
 
   const [users = [], hasMoreUsers, loadMoreUsers] = useUserQuery(searchQuery);
-  const filteredUsers = users.filter((user) => !user.isDeleted);
+  const filteredUsers = users[0].filter((user) => !user.isDeleted);
 
   const [groups, hasMoreCommunities, loadMoreCommunities] = useCommunitiesList({
     search: searchQuery,

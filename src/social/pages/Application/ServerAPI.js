@@ -198,6 +198,36 @@ const ServerAPI = () => {
     // const url = 'https://beta.amity.services/search/v2/posts';
   };
 
+  // fetch posts within community
+  const getGroupPosts = async (groupId) => {
+    const url = `https://api.us.amity.co/api/v3/community-feeds/${groupId}`;
+
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(url, {
+        method: 'GET',
+
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        // body: JSON.stringify({
+        //   deleteAll: true,
+        // }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error.message);
+      return null;
+    }
+  };
+
   //////////////////////////////// NOTIFICATION CALLS //////////////////////////////////////////
 
   const getNotifications = async () => {
@@ -405,6 +435,7 @@ const ServerAPI = () => {
     savePost,
     getPosts,
     getFollowers,
+    getGroupPosts,
   };
 };
 

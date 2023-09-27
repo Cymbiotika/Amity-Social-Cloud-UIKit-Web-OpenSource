@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React from 'react';
 import { FaRegBookmark } from 'react-icons/fa';
 
 import { SecondaryButton } from '~/core/components/Button';
@@ -10,8 +9,6 @@ const SavePostButton = ({ postId, currentUserId, setPostIsSaved }) => {
   const server = ServerAPI();
 
   const handleSavePost = async () => {
-    console.log(`saved post ${postId}!`);
-    console.log(`current user ${currentUserId}!`);
     const ariseUserId = currentUserId;
     try {
       const userResp = await server.getUserMetaData(ariseUserId);
@@ -36,7 +33,7 @@ const SavePostButton = ({ postId, currentUserId, setPostIsSaved }) => {
   return (
     <SecondaryButton className="absolute right-0" onClick={() => handleSavePost()}>
       <FaRegBookmark className="h-[16px] w-auto mr-1" />
-      <FormattedMessage id="Save" />
+      <span className="!ml-0">Save</span>
     </SecondaryButton>
   );
 };

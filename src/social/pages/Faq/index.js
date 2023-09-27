@@ -130,9 +130,8 @@ const FaqPage = () => {
                 <div className="text-neutral-600 mt-3 group-open:animate-fadeIn">
                   <p>
                     Locate groups to join on the sidebar if you are on desktop or top menu if you
-                    are using mobile. Provide screenshots. Click join to add conversations from this
-                    group to your newsfeed and to enable your option to post and interact within
-                    that group.
+                    are using mobile. Click join to add conversations from this group to your
+                    newsfeed and to enable your option to post and interact within that group.
                   </p>
                   <p>More groups to come!</p>
                 </div>
