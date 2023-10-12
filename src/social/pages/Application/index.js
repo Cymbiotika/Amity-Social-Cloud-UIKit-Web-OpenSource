@@ -42,7 +42,7 @@ const ApplicationContainer = styled.div`
 const StyledCommunitySideMenu = styled(CommunitySideMenu)`
   min-height: 100%;
   display: none;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 996px) {
     display: block;
   }
 `;
@@ -122,8 +122,19 @@ const Community = () => {
     }
   };
   useEffect(() => {
+    window.sidebar = document.querySelector('.sidebar-menu');
+  });
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+  useEffect(() => {
     assignFeedType();
     assignTargetId();
+    scrollToTop();
   }, [page.type]);
   return (
     <SavedPostsProvider>
@@ -133,11 +144,18 @@ const Community = () => {
           id="custom-header-wrapper-md"
           className="hidden md:block"
           userId={page.userId}
+          page={page.type}
           onClickUser={handleClickUser}
         />
         <RecommendedGroupsProvider>
           <MainLayout
-            aside={<StyledCommunitySideMenu activeCommunity={page.communityId} id="main-layout" />}
+            aside={
+              <StyledCommunitySideMenu
+                activeCommunity={page.communityId}
+                id="main-layout"
+                className="sidebar-menu"
+              />
+            }
           >
             <CustomHeader
               id="custom-header-wrapper-mobile"

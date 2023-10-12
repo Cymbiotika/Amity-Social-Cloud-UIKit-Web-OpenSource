@@ -25,7 +25,6 @@ const Contatiner = styled.div`
 const SidebarRecommendedList = () => {
   const { onClickCommunity } = useNavigation();
   const [communities, , , loading] = useRecommendedCommunitiesList();
-  console.log(communities.length);
 
   if (!communities?.length) return <p className="mx-5">You&lsquo;ve joined all the groups! 🎉</p>;
 

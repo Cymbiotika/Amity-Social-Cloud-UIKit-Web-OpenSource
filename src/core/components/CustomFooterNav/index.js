@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { PageTypes, userId } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 
 import useUser from '~/core/hooks/useUser';
+
+const MobileFooter = styled.div`
+  @media screen and (min-width: 996px) {
+    display: none;
+  }
+`;
 
 const CustomFooterNav = ({ onClickUser, page }) => {
   const { user, file } = useUser(userId);
@@ -124,7 +131,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
     },
   ];
   return (
-    <div className="flex h-[54px] bg-white   bottom-0 z-10 md:hidden fixed w-full">
+    <MobileFooter className="flex left-0 h-[54px] bg-white bottom-0 z-10 fixed w-full">
       {menuTabs.map((tab, index) => (
         <div
           key={index}
@@ -142,7 +149,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
           <span className="text-cym-darkteal !text-xs">{tab.name}</span>
         </div>
       ))}
-    </div>
+    </MobileFooter>
   );
 };
 

@@ -85,18 +85,10 @@ const UIPostHeader = ({
             </>
           )}
         </PostNamesContainer>
-        {postAuthorTier ? (
+        {postAuthorTier || cymRole ? (
           <div className="my-[5px]">
             <span className="whitespace-nowrap rounded-full bg-[#EBF2F1] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
-              {postAuthorTier}
-            </span>
-          </div>
-        ) : null}
-
-        {cymRole ? (
-          <div className="my-[5px]">
-            <span className="whitespace-nowrap rounded-full bg-[#EBF2F1] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
-              {cymRole}
+              {postAuthorTier || cymRole}
             </span>
           </div>
         ) : (

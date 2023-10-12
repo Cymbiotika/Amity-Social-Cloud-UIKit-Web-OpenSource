@@ -26,7 +26,7 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
   const [followActiveTab, setFollowActiveTab] = useState(FollowersTabs.FOLLOWINGS);
 
   const isMe = userId === currentUserId;
-  console.log('my view?', isMe);
+
   const { isFollowAccepted } = useFollow(currentUserId, userId);
   const isHiddenProfile = isPrivateNetwork && !isFollowAccepted && !isMe;
 
@@ -38,7 +38,7 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
 
   return (
     // key prop is necessary here, without it this part will never re-render !!!
-    <Wrapper>
+    <Wrapper className="content-wrapper">
       <UserInfo
         key={userId}
         userId={userId}

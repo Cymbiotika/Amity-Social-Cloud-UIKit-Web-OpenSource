@@ -24,7 +24,12 @@ const AriseTokensGallery = ({ targetId, isMe }) => {
           }
 
           const extractedData = ariseRewardsData
-            .filter((reward) => reward.reward.name !== 'Birthday Gift')
+            .filter(
+              (reward) =>
+                reward.reward.type === 'Birthday Gift' ||
+                reward.reward.type === 'challenge' ||
+                reward.reward.type === 'monthly_challenge',
+            )
             .map((reward) => {
               const {
                 claimedNft,
@@ -57,7 +62,7 @@ const AriseTokensGallery = ({ targetId, isMe }) => {
   }
 
   return (
-    <AriseTokensContainer className="grid grid-cols-3 gap-[32px] items-start mx-auto">
+    <AriseTokensContainer className="grid grid-cols-2 md:grid-cols-3 gap-[32px] items-start mx-auto">
       {loading ? renderLoadingSkeleton() : null}
 
       {!loading && isMe && extractedRewardsData.some((reward) => !reward.claimedNft) ? (
@@ -68,9 +73,9 @@ const AriseTokensGallery = ({ targetId, isMe }) => {
         extractedRewardsData &&
         extractedRewardsData.map((reward, index) =>
           reward.claimedNft ? (
-            <div key={index} className="mx-auto w-[75px] md:w-[140px] text-center">
+            <div key={index} className="mx-auto w-full text-center">
               <div
-                className="mb-[16px] h-[75px]  md:h-[140px] rounded-[100px]"
+                className="mb-[16px] mx-auto aspect-square w-[130px] rounded-[100px]"
                 style={{
                   backgroundImage: `url(${reward.publicUrl})`,
                   backgroundRepeat: 'no-repeat',

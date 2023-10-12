@@ -12,6 +12,8 @@ const OptionMenu = ({
   position = POSITION_BOTTOM,
   align = POSITION_RIGHT,
   pullRight = true,
+  setDeletePostModalIsOpen,
+  deletePostPermission,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -24,6 +26,11 @@ const OptionMenu = ({
 
   const triggerRenderer = (props) => {
     return <OptionsButton {...props}>{icon || <OptionsIcon />}</OptionsButton>;
+  };
+
+  const triggerDelete = () => {
+    setDeletePostModalIsOpen(true);
+    console.log('delete');
   };
 
   return (
@@ -47,6 +54,11 @@ const OptionMenu = ({
               <FormattedMessage id={name} />
             </Option>
           ))}
+          {deletePostPermission === true && (
+            <Option onClick={triggerDelete}>
+              <FormattedMessage id="delete" />
+            </Option>
+          )}
         </UiKitDropdown>
       </Container>
     )

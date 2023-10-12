@@ -422,6 +422,29 @@ const ServerAPI = () => {
     }
   };
 
+  const deletePost = async (postId) => {
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(`https://api.us.amity.co/api/v4/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log('Error retriveing user list', error);
+    }
+  };
+
   return {
     ariseGetRewards,
     getNotifications,
@@ -436,6 +459,7 @@ const ServerAPI = () => {
     getPosts,
     getFollowers,
     getGroupPosts,
+    deletePost,
   };
 };
 

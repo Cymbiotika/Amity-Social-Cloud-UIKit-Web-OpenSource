@@ -177,9 +177,13 @@ const NotificationTray = () => {
   async function handleClick(notification) {
     if (notification.targetType === 'post') {
       onClickNotification(notification.targetId);
-    } else if (notification.targetType === 'community') onClickCommunity(notification.targetId);
-    else {
+    } else if (notification.targetType === 'comment') {
+      onClickNotification(notification.parentTargetId);
+      console.log('comment');
+    } else if (notification.targetType === 'community') {
+      onClickCommunity(notification.targetId);
     }
+
     toggleSlideOut();
     if (!notification.hasRead) {
       await setReadNotification(notification);

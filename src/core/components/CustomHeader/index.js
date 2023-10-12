@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import customizableComponent from '~/core/hocs/customization';
@@ -7,7 +7,7 @@ import withSDK from '~/core/hocs/withSDK';
 import useUser from '~/core/hooks/useUser';
 import { backgroundImage as UserImage } from '~/icons/User';
 import Avatar from '../Avatar';
-import ChevronLeft from '~/icons/ChevronLeft';
+import DashboardModal from '../BackToDashboard/DashboardModal';
 import FaqButton from './FaqButton';
 
 import NotificationTray from '~/social/components/NotificationTray';
@@ -15,6 +15,7 @@ import UiKitSocialSearch from '~/social/components/SocialSearch';
 import { userId } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 import { CustomHeaderWrapper, SearchWrapper } from './styles';
+import BackToDashBoard from '../BackToDashboard';
 
 const CustomHeader = ({ onClickUser, className, id }) => {
   // const userId = window.shopifyCustomerId;
@@ -53,6 +54,9 @@ const CustomHeader = ({ onClickUser, className, id }) => {
       hideMobileSearch();
     });
   }
+  useEffect(() => {
+    window.ariseHeader = document.querySelector('.custom-header-wrapper');
+  });
 
   return (
     <CustomHeaderWrapper
@@ -62,10 +66,8 @@ const CustomHeader = ({ onClickUser, className, id }) => {
       } pt-4 border-cym-lightgrey bg-cym-lightteal custom-header-wrapper`}
     >
       <div className="spt-container">
-        <a href="/account" className="flex items-center font-normal !underline !text-[#005850]">
-          <ChevronLeft className="w-2 mr-4" />
-          Back to Dashboard
-        </a>
+        <BackToDashBoard />
+
         <div className="flex flex-col w-full border-y-1  gap-3 py-[16px]">
           <div className="flex flex-row items-end">
             <svg

@@ -20,7 +20,7 @@ import {
 } from './styles';
 import CommentList from '~/social/components/CommentList';
 
-const COMMENTS_PER_PAGE = 5;
+const COMMENTS_PER_PAGE = 3;
 
 const UIEngagementBar = ({
   postId,

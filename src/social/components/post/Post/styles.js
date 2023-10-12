@@ -9,13 +9,16 @@ export const OptionMenu = styled(UIOptionMenu)`
 `;
 
 export const PostContainer = styled(({ className, ...props }) => (
-  <div className={cx('post', className)} {...props} />
+  <div className={cx('post richtext', className)} {...props} />
 ))`
   padding: 16px;
   padding-bottom: 8px;
   background: ${({ theme }) => theme.palette.system.background};
   border: 1px solid #edeef2;
   border-radius: 4px;
+  * {
+    font-family: 'Montserrat', sans-serif !important;
+  }
 `;
 
 export const PostHeadContainer = styled.div`

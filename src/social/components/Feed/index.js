@@ -116,6 +116,7 @@ const Feed = ({
 
           {!loading && posts.length > 0 && (
             <LoadMore hasMore={hasMore} loadMore={loadMore} className="load-more no-border">
+              {/* 
               {page.type === PageTypes.NewsFeed && (
                 <div>
                   <div className="w-max px-5">
@@ -131,6 +132,7 @@ const Feed = ({
                   />
                 </div>
               )}
+               */}
 
               {posts.map(({ postId }, index) => (
                 <React.Fragment key={postId}>

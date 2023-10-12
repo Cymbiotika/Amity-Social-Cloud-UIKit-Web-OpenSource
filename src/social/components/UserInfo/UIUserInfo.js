@@ -121,8 +121,10 @@ const UIUserInfo = ({
 
   return (
     <>
-      <MyProfileContainer className="!relative xs:!flex justify-center items-center md:!hidden min-h-[50px] h-fit">
-        {isMyProfile && <h1 className="!leading-none m-auto cym-h-2-lg">My Profile</h1>}
+      {isMyProfile && (
+        <MyProfileContainer className="!relative xs:!flex justify-center items-center md:!hidden min-h-[50px] h-fit">
+          <h1 className="!leading-none m-auto cym-h-2-lg">My Profile</h1>
+          {/* 
         <BackLink
           className="absolute left-0 ml-2"
           text={
@@ -140,7 +142,9 @@ const UIUserInfo = ({
             </svg>
           }
         />
-      </MyProfileContainer>
+         */}
+        </MyProfileContainer>
+      )}
 
       <Container className="xs:block md:hidden" data-qa-anchor="user-info">
         <Header className="!items-center">

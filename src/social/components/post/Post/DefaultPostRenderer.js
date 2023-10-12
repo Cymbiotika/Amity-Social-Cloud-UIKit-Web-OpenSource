@@ -25,6 +25,7 @@ import {
   ReviewButtonsContainer,
 } from './styles';
 import { useSavedPostData } from '~/social/providers/SavedPostsContext';
+import DeletePostModal from './DeletePostModal';
 
 // Number of lines to show in a text post before truncating.
 const MAX_TEXT_LINES_DEFAULT = 8;
@@ -68,6 +69,10 @@ const DefaultPostRenderer = ({
   const [trayIsVisible, setTrayIsVisible] = useState(false);
   const [postIsSaved, setPostIsSaved] = useState(false);
 
+  const [postDeleted, setPostDeleted] = useState(false);
+  const [deletePostPermission, setDeletePostPermission] = useState(false);
+  const [deletePostModalIsOpen, setDeletePostModalIsOpen] = useState(false);
+
   const { data, dataType, postId, targetId, targetType, metadata } = post;
   const { community } = useCommunity(targetId, () => targetType !== PostTargetType.CommunityFeed);
   const { currentMember, canReviewCommunityPosts } = useCommunityOneMember(
@@ -76,10 +81,29 @@ const DefaultPostRenderer = ({
     community.userId,
   );
 
-  const { savedPostIds } = useSavedPostData();
+  const { userRole, savedPostIds } = useSavedPostData();
+
+  const amityRoleArray = userRoles;
+
   useEffect(() => {
     if (savedPostIds && savedPostIds.includes(postId)) {
       setPostIsSaved(true);
+    }
+    // if (userRole && userRole.includes(`${userRole}`)) {
+    // if (userRole && userRole.includes('19ee7e0e-e137-4c86-84f5-88bc27fb6504')) {
+    //   // setDeletePostPermission(true);
+    // }
+
+    for (let i = 0; i < amityRoleArray.length; i++) {
+      if (
+        amityRoleArray[i] === '4e31d2e1-7ab8-4a63-b1b9-bd7383612ac9' ||
+        '19ee7e0e-e137-4c86-84f5-88bc27fb6504' ||
+        '24dec553-2837-46e1-9618-af64f3b119f4'
+      ) {
+        setDeletePostPermission(true);
+      } else {
+        console.log(`Unknown Amity Role: ${amityRoleArray[i]}`);
+      }
     }
   }, [loading, postId]);
 
@@ -178,11 +202,26 @@ const DefaultPostRenderer = ({
   );
 
   return (
-    <PostContainer data-qa-anchor="post" className={className}>
+    <PostContainer data-qa-anchor="post" className={`${className} ${postDeleted ? 'hidden' : ''}`}>
       {/* <code>{postId}</code> */}
+
+      <DeletePostModal
+        postId={postId}
+        deletePostModalIsOpen={deletePostModalIsOpen}
+        setDeletePostModalIsOpen={setDeletePostModalIsOpen}
+        setPostDeleted={setPostDeleted}
+      />
+
       <PostHeadContainer>
         <Header hidePostTarget={hidePostTarget} postId={postId} loading={loading} />
-        {!loading && <OptionMenu options={allOptions} data-qa-anchor="post-options-button" />}
+        {!loading && (
+          <OptionMenu
+            options={allOptions}
+            setDeletePostModalIsOpen={setDeletePostModalIsOpen}
+            deletePostPermission={deletePostPermission}
+            data-qa-anchor="post-options-button"
+          />
+        )}
       </PostHeadContainer>
 
       {loading ? (

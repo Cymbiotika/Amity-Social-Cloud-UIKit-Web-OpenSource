@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import BackLink from '~/core/components/BackLink';
 import Button from '~/core/components/Button';
@@ -10,7 +10,7 @@ import ServerAPI from '../Application/ServerAPI';
 import GroupSearchResult from './SearchResults/GroupSearchResult';
 import UserSearchResult from './SearchResults/UserSearchResult';
 
-function SearchFeed({ searchQuery }) {
+const SearchFeed = ({ searchQuery }) => {
   // const { post } = usePost(targetId);
   const navbarTabs = [
     { label: 'All', filterId: 'all' },
@@ -189,7 +189,7 @@ function SearchFeed({ searchQuery }) {
       )}
     </div>
   );
-}
+};
 
 SearchFeed.defaultProps = {
   searchQuery: ' ', // Set the default value to a space character
