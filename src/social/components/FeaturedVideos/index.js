@@ -20,7 +20,6 @@ const DEFAULT_COLUMN_NUMBER = {
 };
 
 export const Overlay = styled.div`
-  /* display: none; */
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -30,7 +29,7 @@ export const Overlay = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
-  z-index: 10000;
+  z-index: 999;
   padding: 1rem;
 
   video {
@@ -190,7 +189,7 @@ const FeaturedVideos = ({
 
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(null);
 
-  const spawnVideoOverlay = (index, e) => {
+  const spawnVideoOverlay = (index) => {
     setSelectedVideoIndex(index);
     document.body.style.overflow = 'hidden';
   };
@@ -207,8 +206,8 @@ const FeaturedVideos = ({
     <div className="ml-5 md:mx-0">
       {selectedVideoIndex !== null && (
         <Overlay id="video-overlay">
-          <CloseButton className="absolute right-5 top-5" onClick={closeVideoOverlay} />
-          <video id="video" className="video h-max" controls autoPlay="true">
+          <CloseButton className="absolute right-5 top-5 z-[1000]" onClick={closeVideoOverlay} />
+          <video id="video" className="video h-max" controls autoPlay="true" playsinline>
             <source src={playlist[selectedVideoIndex].src} type="video/mp4" />
             <track kind="captions" label="English" src="captions_en.vtt" srcLang="en" />
           </video>
