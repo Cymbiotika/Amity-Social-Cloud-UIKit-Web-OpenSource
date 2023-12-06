@@ -116,7 +116,6 @@ const Feed = ({
 
           {!loading && posts.length > 0 && (
             <LoadMore hasMore={hasMore} loadMore={loadMore} className="load-more no-border">
-              {/* 
               {page.type === PageTypes.NewsFeed && (
                 <div>
                   <div className="w-max px-5">
@@ -125,14 +124,13 @@ const Feed = ({
                   </div>
 
                   <Post
-                    postId="64c938761cfebc7804b6dc17"
+                    postId="656e438fd9db42565646e354"
                     hidePostTarget={targetType !== PostTargetType.GlobalFeed}
                     readonly={readonly}
                     pinned={pinned}
                   />
                 </div>
               )}
-               */}
 
               {posts.map(({ postId }, index) => (
                 <React.Fragment key={postId}>
