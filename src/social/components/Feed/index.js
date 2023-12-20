@@ -1,6 +1,6 @@
 import { CommunityFilter, FeedType, PostRepository, PostTargetType } from '@amityco/js-sdk';
 import PropTypes from 'prop-types';
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import DefaultPostRenderer from '~/social/components/post/Post/DefaultPostRenderer';
 import { PageTypes } from '~/social/constants';
 
@@ -15,7 +15,7 @@ import useCommunitiesList from '~/social/hooks/useCommunitiesList';
 import useFeed from '~/social/hooks/useFeed';
 import { FeedScrollContainer } from './styles';
 
-import NewsFeedTrendingList from '../community/NewsFeedTrendingList';
+// import NewsFeedTrendingList from '../community/NewsFeedTrendingList';
 
 import { useNavigation } from '~/social/providers/NavigationProvider';
 
@@ -46,6 +46,7 @@ const Feed = ({
     targetId,
     feedType,
   });
+  const [updatedPostsArray, setUpdatedPostsArray] = useState([]);
   const [communities, hasMoreCommunities, loadMoreCommunities] = useCommunitiesList(
     queryParams,
     false,
@@ -55,6 +56,16 @@ const Feed = ({
   function renderLoadingSkeleton() {
     return new Array(3).fill(3).map((x, index) => <DefaultPostRenderer key={index} loading />);
   }
+  useEffect(() => {
+    if (posts.length > 0) {
+      const firstPostId = posts[0].postId;
+      const pinnedPostId = '656e438fd9db42565646e354';
+      if (firstPostId === pinnedPostId) {
+        setUpdatedPostsArray(posts.filter((post) => post.postId !== pinnedPostId));
+      }
+    }
+    console.log('updated posts array:', updatedPostsArray);
+  }, [posts]);
 
   return (
     <FeedScrollContainer
@@ -124,7 +135,7 @@ const Feed = ({
                   </div>
 
                   <Post
-                    postId="656e438fd9db42565646e354"
+                    postId="65833e86985ddd43669749d9"
                     hidePostTarget={targetType !== PostTargetType.GlobalFeed}
                     readonly={readonly}
                     pinned={pinned}
@@ -132,16 +143,18 @@ const Feed = ({
                 </div>
               )}
 
-              {posts.map(({ postId }, index) => (
-                <React.Fragment key={postId}>
-                  <Post
-                    postId={postId}
-                    hidePostTarget={targetType !== PostTargetType.GlobalFeed}
-                    readonly={readonly}
-                  />
-                  {/* {page.type === PageTypes.NewsFeed && index === 0 && <NewsFeedTrendingList />} */}
-                </React.Fragment>
-              ))}
+              {(updatedPostsArray.length > 0 ? updatedPostsArray : posts).map(
+                ({ postId }, index) => (
+                  <React.Fragment key={postId}>
+                    <Post
+                      postId={postId}
+                      hidePostTarget={targetType !== PostTargetType.GlobalFeed}
+                      readonly={readonly}
+                    />
+                    {/* {page.type === PageTypes.NewsFeed && index === 0 && <NewsFeedTrendingList />} */}
+                  </React.Fragment>
+                ),
+              )}
 
               {loadingMore && renderLoadingSkeleton()}
             </LoadMore>

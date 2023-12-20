@@ -1,3 +1,4 @@
+import React from 'react';
 import customizableComponent from '~/core/hocs/customization';
 import useKeyboard from '~/core/hooks/useKeyboard';
 
@@ -35,7 +36,7 @@ const ImageGallery = ({ index = 0, items = [], children, onChange, showCounter =
   useKeyboard(listeners, params);
 
   return (
-    <Container length={items.length}>
+    <Container length={items.length} onClick={handleClose}>
       <Frame>{render(items[index])}</Frame>
 
       {showCounter && <Counter>{`${index + 1} / ${items.length}`}</Counter>}

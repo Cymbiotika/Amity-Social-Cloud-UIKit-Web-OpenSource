@@ -26,7 +26,7 @@ import PostTargetSelector from './components/PostTargetSelector';
 import UploaderButtons from './components/UploaderButtons';
 import ImagesUploaded from './components/ImagesUploaded';
 import VideosUploaded from './components/VideosUploaded';
-import FilesUploaded from './components/FilesUploaded';
+// import FilesUploaded from './components/FilesUploaded';
 
 import { createPost, showPostCreatedNotification } from './utils';
 import {
@@ -286,13 +286,13 @@ const PostCreatorBar = ({
                 onChange={setPostVideos}
                 onError={setError}
               />
-              <FilesUploaded
+              {/* <FilesUploaded
                 files={incomingFiles}
                 uploadLoading={uploadLoading}
                 onLoadingChange={setUploadLoading}
                 onChange={setPostFiles}
                 onError={setError}
-              />
+              /> */}
             </UploadsContainer>
           }
           onChange={({ text, plainText: plainTextVal, lastMentionText, mentions }) => {

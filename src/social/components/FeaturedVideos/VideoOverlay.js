@@ -24,9 +24,9 @@ const closeVideoOverlay = () => {
 
 export const FeaturedVideoOverlay = (src = '') => {
   return (
-    <Overlay id="video-overlay">
+    <Overlay id="video-overlay" onClick={closeVideoOverlay}>
       <CloseButton className="absolute right-5 top-5" onClick={closeVideoOverlay} />
-      <video className="w-[300px] md:w-[400px]" controls>
+      <video className="w-[300px] md:w-[400px]" controls autoPlay>
         <source src={src} type="video/mp4" />
       </video>
     </Overlay>

@@ -89,10 +89,6 @@ const DefaultPostRenderer = ({
     if (savedPostIds && savedPostIds.includes(postId)) {
       setPostIsSaved(true);
     }
-    // if (userRole && userRole.includes(`${userRole}`)) {
-    // if (userRole && userRole.includes('19ee7e0e-e137-4c86-84f5-88bc27fb6504')) {
-    //   // setDeletePostPermission(true);
-    // }
 
     for (let i = 0; i < amityRoleArray.length; i++) {
       if (

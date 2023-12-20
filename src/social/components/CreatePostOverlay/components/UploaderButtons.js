@@ -62,7 +62,7 @@ const PostCreatorUploaders = ({
       <VideoAttachmentIcon />
     </StyledLoader>
 
-    <StyledLoader
+    {/* <StyledLoader
       data-qa-anchor="post-creator-file-attachment-button"
       disabled={fileUploadDisabled}
       uploadLoading={uploadLoading}
@@ -73,7 +73,7 @@ const PostCreatorUploaders = ({
       onFileSizeLimit={onFileSizeLimit}
     >
       <FileAttachmentIcon />
-    </StyledLoader>
+    </StyledLoader> */}
   </>
 );
 

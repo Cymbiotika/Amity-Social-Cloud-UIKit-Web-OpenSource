@@ -47,7 +47,7 @@ const PaginationButton = styled(Button).attrs({ variant: 'secondary' })`
 `;
 
 const ScrollContainer = styled.div`
-  overflow-x: hidden;
+  overflow-x: scroll;
 `;
 
 const StretchedList = styled.div`

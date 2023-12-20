@@ -53,7 +53,7 @@ const FaqVideo = () => {
   };
   return (
     <>
-      <Overlay id="video-overlay" className="hidden">
+      <Overlay id="video-overlay" className="hidden" onClick={closeVideoOverlay}>
         <CloseButton className="absolute right-5 top-5" onClick={closeVideoOverlay} />
         <video id="video" className="video h-max" controls>
           <source

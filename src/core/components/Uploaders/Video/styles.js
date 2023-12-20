@@ -236,7 +236,7 @@ Video.defaultProps = {
   isRejected: false,
   onRetry: undefined,
   mimeType: undefined,
-  autoPlay: false,
+  autoPlay: true,
   isLive: false,
 };
 

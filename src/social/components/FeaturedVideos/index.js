@@ -77,26 +77,28 @@ const PaginationButton = styled(Button).attrs({ variant: 'secondary' })`
 `;
 
 const ScrollContainer = styled.div`
-  overflow-x: hidden;
+  overflow-x: scroll;
 `;
 
 const StretchedList = styled.div`
   margin-bottom: 0.188rem; // give the shadow a little space
   display: grid;
   grid-auto-flow: column;
-  /* grid-auto-columns: 100%; */
-  /* grid-gap: ${ITEM_SPACE_SIZE}px; */
+  /* grid-auto-columns: 100%;
+  grid-gap: ${ITEM_SPACE_SIZE}px; */
 
   /* ${({ columns }) =>
-    Object.entries(columns).map(
-      ([breakpoint, column]) => `
-        @media (min-width: ${breakpoint}px) {
-        grid-auto-columns: calc((100% / ${column}) - (${ITEM_SPACE_SIZE}px * ${
-        column - 1
-      } / ${column}));
-    }
-  `,
-    )} ); */
+    Object.entries(columns)
+      .map(
+        ([breakpoint, column]) => `
+          @media (min-width: ${breakpoint}px) {
+            grid-auto-columns: calc((100% / ${column}) - (${ITEM_SPACE_SIZE}px * ${
+          column - 1
+        } / ${column}));
+          }
+        `,
+      )
+      .join('')} */
 `;
 
 const FeaturedVideos = ({
@@ -205,7 +207,7 @@ const FeaturedVideos = ({
   return (
     <div className="ml-5 md:mx-0">
       {selectedVideoIndex !== null && (
-        <Overlay id="video-overlay">
+        <Overlay id="video-overlay" onClick={closeVideoOverlay}>
           <CloseButton className="absolute right-5 top-5 z-[1000]" onClick={closeVideoOverlay} />
           <video id="video" className="video h-max" controls autoPlay="true" playsinline>
             <source src={playlist[selectedVideoIndex].src} type="video/mp4" />

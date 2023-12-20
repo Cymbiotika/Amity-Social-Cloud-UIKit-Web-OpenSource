@@ -43,7 +43,7 @@ import { useAsyncCallback } from '~/core/hooks/useAsyncCallback';
 import useFollowersList from '~/core/hooks/useFollowersList';
 import { useSDK } from '~/core/hooks/useSDK';
 import useUser from '~/core/hooks/useUser';
-import { POSITION_LEFT } from '~/helpers';
+import { POSITION_LEFT, POSITION_RIGHT } from '~/helpers';
 import { Check } from '~/icons';
 import { roleRenderer } from '~/social/constants';
 import useReport from '~/social/hooks/useReport';
@@ -244,7 +244,7 @@ const UIUserInfo = ({
               )}
             </>
           </ConditionalRender>
-          <OptionMenu options={allOptions} pullRight={false} align={POSITION_LEFT} />
+          <OptionMenu options={allOptions} pullRight={false} align={POSITION_RIGHT} />
         </ActionButtonContainer>
 
         {isMyProfile && pendingUsers.length > 0 && isPrivateNetwork && (

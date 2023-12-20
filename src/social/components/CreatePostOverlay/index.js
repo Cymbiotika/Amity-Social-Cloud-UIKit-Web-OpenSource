@@ -1,7 +1,7 @@
 import { CommunityRepository, FileType, PostTargetType, UserRepository } from '@amityco/js-sdk';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -22,7 +22,7 @@ import { backgroundImage as CommunityImage } from '~/icons/Community';
 import { backgroundImage as UserImage } from '~/icons/User';
 import PollModal from '~/social/components/post/PollComposer/PollModal';
 import { useNavigation } from '~/social/providers/NavigationProvider';
-import FilesUploaded from './components/FilesUploaded';
+// import FilesUploaded from './components/FilesUploaded';
 import ImagesUploaded from './components/ImagesUploaded';
 import PostTargetSelector from './components/PostTargetSelector';
 import UploaderButtons from './components/UploaderButtons';
@@ -60,7 +60,7 @@ const overCharacterModal = () =>
 
 export const Overlay = styled.div`
   display: none;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   top: 0;
   width: 100%;
@@ -337,13 +337,13 @@ const CreatePostOverlay = ({
                   onChange={setPostVideos}
                   onError={setError}
                 />
-                <FilesUploaded
+                {/* <FilesUploaded
                   files={incomingFiles}
                   uploadLoading={uploadLoading}
                   onLoadingChange={setUploadLoading}
                   onChange={setPostFiles}
                   onError={setError}
-                />
+                /> */}
               </UploadsContainer>
             }
             onChange={({ text, plainText: plainTextVal, lastMentionText, mentions }) => {
