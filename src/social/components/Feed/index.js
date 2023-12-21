@@ -56,15 +56,15 @@ const Feed = ({
   function renderLoadingSkeleton() {
     return new Array(3).fill(3).map((x, index) => <DefaultPostRenderer key={index} loading />);
   }
+  const [pinnedPostId, setPinnedPostId] = useState('');
   useEffect(() => {
     if (posts.length > 0) {
       const firstPostId = posts[0].postId;
-      const pinnedPostId = '656e438fd9db42565646e354';
+      setPinnedPostId('65833e86985ddd43669749d9');
       if (firstPostId === pinnedPostId) {
         setUpdatedPostsArray(posts.filter((post) => post.postId !== pinnedPostId));
       }
     }
-    console.log('updated posts array:', updatedPostsArray);
   }, [posts]);
 
   return (
@@ -135,7 +135,7 @@ const Feed = ({
                   </div>
 
                   <Post
-                    postId="65833e86985ddd43669749d9"
+                    postId={pinnedPostId}
                     hidePostTarget={targetType !== PostTargetType.GlobalFeed}
                     readonly={readonly}
                     pinned={pinned}
