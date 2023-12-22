@@ -46,6 +46,9 @@ const Feed = ({
     targetId,
     feedType,
   });
+
+  const [pinnedPostId, setPinnedPostId] = useState('');
+  const [firstPostId, setFirstPostId] = useState('');
   const [updatedPostsArray, setUpdatedPostsArray] = useState([]);
   const [communities, hasMoreCommunities, loadMoreCommunities] = useCommunitiesList(
     queryParams,
@@ -56,16 +59,16 @@ const Feed = ({
   function renderLoadingSkeleton() {
     return new Array(3).fill(3).map((x, index) => <DefaultPostRenderer key={index} loading />);
   }
-  const [pinnedPostId, setPinnedPostId] = useState('');
+
   useEffect(() => {
+    setPinnedPostId('65833e86985ddd43669749d9');
     if (posts.length > 0) {
-      const firstPostId = posts[0].postId;
-      setPinnedPostId('65833e86985ddd43669749d9');
+      setFirstPostId(posts[0].postId);
       if (firstPostId === pinnedPostId) {
         setUpdatedPostsArray(posts.filter((post) => post.postId !== pinnedPostId));
       }
     }
-  }, [posts]);
+  }, [posts, firstPostId]);
 
   return (
     <FeedScrollContainer
