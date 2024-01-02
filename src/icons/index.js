@@ -22,6 +22,8 @@ export { default as Minus } from './Minus';
 export { default as Poll } from './Poll';
 export { default as CircleRemove } from './CircleRemove';
 export { default as Bars } from './Bars';
+export { default as Sun } from './Sun';
+export { default as Star } from './Star';
 
 // files
 export { default as AudioFile } from './files/Audio';

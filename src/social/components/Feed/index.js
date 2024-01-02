@@ -61,7 +61,7 @@ const Feed = ({
   }
 
   useEffect(() => {
-    setPinnedPostId('65833e86985ddd43669749d9');
+    setPinnedPostId('65943d433e073100b4c24cf4');
     if (posts.length > 0) {
       setFirstPostId(posts[0].postId);
       if (firstPostId === pinnedPostId) {

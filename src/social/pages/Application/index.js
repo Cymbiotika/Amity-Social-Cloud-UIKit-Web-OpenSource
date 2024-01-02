@@ -28,6 +28,7 @@ import NotificationTargetPage from '../NotificationTargetPage';
 import SearchFeed from '../SearchFeed';
 import ServerAPI from './ServerAPI';
 import FaqPage from '../Faq';
+import WellnessWorkshopsPage from '../WellnessWorkshops';
 
 import { SavedPostsProvider } from '~/social/providers/SavedPostsContext';
 // import Custom from '~/chat/components/Message/MessageContent/Custom';
@@ -197,6 +198,9 @@ const Community = () => {
             )}
             {page.type === PageTypes.SearchFeed && <SearchFeed searchQuery={page.targetId} />}
             {page.type === PageTypes.FaqPage && <FaqPage searchQuery={page.targetId} />}
+            {page.type === PageTypes.Wellness && (
+              <WellnessWorkshopsPage searchQuery={page.targetId} />
+            )}
 
             {/* </div> */}
 

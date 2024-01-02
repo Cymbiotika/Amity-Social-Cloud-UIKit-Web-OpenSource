@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ScrollContainer = styled.div`
-  overflow-x: scroll;
+  overflow-x: hidden;
 `;
 export const StretchedList = styled.div`
   margin-bottom: 0.188rem; // give the shadow a little space

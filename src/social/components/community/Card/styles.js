@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import SocialCommunityName from '~/social/components/community/Name';
 
 export const Container = styled.div`
-  min-width: 278px;
-  min-height: 289px;
+  /* min-width: 278px; */
+  width: 100%;
+  /* min-height: 289px; */
+  height: max-content;
   cursor: pointer;
   box-shadow: 0 0 1px rgba(40, 41, 61, 0.08), 0 0.5px 2px rgba(96, 97, 112, 0.16);
   border-radius: 8px;
@@ -36,11 +38,12 @@ export const CoverContent = styled.div`
 export const CommunityName = styled(SocialCommunityName)`
   color: #ffffff;
   ${({ theme }) => theme.typography.headline}
-  line-height: 30px !important;
+  margin-bottom: 10px;
+  /* line-height: 30px !important; */
 
   * {
     color: #ffffff;
-    line-height: 30px !important;
+    /* line-height: 30px !important; */
     padding: 0;
   }
 `;

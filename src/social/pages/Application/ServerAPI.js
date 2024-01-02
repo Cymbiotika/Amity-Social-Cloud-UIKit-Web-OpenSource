@@ -28,6 +28,7 @@ const ServerAPI = () => {
       }
 
       const data = await response.json();
+      console.log('data', data);
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -445,6 +446,29 @@ const ServerAPI = () => {
     }
   };
 
+  const getFeaturedPosts = async (postIdsArray) => {
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(`https://api.us.amity.co/api/v3/posts/list?${postIdsArray}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(console.log('Error:', error));
+    }
+  };
+
   return {
     ariseGetRewards,
     getNotifications,
@@ -460,6 +484,7 @@ const ServerAPI = () => {
     getFollowers,
     getGroupPosts,
     deletePost,
+    getFeaturedPosts,
   };
 };
 

@@ -9,6 +9,7 @@ const LocalStateProvider = LocalStateContext.Provider;
 const SavedPostsProvider = ({ children }) => {
   const [savedPostIds, setSavedPostIds] = useState([]);
   const [userRole, setUserRole] = useState([]);
+  const [ariseUserTier, setAriseUserTier] = useState('');
 
   const server = ServerAPI();
 
@@ -17,8 +18,10 @@ const SavedPostsProvider = ({ children }) => {
       const userMetaResp = await server.getUserMetaData(userId);
       const postIds = userMetaResp.users[0].metadata.savedPostIds;
       const savedPostIdsArray = postIds;
+      const tier = userMetaResp.users[0].metadata.ariseTier;
       setSavedPostIds(savedPostIdsArray);
       setUserRole(userMetaResp.users[0].roles);
+      setAriseUserTier(tier);
     } catch (error) {
       console.error('Error fetching your saved post data:', error);
     }
@@ -26,7 +29,11 @@ const SavedPostsProvider = ({ children }) => {
   useEffect(() => {
     getSavedPostStatus();
   }, []);
-  return <LocalStateProvider value={{ savedPostIds, userRole }}>{children}</LocalStateProvider>;
+  return (
+    <LocalStateProvider value={{ savedPostIds, userRole, ariseUserTier }}>
+      {children}
+    </LocalStateProvider>
+  );
 };
 
 // custom hook: access saved posts data

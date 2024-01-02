@@ -35,10 +35,11 @@ const CategoryCommunitiesList = ({ categoryId }) => {
 
   return (
     <PaginatedList
+      className="grid grid-cols-2"
       items={items}
       hasMore={hasMore}
       loadMore={loadMore}
-      container={Grid}
+      // container={Grid}
       emptyState={
         <ListEmptyState
           icon={<EmptyFeedIcon width={48} height={48} />}

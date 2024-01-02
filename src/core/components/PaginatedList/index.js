@@ -6,7 +6,12 @@ import ChevronDown from '~/icons/ChevronDown';
 
 import { ChevronDownContainer } from '~/core/components/PaginatedList/styles';
 
-const DefaultContainer = styled.div``;
+const DefaultContainer = styled.div`
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
+  grid-column-gap: 12px;
+  grid-row-gap: 20px;
+`;
 
 const LoadMore = styled.button`
   display: block;

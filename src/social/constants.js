@@ -9,6 +9,7 @@ export const PageTypes = {
   MyGroups: 'mygroups',
   Search: 'search',
   SearchFeed: 'searchfeed',
+  Wellness: 'wellness',
   NotificationTarget: 'notificationtarget',
   Faq: 'faq',
 };
@@ -38,14 +39,14 @@ export const VideoQuality = Object.freeze({
 
 export const MP4MimeType = 'video/mp4';
 
-export const userId = window.shopifyCustomerId ?? '6229059141679';
-export const displayName = window.shopifyCustomerName ?? 'Hector Cardona';
+// export const userId = window.shopifyCustomerId ?? '6229059141679';
+// export const displayName = window.shopifyCustomerName ?? 'Hector Cardona';
 
 // export const userId = window.shopifyCustomerId ?? '3454838145071';
 // export const displayName = window.shopifyCustomerName ?? 'Jared Radtkey';
 
-// export const userId = window.shopifyCustomerId ?? '5681503207471';
-// export const displayName = window.shopifyCustomerName ?? 'Hannah Teague';
+export const userId = window.shopifyCustomerId ?? '6405802983471';
+export const displayName = window.shopifyCustomerName ?? 'Arise';
 export const apiKey = 'b0e8ee0f3fdda3644836851c545a1f89d50fdae4e9636628';
 
 export const roleRenderer = (role) => {

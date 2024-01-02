@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PageTypes, userId } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
+import { useSavedPostData } from '~/social/providers/SavedPostsContext';
 
 import useUser from '~/core/hooks/useUser';
 
@@ -15,10 +16,103 @@ const CustomFooterNav = ({ onClickUser, page }) => {
   const { user, file } = useUser(userId);
   const { onChangePage } = useNavigation();
   const [selectedTab, setSelectedTab] = useState(page);
-
+  const { ariseUserTier } = useSavedPostData();
+  console.log('the arise tier', ariseUserTier);
   useEffect(() => {
+    console.log('loading');
     setSelectedTab(page);
   }, [page]);
+
+  const wellnessOption =
+    ariseUserTier === 'VIP'
+      ? {
+          name: 'Wellness',
+          pages: [PageTypes.Wellness],
+          func: () => onChangePage(PageTypes.Wellness),
+
+          svg: (
+            <svg
+              width="23"
+              height="22"
+              viewBox="0 0 23 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_1203_2121)">
+                <path
+                  d="M11.5 19.25V21.0833"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M17.3301 16.83L18.6317 18.1317"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4.36841 18.1317L5.67007 16.83"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M19.75 11H21.5833"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M1.41675 11H3.25008"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M11.5001 15.5833C14.0314 15.5833 16.0834 13.5313 16.0834 11C16.0834 8.4687 14.0314 6.41667 11.5001 6.41667C8.96878 6.41667 6.91675 8.4687 6.91675 11C6.91675 13.5313 8.96878 15.5833 11.5001 15.5833Z"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M17.3301 5.17L18.6317 3.86833"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4.36841 3.86833L5.67007 5.17"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M11.5 0.916672V2.75001"
+                  stroke="#005850"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_1203_2121">
+                  <rect width="22" height="22" fill="white" transform="translate(0.5)" />
+                </clipPath>
+              </defs>
+            </svg>
+          ),
+        }
+      : null;
+
   const menuTabs = [
     {
       name: 'News Feed',
@@ -71,6 +165,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
         </svg>
       ),
     },
+    wellnessOption,
     {
       name: 'Profile',
       pages: [PageTypes.UserFeed],
@@ -129,12 +224,13 @@ const CustomFooterNav = ({ onClickUser, page }) => {
         </svg>
       ),
     },
-  ];
+  ].filter((tab) => tab);
   return (
     <MobileFooter className="flex left-0 h-[54px] bg-white bottom-0 z-10 fixed w-full">
       {menuTabs.map((tab, index) => (
         <div
           key={index}
+          tabIndex={0}
           className={`w-1/4 flex flex-col justify-center items-center border-t-2 ${
             tab.pages.includes(selectedTab)
               ? 'font-semibold bg-[#EBF2F1]  border-t-2 border-t-cym-darkteal'

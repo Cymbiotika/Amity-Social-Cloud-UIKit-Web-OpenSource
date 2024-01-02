@@ -19,6 +19,7 @@ const SideMenuActionItem = ({
   disabled,
 }) => {
   const ActionItemContainer = ActionItemComponents[element];
+
   return (
     <ActionItemContainer
       data-qa-anchor={dataQaAnchor}
