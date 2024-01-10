@@ -65,6 +65,7 @@ export const Overlay = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
   background-color: #fff;
   transition-property: all;
   transition-duration: 0.5s;

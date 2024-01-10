@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { Lock } from '~/icons';
 
 export const FeedScrollContainer = styled(InfiniteScroll)`
+  margin: auto 20px;
+  @media screen and (min-width: 1240px) {
+    margin: auto 0;
+  }
   > :not(:first-child) {
     margin-top: 20px;
   }

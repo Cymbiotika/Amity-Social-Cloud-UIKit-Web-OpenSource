@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 import { v4 as uuidV4 } from 'uuid';
 import { Spotify } from 'react-spotify-embed';
 import YoutubeEmbed from './YoutubeEmbed';
-import { first } from 'lodash';
+import VimeoEmbed from './VimeoEmbed';
 
 const renderNodes = (parentNode, props) => {
   if (isValidElement(parentNode) || typeof parentNode === 'object') {
@@ -129,6 +129,36 @@ const ChunkHighlighter = ({ textToHighlight, chunks, highlightNode, unhighlightN
             <>
               <p className="mb-[10px]">{firstString}</p>
               <YoutubeEmbed embedId={videoId} />
+            </>
+          );
+        }
+
+        if (text.includes('vimeo.com')) {
+          const url = text;
+          const firstStringRegex = /^[^!?\n.]+/;
+          const firstStringMatch = text.match(firstStringRegex);
+
+          // Extract the video ID after "/video/"
+          const videoIdMatch = url.match(/\/video\/([^/?]+)/);
+          const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+          const regex = /https:\/\/player\.vimeo\.com\/video\/[^\s]+/g;
+
+          // Log the original text and the result after the replace operation
+          console.log('Original Text:', text);
+          const result = text.replace(regex, '');
+          console.log('videoId:', videoId);
+
+          let firstString = firstStringMatch ? firstStringMatch[0] : '';
+          if (firstString === 'https://player') {
+            firstString = null;
+          }
+          console.log('result:', result);
+
+          return (
+            <>
+              <p className="mb-[10px]">{firstString}</p>
+              {videoId && <VimeoEmbed videoId={videoId} />}
             </>
           );
         }
