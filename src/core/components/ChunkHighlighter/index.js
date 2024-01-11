@@ -145,15 +145,12 @@ const ChunkHighlighter = ({ textToHighlight, chunks, highlightNode, unhighlightN
           const regex = /https:\/\/player\.vimeo\.com\/video\/[^\s]+/g;
 
           // Log the original text and the result after the replace operation
-          console.log('Original Text:', text);
           const result = text.replace(regex, '');
-          console.log('videoId:', videoId);
 
           let firstString = firstStringMatch ? firstStringMatch[0] : '';
           if (firstString === 'https://player') {
             firstString = null;
           }
-          console.log('result:', result);
 
           return (
             <>
