@@ -5,7 +5,7 @@ import RecommendedList from '~/social/components/community/RecommendedList';
 
 import MyCommunitiesMobile from '~/social/components/MyCommunitiesMobile';
 import FeaturedVideos from '~/social/components/FeaturedVideos';
-import WellnessWorkshops from '~/social/components/WellnessWorkshops';
+// import WellnessWorkshops from '~/social/components/WellnessWorkshops';
 import { PageContainer } from './styles';
 
 const ExplorePage = () => (
@@ -14,7 +14,7 @@ const ExplorePage = () => (
     <PageContainer>
       <RecommendedList />
       <FeaturedVideos />
-      <WellnessWorkshops />
+      {/* <WellnessWorkshops /> */}
 
       {/* <TrendingList /> */}
 

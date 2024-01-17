@@ -170,7 +170,7 @@ const Feed = ({
 
             {!loading && posts.length > 0 && (
               <LoadMore hasMore={hasMore} loadMore={loadMore} className="load-more no-border">
-                {page.type === PageTypes.NewsFeed && (
+                {/* {page.type === PageTypes.NewsFeed && (
                   <div>
                     <div className="w-max px-5">
                       <span className="!text-[18px] font-bold">Pinned Posts 📌</span>
@@ -184,7 +184,7 @@ const Feed = ({
                       pinned={pinned}
                     />
                   </div>
-                )}
+                )} */}
 
                 {(updatedPostsArray.length > 0 ? updatedPostsArray : posts).map(
                   ({ postId }, index) => (
