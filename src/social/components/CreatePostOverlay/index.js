@@ -86,6 +86,7 @@ const CancelPost = styled.button`
 const cancelPost = () => {
   document.getElementById('create-post-overlay').style.display = 'none';
   document.getElementById('ApplicationContainer').style.overflowY = 'auto';
+  document.body.style.overflow = 'auto';
 };
 
 const CreatePostOverlay = ({

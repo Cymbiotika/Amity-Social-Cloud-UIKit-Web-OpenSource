@@ -214,6 +214,7 @@ const DefaultPostRenderer = ({
           <OptionMenu
             options={allOptions}
             setDeletePostModalIsOpen={setDeletePostModalIsOpen}
+            hidePostTarget={hidePostTarget}
             deletePostPermission={deletePostPermission}
             data-qa-anchor="post-options-button"
           />
@@ -244,7 +245,13 @@ const DefaultPostRenderer = ({
             />
           )}
 
-          {trayIsVisible && <LikedListTray postId={postId} setTrayIsVisible={setTrayIsVisible} />}
+          {trayIsVisible && (
+            <LikedListTray
+              postId={postId}
+              trayIsVisible={trayIsVisible}
+              setTrayIsVisible={setTrayIsVisible}
+            />
+          )}
 
           {isUnderReview && canReviewCommunityPosts && (
             <ReviewButtonsContainer data-qa-anchor="post-review">

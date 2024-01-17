@@ -8,7 +8,7 @@ import SideMenuSection from '~/core/components/SideMenuSection';
 import { Newspaper, Star, Sun } from '~/icons';
 import { PageTypes } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
-import { useSavedPostData } from '~/social/providers/SavedPostsContext';
+// import { useSavedPostData } from '~/social/providers/SavedPostsContext';
 
 export const NewsIcon = styled(Newspaper).attrs({ width: 20, height: 20 })``;
 export const SunIcon = styled(Sun).attrs({ width: 20, height: 20 })``;
@@ -16,7 +16,7 @@ export const StarIcon = styled(Star).attrs({ width: 20, height: 20 })``;
 
 const SideSectionCommunity = ({ shouldHideExplore, children }) => {
   const { onChangePage, page } = useNavigation();
-  const { ariseUserTier } = useSavedPostData();
+  // const { ariseUserTier } = useSavedPostData();
 
   return (
     <SideMenuSection heading={<FormattedMessage id="sidesectioncommunity.community" />}>
@@ -30,7 +30,7 @@ const SideSectionCommunity = ({ shouldHideExplore, children }) => {
         <FormattedMessage id="sidesectioncommunity.newfeed" />
       </SideMenuActionItem>
 
-      {ariseUserTier === 'VIP' ? (
+      {/* {ariseUserTier === 'VIP' ? (
         <SideMenuActionItem
           className="cym-h-4"
           data-qa-anchor="side-section-community-side-menu-action-item-wellness-button"
@@ -40,7 +40,7 @@ const SideSectionCommunity = ({ shouldHideExplore, children }) => {
         >
           <FormattedMessage id="sidesectioncommunity.wellness" />
         </SideMenuActionItem>
-      ) : null}
+      ) : null} */}
 
       {!shouldHideExplore && (
         <SideMenuActionItem

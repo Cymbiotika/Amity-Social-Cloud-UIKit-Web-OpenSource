@@ -36,6 +36,9 @@ export const PostButton = styled(PrimaryButton)`
   padding: 10px 16px;
   margin-left: auto;
   z-index: 10;
+  &:disabled {
+    background-color: #d9d9d9 !important;
+  }
 `;
 
 export const UploadsContainer = styled.div`

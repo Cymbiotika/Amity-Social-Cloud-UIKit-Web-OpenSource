@@ -14,6 +14,7 @@ const OptionMenu = ({
   pullRight = true,
   setDeletePostModalIsOpen,
   deletePostPermission,
+  hidePostTarget,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -54,9 +55,9 @@ const OptionMenu = ({
               <FormattedMessage id={name} />
             </Option>
           ))}
-          {deletePostPermission === true && (
+          {deletePostPermission && !hidePostTarget && (
             <Option onClick={triggerDelete}>
-              <FormattedMessage id="delete" />
+              <FormattedMessage id="Moderator Delete" />
             </Option>
           )}
         </UiKitDropdown>

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const VimeoEmbed = ({ videoId }) => {
-  console.log('videoId is:', videoId);
   return (
     <div
       style={{

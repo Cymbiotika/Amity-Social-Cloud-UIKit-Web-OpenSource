@@ -17,13 +17,13 @@ const CustomFooterNav = ({ onClickUser, page }) => {
   const { onChangePage } = useNavigation();
   const [selectedTab, setSelectedTab] = useState(page);
   const { ariseUserTier } = useSavedPostData();
-  console.log('the arise tier', ariseUserTier);
+
   useEffect(() => {
     console.log('loading');
     setSelectedTab(page);
   }, [page]);
 
-  const wellnessOption =
+  /* const wellnessOption =
     ariseUserTier === 'VIP'
       ? {
           name: 'Wellness',
@@ -111,7 +111,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
             </svg>
           ),
         }
-      : null;
+      : null; */
 
   const menuTabs = [
     {
@@ -165,7 +165,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
         </svg>
       ),
     },
-    wellnessOption,
+    // wellnessOption,
     {
       name: 'Profile',
       pages: [PageTypes.UserFeed],
