@@ -17,7 +17,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
   const { onChangePage } = useNavigation();
   const [selectedTab, setSelectedTab] = useState(page);
   const { ariseUserTier } = useSavedPostData();
-  console.log('the arise tier', ariseUserTier);
+
   useEffect(() => {
     console.log('loading');
     setSelectedTab(page);

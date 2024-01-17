@@ -20,6 +20,8 @@ import {
 } from './styles';
 import CommentList from '~/social/components/CommentList';
 
+import { useNavigation } from '~/social/providers/NavigationProvider';
+
 const COMMENTS_PER_PAGE = 3;
 
 const UIEngagementBar = ({
@@ -36,6 +38,7 @@ const UIEngagementBar = ({
   postIsSaved,
   setPostIsSaved,
 }) => {
+  const { onClickNotification } = useNavigation();
   const showTray = () => {
     setTrayIsVisible(true);
   };
@@ -44,24 +47,21 @@ const UIEngagementBar = ({
     <EngagementBarContainer>
       <Counters>
         {totalLikes > 0 && (
-          <>
-            <button data-qa-anchor="engagement-bar-like-counter" type="button" onClick={showTray}>
-              {toHumanString(totalLikes)}{' '}
-              <FormattedMessage id="plural.like" values={{ amount: totalLikes }} />
-            </button>
-
-            {/*<span data-qa-anchor="engagement-bar-like-counter">
-              {toHumanString(totalLikes)}{' '}
-              <FormattedMessage id="plural.like" values={{ amount: totalLikes }} />
-        </span>*/}
-          </>
+          <button data-qa-anchor="engagement-bar-like-counter" type="button" onClick={showTray}>
+            {toHumanString(totalLikes)}{' '}
+            <FormattedMessage id="plural.like" values={{ amount: totalLikes }} />
+          </button>
         )}
 
         {totalComments > 0 && (
-          <span data-qa-anchor="engagement-bar-comment-counter">
+          <button
+            data-qa-anchor="engagement-bar-comment-counter"
+            type="button"
+            onClick={() => onClickNotification(postId)}
+          >
             {toHumanString(totalComments)}{' '}
             <FormattedMessage id="plural.comment" values={{ amount: totalComments }} />
-          </span>
+          </button>
         )}
       </Counters>
       <ConditionalRender condition={!readonly}>

@@ -34,6 +34,7 @@ const Button = styled.div`
 const spawnCreatePostModal = () => {
   document.getElementById('create-post-overlay').style.display = 'block';
   document.getElementById('ApplicationContainer').style.overflowY = 'hidden';
+  document.body.style.overflow = 'hidden';
 };
 
 const MobilePostButton = () => {
