@@ -76,10 +76,7 @@ const Feed = ({
 
   useEffect(() => {
     // if (window.location.pathname.includes('iframe.html')) {
-    if (
-      window.location.search.includes('post_id') ||
-      window.location.pathname.includes('iframe.html')
-    ) {
+    if (window.location.search.includes('post_id')) {
       setRedirectedView(true);
       const postQueryParams = new URLSearchParams(window.location.search);
       const postId = postQueryParams.get('post_id');
