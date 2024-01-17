@@ -18,7 +18,6 @@ const NewsFeed = () => {
       <MyCommunitiesMobile />
 
       <Wrapper data-qa-anchor="news-feed">
-        {/* <WellnessWorkshops /> */}
         <Feed
           targetType={PostTargetType.GlobalFeed}
           goToExplore={() => onChangePage(PageTypes.Explore)}
