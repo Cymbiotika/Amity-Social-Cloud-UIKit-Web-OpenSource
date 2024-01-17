@@ -23,7 +23,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
     setSelectedTab(page);
   }, [page]);
 
-  const wellnessOption =
+  /* const wellnessOption =
     ariseUserTier === 'VIP'
       ? {
           name: 'Wellness',
@@ -111,7 +111,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
             </svg>
           ),
         }
-      : null;
+      : null; */
 
   const menuTabs = [
     {
@@ -165,7 +165,7 @@ const CustomFooterNav = ({ onClickUser, page }) => {
         </svg>
       ),
     },
-    wellnessOption,
+    // wellnessOption,
     {
       name: 'Profile',
       pages: [PageTypes.UserFeed],
