@@ -1,5 +1,5 @@
 import { ReactionRepository } from '@amityco/js-sdk';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import styled from 'styled-components';
 import { useNavigation } from '~/social/providers/NavigationProvider';
@@ -10,6 +10,12 @@ import ServerAPI from '~/social/pages/Application/ServerAPI';
 import UserLoading from './UserLoading';
 
 const SlideOutContainer = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+  transition: right 0.2s ease-in-out;
+  z-index: 1000;
   padding: 0 17.5px;
   @media screen and (max-width: 768px) {
     width: 100vw;
@@ -19,13 +25,6 @@ const SlideOutContainer = styled.div`
     width: 400px;
     right: -400px;
   }
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  background-color: white;
-  transition: right 0.2s ease-in-out;
-  z-index: 1000;
-
   &.open {
     right: 0;
   }
@@ -69,7 +68,7 @@ const SlideOutOverlay = styled.div`
   }
 `;
 
-const LikedListTray = ({ postId, setTrayIsVisible }) => {
+const LikedListTray = ({ postId, trayIsVisible, setTrayIsVisible }) => {
   const server = ServerAPI();
   const [users, setUsers] = useState([]);
 
@@ -105,6 +104,15 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
     });
   };
 
+  if (trayIsVisible) {
+    document.body.style.overflow = 'hidden';
+  }
+
+  const hideTray = () => {
+    setTrayIsVisible(false);
+    document.body.style.overflow = 'auto';
+  };
+
   useEffect(() => {
     fetchUsers();
   }, [postId]);
@@ -116,8 +124,8 @@ const LikedListTray = ({ postId, setTrayIsVisible }) => {
         <SlideOutHeader>
           <button
             className="w-6 h-6 flex items-center absolute"
-            onClick={() => setTrayIsVisible(false)}
             type="button"
+            onClick={() => hideTray()}
           >
             <FiX className="w-4 h-4" />
           </button>
