@@ -136,7 +136,6 @@ const WellnessWorkshops = ({
   const getFeaturedPostData = async () => {
     try {
       const featuredPostsResp = await server.getFeaturedPosts(postIdsArray);
-      console.log(featuredPostsResp.postChildren);
       const featuredPostsChildren = featuredPostsResp.postChildren;
 
       setDestructuredPostData(

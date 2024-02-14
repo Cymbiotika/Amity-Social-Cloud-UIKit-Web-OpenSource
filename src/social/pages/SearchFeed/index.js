@@ -36,7 +36,6 @@ const SearchFeed = ({ searchQuery }) => {
 
   const queryPosts = async () => {
     const searchPostsResponse = await server.getPosts(searchQuery);
-    console.log(searchPostsResponse);
     const {
       postIds,
       objects: { posts },
@@ -50,7 +49,6 @@ const SearchFeed = ({ searchQuery }) => {
   }, [searchQuery]);
 
   const getPagination = (activeTab) => {
-    console.log(activeTab);
     const hasMore = activeTab === 'groups' ? hasMoreCommunities : hasMoreUsers;
     const loadMore = activeTab === 'groups' ? loadMoreCommunities : loadMoreUsers;
 

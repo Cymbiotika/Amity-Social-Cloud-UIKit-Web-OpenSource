@@ -132,7 +132,7 @@ const Feed = ({
                   onCreateSuccess={onPostCreated}
                 />
 
-                {targetId === '649b243a2b963c70c54750bf' && (
+                {/* {targetId === '649b243a2b963c70c54750bf' && (
                   <Post
                     postId="64c940b1a31da5f25f674dc0"
                     hidePostTarget={targetType !== PostTargetType.GlobalFeed}
@@ -140,29 +140,7 @@ const Feed = ({
                     pinned={pinned}
                     className="mb-[12px]"
                   />
-                )}
-
-                {/* Healthy Aging */}
-                {targetId === '649b239b03858406835eaaa2' && (
-                  <Post
-                    postId="64c93d6a1cfebc15cfb7f023"
-                    hidePostTarget={targetType !== PostTargetType.GlobalFeed}
-                    readonly={readonly}
-                    pinned={pinned}
-                    className="mb-[12px]"
-                  />
-                )}
-
-                {/* Gut Health */}
-                {targetId === '649b23322be19926f2f4d0af' && (
-                  <Post
-                    postId="64c93df9757ede6729e875b3"
-                    hidePostTarget={targetType !== PostTargetType.GlobalFeed}
-                    readonly={readonly}
-                    pinned={pinned}
-                    className="mb-[12px]"
-                  />
-                )}
+                )} */}
               </>
             )}
 
@@ -194,7 +172,8 @@ const Feed = ({
                         hidePostTarget={targetType !== PostTargetType.GlobalFeed}
                         readonly={readonly}
                       />
-                      {/* {page.type === PageTypes.NewsFeed && index === 0 && <NewsFeedTrendingList />} */}
+
+                      {/* {page.type === PageTypes.NewsFeed && index === 0 && <p>some component goes here</p>} */}
                     </React.Fragment>
                   ),
                 )}

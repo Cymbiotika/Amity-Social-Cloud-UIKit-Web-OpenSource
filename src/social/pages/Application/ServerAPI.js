@@ -2,8 +2,8 @@ import { AmityUserTokenManager, ApiRegion } from '@amityco/js-sdk';
 import { apiKey, displayName, userId } from '~/social/constants';
 
 const REWARDS_BASE_URL =
-  'https://cym-hachiko-rest-py.herokuapp.com/api/v1/rewards?logged_in_customer_id=';
-const REWARDS_SHOP_ID = '&shop_id=1';
+  'https://cym-hachiko-rest-go-964250d07549.herokuapp.com/api/v1/rewards?shop_id=1&logged_in_customer_id=';
+const REWARDS_TYPE = '&type=challenge';
 
 const ServerAPI = () => {
   async function getAccessToken() {
@@ -15,8 +15,9 @@ const ServerAPI = () => {
 
   //////////////////////////////// ARISE CALLS //////////////////////////////////////////
   const ariseGetRewards = async (ariseUserId) => {
+    console.log(ariseUserId);
     try {
-      const response = await fetch(`${REWARDS_BASE_URL} + ${ariseUserId} + ${REWARDS_SHOP_ID}`, {
+      const response = await fetch(`${REWARDS_BASE_URL}${ariseUserId}${REWARDS_TYPE}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +29,6 @@ const ServerAPI = () => {
       }
 
       const data = await response.json();
-      console.log('data', data);
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -285,8 +285,6 @@ const ServerAPI = () => {
   };
 
   const updateUserName = async (shopifyCustomerName) => {
-    console.log('userid : display name ?', userId, displayName);
-    console.log('shopifyCustomerName', shopifyCustomerName);
     const url = `https://api.us.amity.co/api/v3/users`;
 
     try {

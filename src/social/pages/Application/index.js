@@ -1,13 +1,15 @@
 import { PostTargetType } from '@amityco/js-sdk';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { PageTypes, userId } from '~/social/constants';
 
-import MainLayout from '~/social/layouts/Main';
+import { RecommendedGroupsProvider } from '../../providers/ReccomendedGroupsProvider';
+import { SavedPostsProvider } from '~/social/providers/SavedPostsContext';
 
+import MainLayout from '~/social/layouts/Main';
 import CustomFooterNav from '~/core/components/CustomFooterNav';
 import CustomHeader from '~/core/components/CustomHeader';
-import useFollow from '~/core/hooks/useFollow';
 import useUser from '~/core/hooks/useUser';
 import CommunitySideMenu from '~/social/components/CommunitySideMenu';
 import CreatePostOverlay from '~/social/components/CreatePostOverlay';
@@ -23,14 +25,13 @@ import ExplorePage from '~/social/pages/Explore';
 import NewsFeedPage from '~/social/pages/NewsFeed';
 import UserFeedPage from '~/social/pages/UserFeed';
 import { useNavigation } from '~/social/providers/NavigationProvider';
-import { RecommendedGroupsProvider } from '../../providers/ReccomendedGroupsProvider';
 import NotificationTargetPage from '../NotificationTargetPage';
 import SearchFeed from '../SearchFeed';
-import ServerAPI from './ServerAPI';
 import FaqPage from '../Faq';
+import LoadingScreen from '../LoadingScreen';
+import ServerAPI from './ServerAPI';
 // import WellnessWorkshopsPage from '../WellnessWorkshops';
 
-import { SavedPostsProvider } from '~/social/providers/SavedPostsContext';
 // import Custom from '~/chat/components/Message/MessageContent/Custom';
 
 const ApplicationContainer = styled.div`
@@ -49,55 +50,37 @@ const StyledCommunitySideMenu = styled(CommunitySideMenu)`
 `;
 
 const Community = () => {
+  const { onChangePage } = useNavigation();
+  const { user } = useUser(userId);
   const server = ServerAPI();
 
-  const { onChangePage } = useNavigation();
-  const [refresh, setRefresh] = useState(0);
-  const { user } = useUser(userId);
-  // const user = useMemo(() => {
-  //   useUser(userId);
-  // }, [userId]);
-
-  const ariseFollow = useFollow(userId, '6405802983471');
-  const chervinFollow = useFollow(userId, '699914223639');
-
-  const [initialLoadingComplete, setInitialLoadingComplete] = useState(false);
-
   useEffect(() => {
-    const diffInMilliseconds = Math.abs(user.createdAt - new Date());
-    const fiveMinutesInMilliseconds = 5 * 60 * 1000; // 5 minutes in milliseconds
-    if (diffInMilliseconds <= fiveMinutesInMilliseconds && !initialLoadingComplete) {
-      setTimeout(async () => {
+    if (user.createdAt) {
+      const followUsers = async () => {
         try {
-          await chervinFollow.follow();
+          onChangePage(PageTypes.LoadingScreen);
+          const followResponse = await server.followUser('6405802983471');
+          const followStatus = followResponse.follows[0].status;
+          if (followStatus === 'accepted') {
+            setTimeout(() => {
+              onChangePage(PageTypes.NewsFeed);
+            }, 3000);
+          }
         } catch (error) {
-          console.error('Error following chervin:', error);
-        }
-
-        try {
-          await ariseFollow.follow();
-        } catch (error) {
-          console.error('Error following arise:', error);
-        }
-        setInitialLoadingComplete(true);
-        // 'refresh' feed
-        setTimeout(() => {
-          onChangePage(PageTypes.Explore);
+          console.error('Error following users:', error.message);
           setTimeout(() => {
             onChangePage(PageTypes.NewsFeed);
-          }, 100);
-        }, 1000);
-      }, 1000);
+          }, 1000);
+        }
+      };
+
+      const today = moment().format('YYYY-MM-DD');
+      const createdAtDate = moment(user.createdAt).format('YYYY-MM-DD');
+      if (today === createdAtDate) {
+        followUsers();
+      }
     }
   }, [user]);
-
-  // if (user.userId !== undefined && user.displayName !== undefined) {
-  //   if (user.userId === user.displayName) {
-  //     window.shopifyCustomerName = 'Chris Adams';
-  //     const shopifyCustomerName = window.shopifyCustomerName;
-  //     server.updateUserName(shopifyCustomerName);
-  //   }
-  // }
 
   const customerId = window.shopifyCustomerId || userId;
   const { page, onClickUser } = useNavigation();
@@ -113,6 +96,7 @@ const Community = () => {
       setFeedType(PostTargetType.UserFeed);
     }
   };
+
   const assignTargetId = () => {
     if (page.type === 'communityfeed') {
       setFeedTargetId(window.communityId);
@@ -132,6 +116,7 @@ const Community = () => {
       behavior: 'smooth',
     });
   };
+
   useEffect(() => {
     assignFeedType();
     assignTargetId();
@@ -165,10 +150,9 @@ const Community = () => {
               onClickUser={handleClickUser}
             />
 
-            {/* <div className="xs:pt-[54px] md:pt-0"> */}
             {page.type === PageTypes.Explore && <ExplorePage />}
 
-            {page.type === PageTypes.NewsFeed && <NewsFeedPage refresh={refresh} />}
+            {page.type === PageTypes.NewsFeed && <NewsFeedPage />}
 
             {page.type === PageTypes.CommunityFeed && (
               <CommunityFeedPage
@@ -192,17 +176,22 @@ const Community = () => {
             {page.type === PageTypes.MyGroups && (
               <SideSectionMyCommunity activeCommunity={page.communityId} showCreateButton />
             )}
+
             {page.type === PageTypes.Search && <SocialSearchv2 className="mt-7" />}
+
             {page.type === PageTypes.NotificationTarget && (
               <NotificationTargetPage targetId={page.targetId} />
             )}
+
             {page.type === PageTypes.SearchFeed && <SearchFeed searchQuery={page.targetId} />}
+
             {page.type === PageTypes.FaqPage && <FaqPage searchQuery={page.targetId} />}
+
+            {page.type === PageTypes.LoadingScreen && <LoadingScreen />}
+
             {/* {page.type === PageTypes.Wellness && (
               <WellnessWorkshopsPage searchQuery={page.targetId} />
             )} */}
-
-            {/* </div> */}
 
             <MobilePostButton />
             <CustomFooterNav page={page.type} onClickUser={handleClickUser} />

@@ -20,7 +20,7 @@ const SlideOutContainer = styled.div`
   bottom: 0;
   background-color: white;
   transition: right 0.2s ease-in-out;
-  z-index: 2;
+  z-index: 50;
 
   &.open {
     right: 0;

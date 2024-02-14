@@ -1,4 +1,4 @@
-import { useNavigation } from '~/social/providers/NavigationProvider';
+import React, { useNavigation } from '~/social/providers/NavigationProvider';
 
 import { ButtonLink } from './styles';
 

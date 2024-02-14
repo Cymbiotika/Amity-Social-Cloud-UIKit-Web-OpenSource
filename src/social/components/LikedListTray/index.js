@@ -15,7 +15,7 @@ const SlideOutContainer = styled.div`
   bottom: 0;
   background-color: white;
   transition: right 0.2s ease-in-out;
-  z-index: 1000;
+  z-index: 50;
   padding: 0 17.5px;
   @media screen and (max-width: 768px) {
     width: 100vw;
