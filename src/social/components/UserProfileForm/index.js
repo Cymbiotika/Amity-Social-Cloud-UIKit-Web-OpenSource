@@ -98,7 +98,7 @@ const UserProfileForm = ({ user, onSubmit, className }) => {
             <Label>Name</Label>
             <UserName className="text-[20px] font-medium">{displayName}</UserName>
           </div>
-          {/* 
+
           <Field error={errors.name}>
             <LabelCounterWrapper>
               <Label htmlFor="displayName" className="required">
@@ -117,7 +117,7 @@ const UserProfileForm = ({ user, onSubmit, className }) => {
             />
             <ErrorMessage errors={errors} name="displayName" />
           </Field>
-           */}
+
           <Field error={errors.description}>
             <LabelCounterWrapper>
               <Label htmlFor="description">

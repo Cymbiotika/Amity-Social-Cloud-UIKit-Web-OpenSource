@@ -225,7 +225,10 @@ const CustomFooterNav = ({ onClickUser, page }) => {
     },
   ].filter((tab) => tab);
   return (
-    <MobileFooter className="flex left-0 h-[54px] bg-white bottom-0 z-10 fixed w-full">
+    <MobileFooter
+      id="mobile-footer"
+      className="flex left-0 h-[54px] bg-white bottom-0 z-10 fixed w-full"
+    >
       {menuTabs.map((tab, index) => (
         <div
           key={index}

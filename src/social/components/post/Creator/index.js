@@ -258,7 +258,21 @@ const PostCreatorBar = ({
         />
       )}
 
-      {CurrentTargetAvatar}
+      {enablePostTargetPicker ? (
+        <PostTargetSelector
+          user={user}
+          communities={communities}
+          hasMoreCommunities={hasMoreCommunities}
+          loadMoreCommunities={loadMoreCommunities}
+          currentTargetType={target.targetType}
+          currentTargetId={target.targetId}
+          onChange={setTarget}
+        >
+          {CurrentTargetAvatar}
+        </PostTargetSelector>
+      ) : (
+        CurrentTargetAvatar
+      )}
 
       <PostContainer>
         <PostInputText

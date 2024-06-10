@@ -2,7 +2,8 @@ import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import useCommunitiesList from '~/social/hooks/useCommunitiesList';
 import { useNavigation } from '~/social/providers/NavigationProvider';
-import UICommunitiesList from './UICommunitiesList';
+// import UICommunitiesList from './UICommunitiesList';
+import UICommunityList from './UICommunitiesList';
 
 const CommunitiesList = ({ className, communitiesQueryParam, activeCommunity }) => {
   const { onClickCommunity } = useNavigation();
@@ -19,7 +20,20 @@ const CommunitiesList = ({ className, communitiesQueryParam, activeCommunity }) 
   }, [communities]);
 
   return (
-    <UICommunitiesList
+    // TODO: Add back in future?
+    // <UICommunitiesList
+    //   communityIds={communityIds}
+    //   loadMore={loadMore}
+    //   hasMore={hasMore}
+    //   activeCommunity={activeCommunity}
+    //   isSearchList={isSearchList}
+    //   searchInput={searchInput}
+    //   className={className}
+    //   loading={loading}
+    //   loadingMore={loadingMore}
+    //   onClickCommunity={onClickCommunity}
+    // />
+    <UICommunityList
       communityIds={communityIds}
       loadMore={loadMore}
       hasMore={hasMore}
@@ -46,5 +60,5 @@ CommunitiesList.defaultProps = {
   activeCommunity: '',
 };
 
-export { UICommunitiesList };
+export { UICommunityList };
 export default memo(CommunitiesList);

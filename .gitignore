@@ -9,3 +9,7 @@ storybook-build/
 .eslintcache
 
 /src/styles/output.css
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

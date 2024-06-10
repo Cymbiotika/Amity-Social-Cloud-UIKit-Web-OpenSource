@@ -28,12 +28,14 @@ import {
   ButtonContainer,
   EditedMark,
 } from './styles';
+import { VerifiedIcon } from '../community/Name/styles';
 
 const StyledComment = ({
   authorId,
   commentId,
   authorName,
   authorAvatar,
+  authorRole,
   canDelete = false,
   canEdit = false,
   canLike = true,
@@ -93,6 +95,8 @@ const StyledComment = ({
           <CommentHeader>
             <AuthorName className="cursor-pointer" onClick={() => onClickUser(authorId)}>
               {authorName}
+
+              {authorRole && <VerifiedIcon style={{ marginLeft: '5px' }} />}
             </AuthorName>
             <Truncate.Atom>
               {isBanned && <BanIcon css="margin-left: 0.265rem; margin-top: 1px;" />}
@@ -158,6 +162,7 @@ StyledComment.propTypes = {
   authorName: PropTypes.string,
   authorAvatar: PropTypes.string,
   authorId: PropTypes.string,
+  authorRole: PropTypes.string,
   canDelete: PropTypes.bool,
   canEdit: PropTypes.bool,
   canLike: PropTypes.bool,

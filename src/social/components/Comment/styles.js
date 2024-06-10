@@ -71,7 +71,8 @@ export const CommentInfo = styled.div`
 
 export const AuthorName = styled.span`
   // react-truncate-markup tries to set to inline-block
-  display: inline !important;
+  display: flex !important;
+  align-items: center;
   font-weight: 500 !important;
   ${({ theme }) => theme.typography.body}
 `;

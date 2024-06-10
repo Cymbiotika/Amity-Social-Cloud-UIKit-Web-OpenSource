@@ -198,7 +198,11 @@ const DefaultPostRenderer = ({
   );
 
   return (
-    <PostContainer data-qa-anchor="post" className={`${className} ${postDeleted ? 'hidden' : ''}`}>
+    <PostContainer
+      data-qa-anchor="post"
+      data-post-id={postId}
+      className={`${className} ${postDeleted ? 'hidden' : ''}`}
+    >
       {/* <code>{postId}</code> */}
 
       <DeletePostModal

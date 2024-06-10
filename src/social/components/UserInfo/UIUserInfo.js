@@ -48,6 +48,7 @@ import { Check } from '~/icons';
 import { roleRenderer } from '~/social/constants';
 import useReport from '~/social/hooks/useReport';
 import { UserFeedTabs } from '~/social/pages/UserFeed/constants';
+import { VerifiedIcon } from '../community/Name/styles';
 
 const UIUserInfo = ({
   userId,
@@ -158,6 +159,7 @@ const UIUserInfo = ({
               <Truncate lines={3}>
                 <ProfileName data-qa-anchor="user-info-profile-name">{displayName}</ProfileName>
               </Truncate>
+              {cymRole && <VerifiedIcon />}
 
               {user.isGlobalBan && (
                 <BanIcon width={14} height={14} css="margin-left: 0.265rem; margin-top: 1px;" />
@@ -165,26 +167,25 @@ const UIUserInfo = ({
             </ProfileNameWrapper>
             {/* Add badges styled compoenent */}
 
-            {(userAriseTier || cymRole) && (
-              <UserBadgesWrapper>
-                {userAriseTier ? (
-                  <span className="whitespace-nowrap rounded-full bg-[#EBF2F1] px-3 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
-                    {' '}
-                    {userAriseTier}
-                  </span>
-                ) : (
-                  <span className="hidden">Nothing to see here</span>
-                )}
-
-                {cymRole ? (
-                  <span className="whitespace-nowrap rounded-full bg-[#EFF0E5] px-3 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
+            <UserBadgesWrapper>
+              {cymRole && (
+                <div className="my-[5px]">
+                  <span className="whitespace-nowrap rounded-full bg-[#EBF2F1] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
                     {cymRole}
                   </span>
-                ) : (
-                  <span className="hidden">Nothing to see here</span>
-                )}
-              </UserBadgesWrapper>
-            )}
+                </div>
+              )}
+              {userId === '6405802983471'
+                ? null
+                : userAriseTier && (
+                    <div className="my-[5px]">
+                      <span className="whitespace-nowrap rounded-full bg-[#EFF0E5] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
+                        {userAriseTier}
+                      </span>
+                    </div>
+                  )}
+            </UserBadgesWrapper>
+
             <CountContainer>
               <ClickableCount
                 onClick={() => {
@@ -303,6 +304,7 @@ const UIUserInfo = ({
           <Truncate lines={3}>
             <ProfileName data-qa-anchor="user-info-profile-name">{displayName}</ProfileName>
           </Truncate>
+          {cymRole && <VerifiedIcon />}
 
           {user.isGlobalBan && (
             <BanIcon width={14} height={14} css="margin-left: 0.265rem; margin-top: 1px;" />
@@ -311,22 +313,22 @@ const UIUserInfo = ({
         {/* Add badges styled compoenent */}
 
         <UserBadgesWrapper>
-          {userAriseTier ? (
-            <span className="whitespace-nowrap rounded-full bg-[#EBF2F1] px-3 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
-              {' '}
-              {userAriseTier}
-            </span>
-          ) : (
-            <span className="hidden">Nothing to see here</span>
+          {cymRole && (
+            <div className="my-[5px]">
+              <span className="whitespace-nowrap rounded-full bg-[#EBF2F1] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
+                {cymRole}
+              </span>
+            </div>
           )}
-
-          {cymRole ? (
-            <span className="whitespace-nowrap rounded-full bg-[#EFF0E5] px-3 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
-              {cymRole}
-            </span>
-          ) : (
-            <span className="hidden">Nothing to see here</span>
-          )}
+          {userId === '6405802983471'
+            ? null
+            : userAriseTier && (
+                <div className="my-[5px]">
+                  <span className="whitespace-nowrap rounded-full bg-[#EFF0E5] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
+                    {userAriseTier}
+                  </span>
+                </div>
+              )}
         </UserBadgesWrapper>
 
         <CountContainer>

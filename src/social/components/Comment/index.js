@@ -195,6 +195,7 @@ const Comment = ({ readonly = false, commentId, currentUserId, userRoles }) => {
       }
       authorId={commentAuthor.userId}
       authorAvatar={commentAuthorAvatar.fileUrl}
+      authorRole={commentAuthor?.roles?.[0]}
       canDelete={canDelete}
       canEdit={canEdit}
       canLike={canLike}

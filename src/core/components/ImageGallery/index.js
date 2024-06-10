@@ -35,16 +35,37 @@ const ImageGallery = ({ index = 0, items = [], children, onChange, showCounter =
 
   useKeyboard(listeners, params);
 
+  const stopPropagation = (event) => event.stopPropagation();
+
   return (
     <Container length={items.length} onClick={handleClose}>
       <Frame>{render(items[index])}</Frame>
 
       {showCounter && <Counter>{`${index + 1} / ${items.length}`}</Counter>}
 
-      {items.length > 1 && <LeftButton onClick={prev} />}
-      {items.length > 1 && <RightButton onClick={next} />}
+      {items.length > 1 && (
+        <LeftButton
+          onClick={(e) => {
+            stopPropagation(e);
+            prev();
+          }}
+        />
+      )}
+      {items.length > 1 && (
+        <RightButton
+          onClick={(e) => {
+            stopPropagation(e);
+            next();
+          }}
+        />
+      )}
 
-      <CloseButton onClick={handleClose} />
+      <CloseButton
+        onClick={(e) => {
+          stopPropagation(e);
+          handleClose();
+        }}
+      />
     </Container>
   );
 };

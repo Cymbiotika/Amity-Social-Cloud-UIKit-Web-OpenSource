@@ -8,6 +8,7 @@ import ConditionalRender from '~/core/components/ConditionalRender';
 import customizableComponent from '~/core/hocs/customization';
 import EmptyFeed from '~/social/components/EmptyFeed';
 import LoadMore from '~/social/components/LoadMore';
+import CreatePostOverlay from '../CreatePostOverlay';
 // import PrivateFeed from '~/social/components/PrivateFeed';
 import PostCreator from '~/social/components/post/Creator';
 import Post from '~/social/components/post/Post';
@@ -62,7 +63,8 @@ const Feed = ({
   }
 
   useEffect(() => {
-    setPinnedPostId('65943d433e073100b4c24cf4');
+    setPinnedPostId(window.pinnedPostId);
+    console.log('pinned post', pinnedPostId);
     if (posts.length > 0) {
       setFirstPostId(posts[0].postId);
       if (firstPostId === pinnedPostId) {
@@ -90,49 +92,59 @@ const Feed = ({
   };
 
   return (
-    <FeedScrollContainer
-      className={className}
-      dataLength={posts.length}
-      next={loadMore}
-      hasMore={hasMore}
-    >
-      {redirectedView && page.type === PageTypes.NewsFeed ? (
-        <>
-          <button
-            className="flex gap-[5px] items-center w-max border-b border-[#005850]"
-            type="button"
-            onClick={() => resetNewsfeedView()}
-          >
-            <ChevronLeft height={12} width="auto" />
-            <span className="whitespace-nowrap">Back to NewsFeed</span>
-          </button>
-          {/* <hr className="w-full h-1 bg-[#005850] rounded" /> */}
-          <Post
-            postId={postPathName || '658f840f218af7971bf834da'}
-            // postId="658f840f218af7971bf834da"
-            // hidePostTarget={targetType !== PostTargetType.GlobalFeed}
-            readonly={readonly}
-            pinned={pinned}
-            className="mb-[12px]"
-          />
-        </>
-      ) : (
-        <ConditionalRender condition={!isHiddenProfile}>
+    <>
+      <CreatePostOverlay
+        targetType={targetType}
+        targetId={targetId}
+        communities={communities}
+        enablePostTargetPicker={enablePostTargetPicker}
+        hasMoreCommunities={hasMoreCommunities}
+        loadMoreCommunities={loadMoreCommunities}
+        onCreateSuccess={onPostCreated}
+      />
+      <FeedScrollContainer
+        className={className}
+        dataLength={posts.length}
+        next={loadMore}
+        hasMore={hasMore}
+      >
+        {redirectedView && page.type === PageTypes.NewsFeed ? (
           <>
-            {showPostCreator && (
-              <>
-                <PostCreator
-                  data-qa-anchor="feed-post-creator-textarea"
-                  targetType={targetType}
-                  targetId={targetId}
-                  communities={communities}
-                  enablePostTargetPicker={enablePostTargetPicker}
-                  hasMoreCommunities={hasMoreCommunities}
-                  loadMoreCommunities={loadMoreCommunities}
-                  onCreateSuccess={onPostCreated}
-                />
+            <button
+              className="flex gap-[5px] items-center w-max border-b border-[#005850]"
+              type="button"
+              onClick={() => resetNewsfeedView()}
+            >
+              <ChevronLeft height={12} width="auto" />
+              <span className="whitespace-nowrap">Back to NewsFeed</span>
+            </button>
+            {/* <hr className="w-full h-1 bg-[#005850] rounded" /> */}
+            <Post
+              postId={postPathName || '658f840f218af7971bf834da'}
+              // postId="658f840f218af7971bf834da"
+              // hidePostTarget={targetType !== PostTargetType.GlobalFeed}
+              readonly={readonly}
+              pinned={pinned}
+              className="mb-[12px]"
+            />
+          </>
+        ) : (
+          <ConditionalRender condition={!isHiddenProfile}>
+            <>
+              {showPostCreator && (
+                <>
+                  <PostCreator
+                    data-qa-anchor="feed-post-creator-textarea"
+                    targetType={targetType}
+                    targetId={targetId}
+                    communities={communities}
+                    enablePostTargetPicker={enablePostTargetPicker}
+                    hasMoreCommunities={hasMoreCommunities}
+                    loadMoreCommunities={loadMoreCommunities}
+                    onCreateSuccess={onPostCreated}
+                  />
 
-                {/* {targetId === '649b243a2b963c70c54750bf' && (
+                  {/* {targetId === '649b243a2b963c70c54750bf' && (
                   <Post
                     postId="64c940b1a31da5f25f674dc0"
                     hidePostTarget={targetType !== PostTargetType.GlobalFeed}
@@ -141,61 +153,62 @@ const Feed = ({
                     className="mb-[12px]"
                   />
                 )} */}
-              </>
-            )}
+                </>
+              )}
 
-            {loading && renderLoadingSkeleton()}
+              {loading && renderLoadingSkeleton()}
 
-            {!loading && posts.length > 0 && (
-              <LoadMore hasMore={hasMore} loadMore={loadMore} className="load-more no-border">
-                {/* {page.type === PageTypes.NewsFeed && (
-                  <div>
-                    <div className="w-max px-5">
-                      <span className="!text-[18px] font-bold">Pinned Posts 📌</span>
-                      <hr className="w-full h-1 bg-[#005850] rounded" />
-                    </div>
+              {!loading && posts.length > 0 && (
+                <LoadMore hasMore={hasMore} loadMore={loadMore} className="load-more no-border">
+                  {pinnedPostId && page.type === PageTypes.NewsFeed && (
+                    <div>
+                      <div className="w-max px-5">
+                        <span className="!text-[18px] font-bold">Pinned Posts 📌</span>
+                        <hr className="w-full h-1 bg-[#005850] rounded" />
+                      </div>
 
-                    <Post
-                      postId={pinnedPostId}
-                      hidePostTarget={targetType !== PostTargetType.GlobalFeed}
-                      readonly={readonly}
-                      pinned={pinned}
-                    />
-                  </div>
-                )} */}
-
-                {(updatedPostsArray.length > 0 ? updatedPostsArray : posts).map(
-                  ({ postId }, index) => (
-                    <React.Fragment key={postId}>
                       <Post
-                        postId={postId}
+                        postId={pinnedPostId}
                         hidePostTarget={targetType !== PostTargetType.GlobalFeed}
                         readonly={readonly}
+                        pinned={pinned}
                       />
+                    </div>
+                  )}
 
-                      {/* {page.type === PageTypes.NewsFeed && index === 0 && <p>some component goes here</p>} */}
-                    </React.Fragment>
-                  ),
-                )}
+                  {(updatedPostsArray.length > 0 ? updatedPostsArray : posts).map(
+                    ({ postId }, index) => (
+                      <React.Fragment key={postId}>
+                        <Post
+                          postId={postId}
+                          hidePostTarget={targetType !== PostTargetType.GlobalFeed}
+                          readonly={readonly}
+                        />
 
-                {loadingMore && renderLoadingSkeleton()}
-              </LoadMore>
-            )}
+                        {/* {page.type === PageTypes.NewsFeed && index === 0 && <p>some component goes here</p>} */}
+                      </React.Fragment>
+                    ),
+                  )}
 
-            {!loading && posts.length === 0 && (
-              <EmptyFeed
-                targetType={targetType}
-                goToExplore={goToExplore}
-                canPost={showPostCreator}
-                feedType={feedType}
-              />
-            )}
+                  {loadingMore && renderLoadingSkeleton()}
+                </LoadMore>
+              )}
 
-            {/* <PrivateFeed /> */}
-          </>
-        </ConditionalRender>
-      )}
-    </FeedScrollContainer>
+              {!loading && posts.length === 0 && (
+                <EmptyFeed
+                  targetType={targetType}
+                  goToExplore={goToExplore}
+                  canPost={showPostCreator}
+                  feedType={feedType}
+                />
+              )}
+
+              {/* <PrivateFeed /> */}
+            </>
+          </ConditionalRender>
+        )}
+      </FeedScrollContainer>
+    </>
   );
 };
 

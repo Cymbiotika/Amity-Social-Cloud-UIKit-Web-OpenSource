@@ -8,6 +8,7 @@ import Skeleton from '~/core/components/Skeleton';
 import Time from '~/core/components/Time';
 import customizableComponent from '~/core/hocs/customization';
 import BanIcon from '~/icons/Ban';
+
 import { backgroundImage as UserImage } from '~/icons/User';
 import {
   AdditionalInfo,
@@ -20,8 +21,11 @@ import {
   PostNamesContainer,
   ShieldIcon,
 } from './styles';
+import { Verified } from '~/icons';
+import { VerifiedIcon } from '../../community/Name/styles';
 
 const UIPostHeader = ({
+  userId,
   avatarFileUrl,
   postAuthorName,
   postAuthorTier,
@@ -67,6 +71,7 @@ const UIPostHeader = ({
               onClick={onClickUser}
             >
               {postAuthorName} <br />
+              {cymRole ? <VerifiedIcon style={{ marginLeft: 3 }} /> : null}
             </Name>
           </TruncateMarkup>
 
@@ -85,15 +90,23 @@ const UIPostHeader = ({
             </>
           )}
         </PostNamesContainer>
-        {postAuthorTier || cymRole ? (
-          <div className="my-[5px]">
-            <span className="whitespace-nowrap rounded-full bg-[#EBF2F1] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
-              {postAuthorTier || cymRole}
-            </span>
-          </div>
-        ) : (
-          <span className="hidden">Nothing to see here</span>
-        )}
+
+        <div className="flex gap-1 flex-col md:flex-row">
+          {cymRole && postAuthorTier ? (
+            <div className="my-[5px]">
+              <span className="whitespace-nowrap rounded-full bg-[#EBF2F1] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
+                {cymRole}
+              </span>
+            </div>
+          ) : null}
+          {!cymRole && postAuthorTier ? (
+            <div className="my-[5px]">
+              <span className="whitespace-nowrap rounded-full bg-[#EFF0E5] px-2 py-1 text-[12px] uppercase font-mon font-bold text-[#222222] tracking-[1%]">
+                {postAuthorTier}
+              </span>
+            </div>
+          ) : null}
+        </div>
       </div>
     );
   };
@@ -158,6 +171,7 @@ UIPostHeader.propTypes = {
   hidePostTarget: PropTypes.bool,
   loading: PropTypes.bool,
   isBanned: PropTypes.bool,
+  userId: PropTypes.string,
   onClickCommunity: PropTypes.func,
   onClickUser: PropTypes.func,
 };
@@ -167,6 +181,7 @@ UIPostHeader.defaultProps = {
   postAuthorName: '',
   postAuthorTier: '',
   postTargetName: '',
+  userId: '',
   userRoles: [],
   timeAgo: null,
   isModerator: false,

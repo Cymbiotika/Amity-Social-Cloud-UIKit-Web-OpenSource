@@ -242,7 +242,7 @@ const NotificationTray = () => {
         viewBox="0 0 24 25"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-[16px] h-[16px] cursor-pointer"
+        className="w-[16px] h-[16px] cursor-pointer notification-icon"
       >
         <path
           d="M18 8.5C18 6.9087 17.3679 5.38258 16.2426 4.25736C15.1174 3.13214 13.5913 2.5 12 2.5C10.4087 2.5 8.88258 3.13214 7.75736 4.25736C6.63214 5.38258 6 6.9087 6 8.5C6 15.5 3 17.5 3 17.5H21C21 17.5 18 15.5 18 8.5Z"

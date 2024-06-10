@@ -11,6 +11,8 @@ export const PostInfo = styled.div`
 `;
 
 export const Name = styled.div`
+  display: flex;
+  align-items: center;
   ${({ theme }) => theme.typography.title}
 
   word-break: break-all;

@@ -1,5 +1,6 @@
 import { PostTargetType } from '@amityco/js-sdk';
 import React, { useEffect, useState } from 'react';
+import Joyride from 'react-joyride';
 import styled from 'styled-components';
 import moment from 'moment';
 import { PageTypes, userId } from '~/social/constants';
@@ -12,7 +13,7 @@ import CustomFooterNav from '~/core/components/CustomFooterNav';
 import CustomHeader from '~/core/components/CustomHeader';
 import useUser from '~/core/hooks/useUser';
 import CommunitySideMenu from '~/social/components/CommunitySideMenu';
-import CreatePostOverlay from '~/social/components/CreatePostOverlay';
+
 import MobilePostButton from '~/social/components/MobilePostButton';
 import OnboardingModal from '~/social/components/OnboaringModal';
 import ProfileSettings from '~/social/components/ProfileSettings';
@@ -122,10 +123,49 @@ const Community = () => {
     assignTargetId();
     scrollToTop();
   }, [page.type]);
+
+  const steps = [
+    {
+      target: 'body',
+      placement: 'center',
+      content:
+        'Welcome to the Arise Community! Take a brief moment to get familiar with the Arise Community.',
+      locale: {
+        skip: <strong>End Tour</strong>,
+      },
+    },
+    {
+      target: '#mobile-footer',
+      placement: 'top',
+      content: 'Use navigation to explore and search the community',
+    },
+    {
+      target: '#my-communities-tabs',
+      placement: 'bottom',
+      content: 'See your communities and follow new ones',
+    },
+  ];
   return (
     <SavedPostsProvider>
       <ApplicationContainer id="ApplicationContainer">
-        <CreatePostOverlay targetType={feedType} targetId={feedTargetId} userId={page.userId} />
+        {/* <Joyride
+          continuous
+          callback={() => {}}
+          steps={steps}
+          hideCloseButton
+          showSkipButton
+          showProgress
+          disableScrolling
+          skip
+          styles={{
+            options: {
+              zIndex: 9999,
+
+              primaryColor: '#005850',
+            },
+          }}
+        /> */}
+
         <CustomHeader
           id="custom-header-wrapper-md"
           className="hidden md:block"

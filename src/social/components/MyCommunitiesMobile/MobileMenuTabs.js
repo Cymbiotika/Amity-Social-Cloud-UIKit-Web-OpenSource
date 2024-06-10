@@ -10,7 +10,7 @@ const MobileMenuTabs = () => {
   };
 
   return (
-    <div className="px-5 overflow-visible">
+    <div id="my-communities-tabs" className="px-5 overflow-visible">
       <div className="block mx-5">
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex gap-6" aria-label="Tabs">
