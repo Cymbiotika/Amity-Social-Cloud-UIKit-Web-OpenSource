@@ -221,6 +221,7 @@ const DefaultPostRenderer = ({
             hidePostTarget={hidePostTarget}
             deletePostPermission={deletePostPermission}
             data-qa-anchor="post-options-button"
+            className="self-start"
           />
         )}
       </PostHeadContainer>

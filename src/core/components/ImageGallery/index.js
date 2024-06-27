@@ -17,7 +17,13 @@ const ImageGallery = ({ index = 0, items = [], children, onChange, showCounter =
 
   const handleClose = () => {
     onChange(null);
-    document.getElementById('create-post-mobile-button').style.display = 'flex';
+    function isMobileViewport() {
+      return window.innerWidth <= 768;
+    }
+
+    if (isMobileViewport()) {
+      document.getElementById('create-post-mobile-button').style.display = 'flex';
+    }
   };
 
   const next = () => onChange(index + 1 < items.length ? index + 1 : 0);

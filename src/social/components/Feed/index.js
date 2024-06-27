@@ -1,6 +1,7 @@
-import { CommunityFilter, FeedType, PostRepository, PostTargetType } from '@amityco/js-sdk';
-import PropTypes from 'prop-types';
 import React, { memo, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { CommunityFilter, FeedType, PostRepository, PostTargetType } from '@amityco/js-sdk';
+
 import DefaultPostRenderer from '~/social/components/post/Post/DefaultPostRenderer';
 import { PageTypes } from '~/social/constants';
 
@@ -58,6 +59,13 @@ const Feed = ({
     () => !showPostCreator && !enablePostTargetPicker,
   );
 
+  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    window.pinnedPostId = '665b50508f6a9cdd42daf806';
+  } else {
+    // production code
+    console.log('in production');
+  }
+
   function renderLoadingSkeleton() {
     return new Array(3).fill(3).map((x, index) => <DefaultPostRenderer key={index} loading />);
   }
@@ -69,6 +77,8 @@ const Feed = ({
       setFirstPostId(posts[0].postId);
       if (firstPostId === pinnedPostId) {
         setUpdatedPostsArray(posts.filter((post) => post.postId !== pinnedPostId));
+      } else {
+        setUpdatedPostsArray(posts);
       }
     }
   }, [posts, firstPostId]);
@@ -100,6 +110,7 @@ const Feed = ({
         enablePostTargetPicker={enablePostTargetPicker}
         hasMoreCommunities={hasMoreCommunities}
         loadMoreCommunities={loadMoreCommunities}
+        // userId={page.userId}
         onCreateSuccess={onPostCreated}
       />
       <FeedScrollContainer

@@ -95,7 +95,7 @@ const CreatePostOverlay = ({
   connected, // connection status
   targetType = '',
   targetId = '',
-  enablePostTargetPicker,
+  enablePostTargetPicker = true,
   communities = [],
   placeholder = "What's going on...",
   hasMoreCommunities,
@@ -186,6 +186,7 @@ const CreatePostOverlay = ({
 
     const overlayCloseOnSuccess = () => {
       document.getElementById('create-post-overlay').style.display = 'none';
+      document.body.style.overflow = 'auto';
       console.log('Success!');
     };
 
