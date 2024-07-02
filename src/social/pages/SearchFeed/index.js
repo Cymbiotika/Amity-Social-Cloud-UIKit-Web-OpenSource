@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import BackLink from '~/core/components/BackLink';
 import Button from '~/core/components/Button';
@@ -40,7 +40,7 @@ const SearchFeed = ({ searchQuery }) => {
       postIds,
       objects: { posts },
     } = await searchPostsResponse;
-    setPostResults(postIds.map((postId) => posts.find((post) => post.postId === postId)));
+    setPostResults(postIds.map((postId) => posts.find((post) => post.postId === postId)).filter((post) => post !== undefined));
     setPostLoading(false);
   };
   useEffect(() => {
@@ -140,7 +140,8 @@ const SearchFeed = ({ searchQuery }) => {
             <p className="text-cym-placeholdergrey my-2">Loading posts...</p>
           ) : (
             <div className="mt-3">
-              {postResults.map(({ postId }, index) => (
+              {postResults
+              .map(({ postId }, index) => (
                 <Post className="mb-3" postId={postId} />
               ))}
             </div>
