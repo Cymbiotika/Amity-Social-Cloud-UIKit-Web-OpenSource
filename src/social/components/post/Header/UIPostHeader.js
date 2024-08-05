@@ -58,6 +58,9 @@ const UIPostHeader = ({
       case '3a9230d9-48fa-40d4-adf8-909807153406':
         cymRole = 'Product Developer';
         break;
+      case '3b628d4d-e9b5-40a9-8aef-2bd69ebd861f':
+        cymRole = 'Wellness Expert';
+        break;
       default:
     }
 

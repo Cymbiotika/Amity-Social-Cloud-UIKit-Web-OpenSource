@@ -62,6 +62,8 @@ export const roleRenderer = (role) => {
       return 'Community Moderator';
     case '3a9230d9-48fa-40d4-adf8-909807153406':
       return 'Product Developer';
+    case '3b628d4d-e9b5-40a9-8aef-2bd69ebd861f':
+      return 'Wellness Expert';
     default:
       return null;
   }

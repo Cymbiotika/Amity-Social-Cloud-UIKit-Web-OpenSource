@@ -110,7 +110,6 @@ const Feed = ({
         enablePostTargetPicker={enablePostTargetPicker}
         hasMoreCommunities={hasMoreCommunities}
         loadMoreCommunities={loadMoreCommunities}
-        // userId={page.userId}
         onCreateSuccess={onPostCreated}
       />
       <FeedScrollContainer
@@ -143,28 +142,16 @@ const Feed = ({
           <ConditionalRender condition={!isHiddenProfile}>
             <>
               {showPostCreator && (
-                <>
-                  <PostCreator
-                    data-qa-anchor="feed-post-creator-textarea"
-                    targetType={targetType}
-                    targetId={targetId}
-                    communities={communities}
-                    enablePostTargetPicker={enablePostTargetPicker}
-                    hasMoreCommunities={hasMoreCommunities}
-                    loadMoreCommunities={loadMoreCommunities}
-                    onCreateSuccess={onPostCreated}
-                  />
-
-                  {/* {targetId === '649b243a2b963c70c54750bf' && (
-                  <Post
-                    postId="64c940b1a31da5f25f674dc0"
-                    hidePostTarget={targetType !== PostTargetType.GlobalFeed}
-                    readonly={readonly}
-                    pinned={pinned}
-                    className="mb-[12px]"
-                  />
-                )} */}
-                </>
+                <PostCreator
+                  data-qa-anchor="feed-post-creator-textarea"
+                  targetType={targetType}
+                  targetId={targetId}
+                  communities={communities}
+                  enablePostTargetPicker={enablePostTargetPicker}
+                  hasMoreCommunities={hasMoreCommunities}
+                  loadMoreCommunities={loadMoreCommunities}
+                  onCreateSuccess={onPostCreated}
+                />
               )}
 
               {loading && renderLoadingSkeleton()}

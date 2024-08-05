@@ -155,7 +155,30 @@ const PostCreatorBar = ({
 
     const post = await createPost(createPostParams);
 
-    onCreateSuccess(post.postId);
+    const overlayCloseOnSuccess = () => {
+      const mobilePostOverlay = document.getElementById('create-post-overlay');
+      const computedStyles = window.getComputedStyle(mobilePostOverlay);
+      const displayValue = computedStyles.display;
+      if (displayValue === 'block') {
+        mobilePostOverlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+      let intervalId;
+      function checkForElement() {
+        const newPost = document.querySelector(`[data-post-id="${post.postId}"]`);
+
+        // If the element is found, log it and clear the interval
+        if (newPost) {
+          console.log('Element found:', newPost);
+          clearInterval(intervalId);
+        } else {
+          console.log('Element not found, checking again...');
+        }
+      }
+      intervalId = setInterval(checkForElement, 500);
+    };
+
+    onCreateSuccess(post.postId, overlayCloseOnSuccess());
     setPostText('');
     setPostImages([]);
     setPostVideos([]);

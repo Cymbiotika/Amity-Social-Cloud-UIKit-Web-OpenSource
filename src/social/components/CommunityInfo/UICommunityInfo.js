@@ -1,5 +1,5 @@
 import { CommunityPostSettings } from '@amityco/js-sdk';
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { toHumanString } from 'human-readable-numbers';
 import Truncate from 'react-truncate-markup';
@@ -27,8 +27,6 @@ import {
   CommunityName,
 } from './styles';
 
-import SidebarOverlay from '../SidebarOverlay';
-
 const UICommunityInfo = ({
   communityId,
   communityCategories,
@@ -50,7 +48,13 @@ const UICommunityInfo = ({
   postSetting,
 }) => {
   const { formatMessage } = useIntl();
-  const [sidebarIsVisible, setSideBarIsVisible] = useState(false);
+
+  function handleShowMembers() {
+    const membersTabButton = document.querySelector(
+      '[data-qa-anchor="community-feed-header-MEMBERS-tab-button"]',
+    );
+    membersTabButton.click();
+  }
 
   return (
     <Container data-qa-anchor="community-info">
@@ -77,17 +81,11 @@ const UICommunityInfo = ({
               </div>
             </Count>
             <Divider />
-            <Count className="cursor-pointer" onClick={() => setSideBarIsVisible(true)}>
+            <Count className="cursor-pointer" onClick={() => handleShowMembers()}>
               <div className="countNumber">{toHumanString(membersCount || 0)}</div>
               <div className="countType">
                 <FormattedMessage id="community.members" />
               </div>
-              {sidebarIsVisible && (
-                <SidebarOverlay
-                  setSideBarIsVisible={setSideBarIsVisible}
-                  communityId={communityId}
-                />
-              )}
             </Count>
           </CountsContainer>
 
