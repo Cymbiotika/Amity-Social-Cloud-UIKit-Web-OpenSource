@@ -3,14 +3,7 @@ import PropTypes from 'prop-types';
 import { CommunityFilter, FeedType, PostRepository, PostTargetType } from '@amityco/js-sdk';
 
 import DefaultPostRenderer from '~/social/components/post/Post/DefaultPostRenderer';
-import { PageTypes } from '~/social/constants';
 
-import ConditionalRender from '~/core/components/ConditionalRender';
-import customizableComponent from '~/core/hocs/customization';
-import EmptyFeed from '~/social/components/EmptyFeed';
-import LoadMore from '~/social/components/LoadMore';
-import CreatePostOverlay from '../CreatePostOverlay';
-// import PrivateFeed from '~/social/components/PrivateFeed';
 import PostCreator from '~/social/components/post/Creator';
 import Post from '~/social/components/post/Post';
 import useCommunitiesList from '~/social/hooks/useCommunitiesList';
@@ -18,9 +11,18 @@ import useFeed from '~/social/hooks/useFeed';
 import { FeedScrollContainer } from './styles';
 import { ChevronLeft } from '~/icons';
 
-// import NewsFeedTrendingList from '../community/NewsFeedTrendingList';
-
+import { PageTypes } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
+import ConditionalRender from '~/core/components/ConditionalRender';
+import customizableComponent from '~/core/hocs/customization';
+import EmptyFeed from '~/social/components/EmptyFeed';
+import LoadMore from '~/social/components/LoadMore';
+import CreatePostOverlay from '../CreatePostOverlay';
+import ReccomendedUsers from '../RecommendedUsers';
+
+// import NewsFeedTrendingList from '../community/NewsFeedTrendingList';
+// import PrivateFeed from '~/social/components/PrivateFeed';
+// import FeedBack from '../Feedback'; // typeform reached max submission
 
 const queryParams = { filter: CommunityFilter.Member };
 
@@ -177,11 +179,13 @@ const Feed = ({
                   {(updatedPostsArray.length > 0 ? updatedPostsArray : posts).map(
                     ({ postId }, index) => (
                       <React.Fragment key={postId}>
+                        {/* {page.type === PageTypes.NewsFeed && index === 0 && <FeedBack />} */}
                         <Post
                           postId={postId}
                           hidePostTarget={targetType !== PostTargetType.GlobalFeed}
                           readonly={readonly}
                         />
+                        {page.type === PageTypes.NewsFeed && index === 0 && <ReccomendedUsers />}
 
                         {/* {page.type === PageTypes.NewsFeed && index === 0 && <p>some component goes here</p>} */}
                       </React.Fragment>

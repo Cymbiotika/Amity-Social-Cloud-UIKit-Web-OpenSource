@@ -28,6 +28,7 @@ const UserFeed = ({ userId, currentUserId, networkSettings }) => {
   const isMe = userId === currentUserId;
 
   const { isFollowAccepted } = useFollow(currentUserId, userId);
+
   const isHiddenProfile = isPrivateNetwork && !isFollowAccepted && !isMe;
 
   const filteredTabs = isHiddenProfile

@@ -30,6 +30,7 @@ import SearchFeed from '../SearchFeed';
 import FaqPage from '../Faq';
 import LoadingScreen from '../LoadingScreen';
 import ServerAPI from './ServerAPI';
+import RecommendedUsersPage from '~/social/pages/RecommendedUsersPage';
 // import WellnessWorkshopsPage from '../WellnessWorkshops';
 
 // import Custom from '~/chat/components/Message/MessageContent/Custom';
@@ -111,6 +112,7 @@ const Community = () => {
   });
 
   const scrollToTop = () => {
+    console.log('scrollToTop');
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -121,6 +123,7 @@ const Community = () => {
     assignFeedType();
     assignTargetId();
     scrollToTop();
+    console.log('page type', page.type);
   }, [page.type]);
 
   return (
@@ -185,7 +188,11 @@ const Community = () => {
 
             {page.type === PageTypes.SearchFeed && <SearchFeed searchQuery={page.targetId} />}
 
-            {page.type === PageTypes.FaqPage && <FaqPage searchQuery={page.targetId} />}
+            {page.type === PageTypes.Faq && <FaqPage searchQuery={page.targetId} />}
+
+            {page.type === PageTypes.ReccUsers && (
+              <RecommendedUsersPage searchQuery={page.targetId} />
+            )}
 
             {page.type === PageTypes.LoadingScreen && <LoadingScreen />}
 

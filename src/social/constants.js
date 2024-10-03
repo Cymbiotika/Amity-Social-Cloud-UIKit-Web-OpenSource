@@ -13,6 +13,7 @@ export const PageTypes = {
   NotificationTarget: 'notificationtarget',
   Faq: 'faq',
   LoadingScreen: 'loadingscreen',
+  ReccUsers: 'recommendedusers',
 };
 
 export const MemberRoles = Object.freeze({
