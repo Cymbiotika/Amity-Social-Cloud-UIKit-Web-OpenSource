@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { userId } from '~/social/constants';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 import useUser from '~/core/hooks/useUser';
 import useFollow from '~/core/hooks/useFollow';
 import Avatar from '~/core/components/Avatar';
 
-const UserCard = ({ targetId, removedIds, setRemovedIds, pageContext }) => {
+const UserCard = ({
+  targetId,
+  removedIds,
+  setRemovedIds,
+  pageContext,
+  setSuggestedUserIds,
+  setFollowCounter,
+}) => {
   const { onClickUser } = useNavigation();
   const { user, file } = useUser(`${targetId}`);
   const { follow, isFollowAccepted } = useFollow(userId, `${targetId}`);
@@ -23,14 +30,18 @@ const UserCard = ({ targetId, removedIds, setRemovedIds, pageContext }) => {
   };
   const handleFollow = async () => {
     try {
-      await follow();
-      if (isFollowAccepted) {
-        console.log('successful');
-        // setShowSuccessMessage(true);
+      const followResp = await follow();
+
+      const [followData] = followResp.follows;
+
+      if (followData?.status === 'accepted') {
+        setSuggestedUserIds((prevUserIds) => prevUserIds.filter((id) => id !== targetId));
+        setFollowCounter((prevCounter) => prevCounter - 1);
+      } else {
+        console.warn(`Follow status not accepted for targetId: ${targetId}`);
       }
     } catch (error) {
-      console.error('Error in follow request:', error);
-      // setShowErrorMessage(true);
+      console.error('Error in follow request:', error.message || error);
     }
   };
 

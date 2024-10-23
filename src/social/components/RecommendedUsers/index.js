@@ -6,6 +6,8 @@ import { PageTypes } from '~/social/constants';
 
 import UserCard from './UserCard';
 
+import ServerAPI from '~/social/pages/Application/ServerAPI';
+
 const Container = styled.div`
   margin-top: 20px;
   padding: 15px 20px;
@@ -51,26 +53,45 @@ const useLocalStorage = (key, initialValue) => {
 };
 
 const ReccomendedUsers = ({ pageContext }) => {
-  const { onChangePage } = useNavigation();
+  const server = ServerAPI();
 
+  const [followCounter, setFollowCounter] = useState(0);
+  const { onChangePage } = useNavigation();
   const [removedIds, setRemovedIds] = useLocalStorage('removedUserIds', []);
   const [suggestedUserIds, setSuggestedUserIds] = useState([]);
 
   useEffect(() => {
-    const filteredIds = window.userIds.filter((id) => !removedIds.includes(id));
-    setSuggestedUserIds(filteredIds);
+    const fetchFollowStatuses = async () => {
+      try {
+        const statuses = await Promise.all(
+          window.userIds.map((ariseId) => server.getFollowStatus(ariseId)),
+        );
+
+        // Filter and get the IDs where status is "none"
+        const noneStatusIds = statuses
+          .filter((statusObj) => statusObj?.follows?.[0]?.status === 'none')
+          .map((statusObj) => statusObj.follows[0].to); // Map the filtered statuses back to userIds
+
+        setSuggestedUserIds(noneStatusIds); // Update suggestedUserIds with the filtered ids
+
+        // Update followCounter with the count of "none" statuses
+        setFollowCounter(noneStatusIds.length);
+      } catch (error) {
+        console.error('Error fetching follow statuses:', error);
+      }
+    };
+
+    fetchFollowStatuses();
+  }, []);
+
+  useEffect(() => {
+    if (window.userIds) {
+      const filteredIds = window.userIds.filter((id) => !removedIds.includes(id));
+      setSuggestedUserIds(filteredIds);
+    }
   }, [removedIds]);
 
-  const cardContainer = document.getElementById('card-container');
-  if (cardContainer) {
-    setTimeout(() => {
-      if (cardContainer.childElementCount === 0) {
-        document.getElementById('card-wrapper').classList.add('hidden');
-      }
-    }, 3000);
-  }
-
-  return (
+  return followCounter > 0 ? (
     <Container id="card-wrapper" className="spt-font-mon">
       <Header className="mb-[16px] font-medium">
         <span>Suggested For You</span>
@@ -83,6 +104,7 @@ const ReccomendedUsers = ({ pageContext }) => {
           See All
         </button>
       </Header>
+
       <div
         id="card-container"
         className={`relative w-full gap-[14px] ${
@@ -102,13 +124,14 @@ const ReccomendedUsers = ({ pageContext }) => {
             targetId={targetId}
             removedIds={removedIds}
             setRemovedIds={setRemovedIds}
-            suggestedUserIds={suggestedUserIds}
             pageContext={pageContext}
+            setSuggestedUserIds={setSuggestedUserIds}
+            setFollowCounter={setFollowCounter}
           />
         ))}
       </div>
     </Container>
-  );
+  ) : null;
 };
 
 export default ReccomendedUsers;

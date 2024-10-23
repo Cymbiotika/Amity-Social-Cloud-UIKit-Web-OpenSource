@@ -467,6 +467,30 @@ const ServerAPI = () => {
     }
   };
 
+  const getFollowStatus = async (targetId) => {
+    const url = `https://api.us.amity.co/api/v5/users/${targetId}/followInfo`;
+    try {
+      const accessToken = await getAccessToken();
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error.message);
+      return null;
+    }
+  };
+
   return {
     ariseGetRewards,
     getNotifications,
@@ -483,6 +507,7 @@ const ServerAPI = () => {
     getGroupPosts,
     deletePost,
     getFeaturedPosts,
+    getFollowStatus,
   };
 };
 

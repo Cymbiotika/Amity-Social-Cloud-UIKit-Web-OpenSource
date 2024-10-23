@@ -64,7 +64,6 @@ const Feed = ({
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     window.pinnedPostId = '665b50508f6a9cdd42daf806';
   } else {
-    // production code
     console.log('in production');
   }
 
